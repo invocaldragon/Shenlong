@@ -93,9 +93,9 @@
             style="width: 300px; height: 300px; border: none;"></iframe>
   </div>
 
-  <div style="text-align:center; margin-top:30px;">
-    <button onclick="openPopup()">INVOCAME</button>
-  </div>
+<div style="text-align:center; margin-top:30px;">
+  <button id="invocame" onclick="openPopup()">INVOCAME</button>
+</div>
 
   <div style="text-align:left; margin-top:20px; font-size:14px; color:#aaa; font-family: 'Poppins', sans-serif; font-weight:300;">
     <br><br><br><br><br><strong>Aviso Legal:</strong>
@@ -251,10 +251,10 @@
   </script>
 
 <script>
-  document.getElementById("INVOCAME").addEventListener("click", function() {
+  document.getElementById("invocame").addEventListener("click", function() {
     gtag('event', 'click', {
       'event_category': 'boton',
-      'event_label': 'INVOCAME'
+      'event_label': 'Invócame'
     });
   });
 </script>
