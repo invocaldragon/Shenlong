@@ -81,8 +81,10 @@
       constructor(x, y, number) {
         this.x = x;
         this.y = y;
-        this.vx = (Math.random() * 2 - 1) * 2;
-        this.vy = (Math.random() * 2 - 1) * 2;
+        const angle = Math.random() * 2 * Math.PI;
+        const baseSpeed = 1;
+        this.vx = Math.cos(angle) * baseSpeed;
+        this.vy = Math.sin(angle) * baseSpeed;
         this.number = number;
         this.radius = sphereRadius;
         this.found = false;
@@ -185,7 +187,15 @@
 
     function setSpeed(factor) {
       speedMultiplier = factor;
+      for (const s of spheres) {
+        if (!s.found) {
+          const angle = Math.atan2(s.vy, s.vx);
+          s.vx = Math.cos(angle) * speedMultiplier;
+          s.vy = Math.sin(angle) * speedMultiplier;
+        }
+      }
     }
+
 
     function startGame() {
       spheres = generateSpheres();
