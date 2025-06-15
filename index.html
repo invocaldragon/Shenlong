@@ -265,8 +265,8 @@
         </div>
   <div class="controls">
     <button onclick="setSpeed(0.5)">Oolong</button>
-    <button onclick="setSpeed(1.5)">Humano</button>
-    <button onclick="setSpeed(2.5)">Sayajin</button>
+    <button onclick="setSpeed(3)">Humano</button>
+    <button onclick="setSpeed(6)">Sayajin</button>
   </div>
         <canvas id="gameCanvas" width="300" height="500"></canvas>
     </div>
@@ -542,7 +542,7 @@
             currentStep = 1;
             linePoints = [];
             spheres = generateSpheres();
-            drawGame();
+            drawAll();
             document.getElementById("instructions").textContent =
                 "Selecciona en orden las esferas del dragón";
         }
@@ -682,7 +682,7 @@
             }
         });
 
-        drawGame(); // Initial draw of the game
+        drawAll(); // Initial draw of the game
     </script>
 
 </body>
