@@ -497,9 +497,9 @@
             document.getElementById("instructions").textContent = `¡Correcto! Ahora busca la esfera ${currentStep}.`;
             if (currentStep > 7) {
               document.getElementById("instructions").textContent = "¡Has reunido todas las esferas!";
-                        // Play audio when sphere 7 is clicked AND the popup opens
-                        sphere7Audio.play().catch(e => console.error("Error playing audio:", e));
-                        openPopup();
+                // Play audio when sphere 7 is clicked AND the popup opens
+                
+                openPopup();
             }
           } else {
             document.getElementById("instructions").textContent = `Esa no es. Busca la esfera ${currentStep}.`;
