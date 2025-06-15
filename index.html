@@ -3,86 +3,103 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Esferas Místicas</title>
+  <title>Esferas del Dragón en Movimiento</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
     body {
       background-color: #111;
       color: white;
-      font-family: Arial, sans-serif;
+      font-family: sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
-      min-height: 100vh;
+      padding: 20px;
     }
-    h1 {
-      margin: 20px;
+    canvas {
+      border: 3px solid #ff9800;
+      border-radius: 10px;
+      background-color: black;
     }
     .controls {
-      margin-bottom: 10px;
+      margin-top: 10px;
     }
     .controls button {
-      margin: 5px;
-      padding: 10px 15px;
-      font-size: 16px;
+      margin: 0 5px;
+      padding: 8px 16px;
+      font-size: 14px;
+      background-color: #ff9800;
       border: none;
-      border-radius: 8px;
+      border-radius: 5px;
       cursor: pointer;
     }
-    .slow { background-color: #4CAF50; color: white; }
-    .normal { background-color: #2196F3; color: white; }
-    .fast { background-color: #f44336; color: white; }
-    canvas {
-      border: 2px solid #fff;
-      background-color: #000;
-      border-radius: 10px;
+    .controls button:hover {
+      background-color: #e68900;
+    }
+    #instructions {
+      margin: 20px;
+      font-size: 18px;
+      text-align: center;
     }
   </style>
 </head>
 <body>
+
   <h1>Reúne las Esferas del Dragón</h1>
+  <div id="instructions">Selecciona las esferas en orden de la 1 a la 7.</div>
+
+  <canvas id="gameCanvas" width="360" height="540"></canvas>
+
   <div class="controls">
-    <button class="slow" onclick="setSpeed(0.5)">Lento</button>
-    <button class="normal" onclick="setSpeed(2)">Normal</button>
-    <button class="fast" onclick="setSpeed(4)">Rápido</button>
+    <button onclick="setSpeed(0.5)">Lento</button>
+    <button onclick="setSpeed(1)">Normal</button>
+    <button onclick="setSpeed(2)">Rápido</button>
   </div>
-  <canvas id="gameCanvas" width="350" height="500"></canvas>
 
   <script>
     const canvas = document.getElementById("gameCanvas");
     const ctx = canvas.getContext("2d");
-
-    const totalEsferas = 7;
-    const radius = 30;
+    const sphereRadius = 30;
+    const margin = 2;
     let speedMultiplier = 1;
 
+    let currentStep = 1;
+    let spheres = [];
+
+    // Cargar imágenes
+    const images = [];
+    for (let i = 1; i <= 7; i++) {
+      const img = new Image();
+      img.src = `esfera${i}.png`;
+      images.push(img);
+    }
+
     class DragonBall {
-      constructor(x, y, number, img) {
+      constructor(x, y, number) {
         this.x = x;
         this.y = y;
+        this.vx = (Math.random() * 2 - 1) * 2;
+        this.vy = (Math.random() * 2 - 1) * 2;
         this.number = number;
-        this.radius = radius;
-        this.vx = (Math.random() * 2 - 1) * speedMultiplier;
-        this.vy = (Math.random() * 2 - 1) * speedMultiplier;
-        this.stopped = false;
-        this.img = img;
-      }
-
-      draw() {
-        ctx.drawImage(this.img, this.x - this.radius, this.y - this.radius, this.radius * 2, this.radius * 2);
+        this.radius = sphereRadius;
+        this.found = false;
+        this.image = images[number - 1];
       }
 
       update() {
-        if (this.found) return; // Si ya fue encontrada, no hacer nada
-      
+        if (this.found) return;
+
         this.x += this.vx * speedMultiplier;
         this.y += this.vy * speedMultiplier;
-      
-        const leftLimit = this.radius + 2;
-        const rightLimit = canvas.width - this.radius - 2;
-        const topLimit = this.radius + 2;
-        const bottomLimit = canvas.height - this.radius - 2;
-      
+
+        const leftLimit = this.radius + margin;
+        const rightLimit = canvas.width - this.radius - margin;
+        const topLimit = this.radius + margin;
+        const bottomLimit = canvas.height - this.radius - margin;
+
         if (this.x < leftLimit) {
           this.x = leftLimit;
           this.vx *= -1;
@@ -101,116 +118,83 @@
         }
       }
 
-
-
-
-      checkCollision(other) {
-        if (this.stopped && other.stopped) return;
-
-        const dx = this.x - other.x;
-        const dy = this.y - other.y;
-        const distance = Math.hypot(dx, dy);
-
-        if (distance < this.radius * 2) {
-          const tempVx = this.vx;
-          const tempVy = this.vy;
-          this.vx = other.vx;
-          this.vy = other.vy;
-          other.vx = tempVx;
-          other.vy = tempVy;
-        }
+      draw() {
+        ctx.drawImage(this.image, this.x - this.radius, this.y - this.radius, this.radius * 2, this.radius * 2);
       }
 
-      isClicked(x, y) {
-        return Math.hypot(this.x - x, this.y - y) < this.radius;
+      isInside(mx, my) {
+        return Math.hypot(mx - this.x, my - this.y) <= this.radius;
       }
     }
 
-    let esferas = [];
-    let imagesLoaded = 0;
-    let currentNumber = 1;
+    function generateSpheres() {
+      const newSpheres = [];
 
-    function isOverlapping(x, y, existingEsferas) {
-      return existingEsferas.some(e => {
-        const dx = x - e.x;
-        const dy = y - e.y;
-        const distance = Math.hypot(dx, dy);
-        return distance < radius * 2;
-      });
-    }
-
-    function generateNonOverlappingPosition(existingEsferas) {
-      let x, y, attempts = 0;
-      do {
-        x = Math.random() * (canvas.width - 2 * radius) + radius;
-        y = Math.random() * (canvas.height - 2 * radius) + radius;
-        attempts++;
-      } while (isOverlapping(x, y, existingEsferas) && attempts < 1000);
-      return { x, y };
-    }
-
-    function loadImagesAndStart() {
-      for (let i = 1; i <= totalEsferas; i++) {
-        const img = new Image();
-        img.src = `esfera${i}.png`;
-        img.onload = () => {
-          imagesLoaded++;
-          if (imagesLoaded === totalEsferas) {
-            startGame();
+      for (let i = 1; i <= 7; i++) {
+        let valid = false, x, y;
+        while (!valid) {
+          x = Math.random() * (canvas.width - 2 * (sphereRadius + margin)) + (sphereRadius + margin);
+          y = Math.random() * (canvas.height - 2 * (sphereRadius + margin)) + (sphereRadius + margin);
+          valid = true;
+          for (const s of newSpheres) {
+            const dx = s.x - x;
+            const dy = s.y - y;
+            if (Math.hypot(dx, dy) < sphereRadius * 2 + 4) {
+              valid = false;
+              break;
+            }
           }
-        };
-        const { x, y } = generateNonOverlappingPosition(esferas);
-        esferas.push(new DragonBall(x, y, i, img));
-      }
-    }
-
-    function startGame() {
-      requestAnimationFrame(updateGame);
-    }
-
-    function updateGame() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      esferas.forEach(e => e.update());
-      for (let i = 0; i < esferas.length; i++) {
-        for (let j = i + 1; j < esferas.length; j++) {
-          esferas[i].checkCollision(esferas[j]);
         }
+        newSpheres.push(new DragonBall(x, y, i));
       }
-      esferas.forEach(e => e.draw());
-
-      requestAnimationFrame(updateGame);
+      return newSpheres;
     }
 
-    canvas.addEventListener("click", (e) => {
+    function drawAll() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (const s of spheres) {
+        s.update();
+        s.draw();
+      }
+      requestAnimationFrame(drawAll);
+    }
+
+    canvas.addEventListener("click", e => {
       const rect = canvas.getBoundingClientRect();
-      const mouseX = e.clientX - rect.left;
-      const mouseY = e.clientY - rect.top;
+      const mx = e.clientX - rect.left;
+      const my = e.clientY - rect.top;
 
-      const clicked = esferas.find(esf => !esf.stopped && esf.isClicked(mouseX, mouseY));
-
-      if (clicked && clicked.number === currentNumber) {
-        clicked.stopped = true;
-        clicked.vx = 0;
-        clicked.vy = 0;
-        currentNumber++;
-        if (currentNumber > totalEsferas) {
-          alert("¡Has reunido todas las esferas!");
+      for (const s of spheres) {
+        if (!s.found && s.isInside(mx, my)) {
+          if (s.number === currentStep) {
+            s.found = true;
+            s.vx = 0;
+            s.vy = 0;
+            currentStep++;
+            document.getElementById("instructions").textContent = `¡Correcto! Ahora busca la esfera ${currentStep}.`;
+            if (currentStep > 7) {
+              document.getElementById("instructions").textContent = "¡Has reunido todas las esferas!";
+            }
+          } else {
+            document.getElementById("instructions").textContent = `Esa no es. Busca la esfera ${currentStep}.`;
+          }
+          break;
         }
       }
     });
 
-    function setSpeed(multiplier) {
-      speedMultiplier = multiplier;
-      esferas.forEach(esf => {
-        if (!esf.stopped) {
-          esf.vx = (Math.random() * 2 - 1) * speedMultiplier;
-          esf.vy = (Math.random() * 2 - 1) * speedMultiplier;
-        }
-      });
+    function setSpeed(factor) {
+      speedMultiplier = factor;
     }
 
-    loadImagesAndStart();
+    function startGame() {
+      spheres = generateSpheres();
+      drawAll();
+    }
+
+    // Esperar a que las imágenes carguen antes de iniciar
+    Promise.all(images.map(img => new Promise(res => img.onload = res))).then(startGame);
   </script>
+
 </body>
 </html>
