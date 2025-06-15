@@ -764,7 +764,9 @@
 
     <script>
 
-
+        // New: Audio for Sphere 7 selection
+        const sphere7Audio = new Audio('quienmehallamado.mp3');
+        const Audio = new Audio('deseofacil.mp3');
 
     const canvas = document.getElementById("gameCanvas");
 
@@ -1210,7 +1212,7 @@
 
             // Play audio when sphere 8 is clicked AND the popup opens
 
-            sphere8Audio.play().catch(e => console.error("Error playing audio:", e));
+            Audio.play().catch(e => console.error("Error playing audio:", e));
 
             document.getElementById('fullPhraseText').innerHTML = `<em>“${userWish}”</em><br><br><h5>¡Adelante, sigue el camino de la luz y haz que el universo conspire a favor de tu grandeza!</h5>`;
 
