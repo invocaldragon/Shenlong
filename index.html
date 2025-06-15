@@ -19,10 +19,17 @@
           max-width: 80%;
           height: auto;
           margin-top: 30px;
-          animation: aparecer 2s ease-out forwards;
-        
-          /* 🌟 Efecto místico */
-          filter: drop-shadow(0 0 15px #00ffcc) drop-shadow(0 0 25px #00ffcc);
+          animation: aparecer 2s ease-out forwards, resplandor-mistico 3s infinite ease-in-out;
+        }
+
+
+        @keyframes resplandor-mistico {
+          0%, 100% {
+            filter: drop-shadow(0 0 15px #00ffcc) drop-shadow(0 0 25px #00ffcc);
+          }
+          50% {
+            filter: drop-shadow(0 0 25px #00ffcc) drop-shadow(0 0 40px #00ffcc);
+          }
         }
         
         .shenlong-gif {
