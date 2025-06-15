@@ -280,7 +280,7 @@
     <div id="popup" class="popup-overlay">
         <div class="popup-container">
             <img src="Invocacion.gif" alt="Invocación Shenlong" class="shenlong-gif">
-            <div id="countdown">20</div>            
+            <div id="countdown">13</div>            
             <h4>Sal de ahi Shenlong y concedeme mi deseo</h4>
             <input type="text" id="userWish" placeholder="Escribe tu deseo aquí..." />
             <br><br>
@@ -377,7 +377,7 @@
         const canvas = document.getElementById("gameCanvas");
         const ctx = canvas.getContext("2d");
         const sphereRadius = 30;
-        let countdownValue = 20;
+        let countdownValue = 13;
         let countdownInterval;
         let userWish = ""; // Ensure userWish is globally accessible
 
@@ -551,7 +551,7 @@
             document.getElementById('userWish').value = '';
             document.getElementById('userWish').focus();
 
-            countdownValue = 20;
+            countdownValue = 13;
             document.getElementById("countdown").innerText = countdownValue;
             countdownInterval = setInterval(() => {
                 countdownValue--;
