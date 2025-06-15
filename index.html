@@ -73,15 +73,35 @@
       }
 
       update() {
-        if (this.stopped) return;
-
-        this.x += this.vx;
-        this.y += this.vy;
-
-        if (this.x - this.radius < 2 || this.x + this.radius > canvas.width - 2) this.vx *= -1;
-        if (this.y - this.radius < 2 || this.y + this.radius > canvas.height - 2) this.vy *= -1;
-
+        if (!this.found) {
+          this.x += this.vx * speedMultiplier;
+          this.y += this.vy * speedMultiplier;
+      
+          // Rebote con corrección precisa
+          const leftLimit = this.radius + 2;
+          const rightLimit = canvas.width - this.radius - 2;
+          const topLimit = this.radius + 2;
+          const bottomLimit = canvas.height - this.radius - 2;
+      
+          if (this.x < leftLimit) {
+            this.x = leftLimit;
+            this.vx *= -1;
+          }
+          if (this.x > rightLimit) {
+            this.x = rightLimit;
+            this.vx *= -1;
+          }
+          if (this.y < topLimit) {
+            this.y = topLimit;
+            this.vy *= -1;
+          }
+          if (this.y > bottomLimit) {
+            this.y = bottomLimit;
+            this.vy *= -1;
+          }
+        }
       }
+
 
       checkCollision(other) {
         if (this.stopped && other.stopped) return;
