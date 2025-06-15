@@ -78,7 +78,6 @@
         this.x += this.vx;
         this.y += this.vy;
 
-        // Rebotar en bordes
         if (this.x - this.radius < 0 || this.x + this.radius > canvas.width) this.vx *= -1;
         if (this.y - this.radius < 0 || this.y + this.radius > canvas.height) this.vy *= -1;
       }
@@ -91,7 +90,6 @@
         const distance = Math.hypot(dx, dy);
 
         if (distance < this.radius * 2) {
-          // Intercambiar velocidades
           const tempVx = this.vx;
           const tempVy = this.vy;
           this.vx = other.vx;
@@ -110,6 +108,25 @@
     let imagesLoaded = 0;
     let currentNumber = 1;
 
+    function isOverlapping(x, y, existingEsferas) {
+      return existingEsferas.some(e => {
+        const dx = x - e.x;
+        const dy = y - e.y;
+        const distance = Math.hypot(dx, dy);
+        return distance < radius * 2;
+      });
+    }
+
+    function generateNonOverlappingPosition(existingEsferas) {
+      let x, y, attempts = 0;
+      do {
+        x = Math.random() * (canvas.width - 2 * radius) + radius;
+        y = Math.random() * (canvas.height - 2 * radius) + radius;
+        attempts++;
+      } while (isOverlapping(x, y, existingEsferas) && attempts < 1000);
+      return { x, y };
+    }
+
     function loadImagesAndStart() {
       for (let i = 1; i <= totalEsferas; i++) {
         const img = new Image();
@@ -120,8 +137,7 @@
             startGame();
           }
         };
-        const x = Math.random() * (canvas.width - 2 * radius) + radius;
-        const y = Math.random() * (canvas.height - 2 * radius) + radius;
+        const { x, y } = generateNonOverlappingPosition(esferas);
         esferas.push(new DragonBall(x, y, i, img));
       }
     }
@@ -133,7 +149,6 @@
     function updateGame() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Actualizar y dibujar
       esferas.forEach(e => e.update());
       for (let i = 0; i < esferas.length; i++) {
         for (let j = i + 1; j < esferas.length; j++) {
