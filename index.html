@@ -600,7 +600,7 @@
 
         // 📩 Enviar deseo a Google Sheets y mostrar mensaje de Shenlong
         function submitWish() {
-            sphere7Audio.pause().catch(e => console.error("Error playing audio:", e));
+            sphere7Audio.pause();
             const wish = document.getElementById('userWish').value.trim();
             if (!wish) {
                 alert("Debes escribir tu deseo, mortal.");
