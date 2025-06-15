@@ -259,8 +259,6 @@
 
     <div style="text-align: center; margin-top:20px;">
     <strong>Escucha a Shenlong</strong><br>
-    
-    <audio id="audio-shenlong" src="AudioCompleto.mp3"></audio>
 
     <iframe 
         src="https://drive.google.com/file/d/1HtIDY-xSRlo1IWc8cYfVoWTngVF5R50E/preview" 
@@ -395,6 +393,9 @@
         let countdownValue = 20;
         let countdownInterval;
         let userWish = ""; // Ensure userWish is globally accessible
+
+        // New: Audio for Sphere 7 selection
+        const sphere7Audio = new Audio('AudioCompleto.mp3'); // Replace with your desired audio file URL
 
         /**
          * Función drawStars: Dibuja las estrellas sobre la esfera según el número.
@@ -545,6 +546,11 @@
                     if (currentStep > 7) {
                         document.getElementById("instructions").textContent =
                             "¡Felicidades! Has conectado todas las esferas.";
+
+                        // Play audio when sphere 7 is clicked AND the popup opens
+                        sphere7Audio.play().catch(e => console.error("Error playing audio:", e));
+
+                        
                         openPopup();
                     }
                 } else {
