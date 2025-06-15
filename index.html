@@ -999,7 +999,7 @@
               document.getElementById("instructions").textContent = "¡Has reunido todas las esferas!";
 
                 // Play audio when sphere 7 is clicked AND the popup opens
-
+                sphere7Audio.play().catch(e => console.error("Error playing audio:", e));
                 
 
                 openPopup();
@@ -1212,7 +1212,7 @@
 
             // Play audio when sphere 8 is clicked AND the popup opens
 
-            Audio.play().catch(e => console.error("Error playing audio:", e));
+            sphere8Audio.play().catch(e => console.error("Error playing audio:", e));
 
             document.getElementById('fullPhraseText').innerHTML = `<em>“${userWish}”</em><br><br><h5>¡Adelante, sigue el camino de la luz y haz que el universo conspire a favor de tu grandeza!</h5>`;
 
