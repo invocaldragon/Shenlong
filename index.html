@@ -48,7 +48,7 @@
 </head>
 <body>
 
-  <h1>Reúne las Esferas del Dragón</h1>
+  <h1>Reúde las Esferas del Dragón</h1>
   <div id="instructions">Selecciona las esferas en orden de la 1 a la 7.</div>
 
   <canvas id="gameCanvas" width="360" height="540"></canvas>
@@ -64,7 +64,7 @@
     const ctx = canvas.getContext("2d");
     const sphereRadius = 30;
     const margin = 2;
-    let speedMultiplier = 1;
+    let speedMultiplier = 1.5;
 
     let currentStep = 1;
     let spheres = [];
@@ -82,9 +82,8 @@
         this.x = x;
         this.y = y;
         const angle = Math.random() * 2 * Math.PI;
-        const baseSpeed = 1.5;
-        this.vx = Math.cos(angle) * baseSpeed;
-        this.vy = Math.sin(angle) * baseSpeed;
+        this.vx = Math.cos(angle);
+        this.vy = Math.sin(angle);
         this.number = number;
         this.radius = sphereRadius;
         this.found = false;
@@ -190,19 +189,17 @@
       for (const s of spheres) {
         if (!s.found) {
           const angle = Math.atan2(s.vy, s.vx);
-          s.vx = Math.cos(angle) * speedMultiplier;
-          s.vy = Math.sin(angle) * speedMultiplier;
+          s.vx = Math.cos(angle);
+          s.vy = Math.sin(angle);
         }
       }
     }
-
 
     function startGame() {
       spheres = generateSpheres();
       drawAll();
     }
 
-    // Esperar a que las imágenes carguen antes de iniciar
     Promise.all(images.map(img => new Promise(res => img.onload = res))).then(startGame);
   </script>
 
