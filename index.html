@@ -395,7 +395,8 @@
         let userWish = ""; // Ensure userWish is globally accessible
 
         // New: Audio for Sphere 7 selection
-        const sphere7Audio = new Audio('AudioCompleto.mp3'); // Replace with your desired audio file URL
+        const sphere7Audio = new Audio('quienmehallamado.mp3');
+        const sphere8Audio = new Audio('deseofacil.mp3');
 
         /**
          * Función drawStars: Dibuja las estrellas sobre la esfera según el número.
@@ -546,11 +547,8 @@
                     if (currentStep > 7) {
                         document.getElementById("instructions").textContent =
                             "¡Felicidades! Has conectado todas las esferas.";
-
                         // Play audio when sphere 7 is clicked AND the popup opens
                         sphere7Audio.play().catch(e => console.error("Error playing audio:", e));
-
-                        
                         openPopup();
                     }
                 } else {
@@ -622,6 +620,8 @@
             });
 
             closePopup();
+            // Play audio when sphere 8 is clicked AND the popup opens
+            sphere8Audio.play().catch(e => console.error("Error playing audio:", e));
             document.getElementById('fullPhraseText').innerHTML = `<em>“${userWish}”</em><br><br><h5>¡Adelante, sigue el camino de la luz y haz que el universo conspire a favor de tu grandeza!</h5>`;
             document.getElementById('popup3').style.display = 'block';
         }
