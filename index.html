@@ -1,207 +1,713 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Esferas del Dragón en Movimiento</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      background-color: #111;
-      color: white;
-      font-family: sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 20px;
-    }
-    canvas {
-      border: 3px solid #ff9800;
-      border-radius: 10px;
-      background-color: black;
-    }
-    .controls {
-      margin-top: 10px;
-    }
-    .controls button {
-      margin: 0 5px;
-      padding: 8px 16px;
-      font-size: 14px;
-      background-color: #ff9800;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .controls button:hover {
-      background-color: #e68900;
-    }
-    #instructions {
-      margin: 20px;
-      font-size: 18px;
-      text-align: center;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MVP - Invocación Mística</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        /* 🌀 ESTILOS GENERALES */
+        body, html {
+            font-family: 'Cinzel Decorative', cursive;    
+            background: #000;
+            color: #fff;
+            overflow: visible !important;
+        }
+
+        .qr-yape {
+          max-width: 250px;
+          margin: 20px auto;
+          display: block;
+          border-radius: 20px;
+          animation: resplandor-yape 3s infinite ease-in-out;
+          filter: drop-shadow(0 0 10px #800080) drop-shadow(0 0 20px #800080);
+        }
+        
+        @keyframes resplandor-yape {
+          0%, 100% {
+            filter: drop-shadow(0 0 10px #800080) drop-shadow(0 0 20px #800080);
+          }
+          50% {
+            filter: drop-shadow(0 0 20px #a020f0) drop-shadow(0 0 35px #a020f0);
+          }
+        }
+        
+        .shenlong {
+          max-width: 80%;
+          height: auto;
+          margin-top: 30px;
+          animation: aparecer 2s ease-out forwards, resplandor-mistico 3s infinite ease-in-out;
+        }
+
+
+        @keyframes resplandor-mistico {
+          0%, 100% {
+            filter: drop-shadow(0 0 15px #00ffcc) drop-shadow(0 0 25px #00ffcc);
+          }
+          50% {
+            filter: drop-shadow(0 0 25px #00ffcc) drop-shadow(0 0 40px #00ffcc);
+          }
+        }
+        
+        .shenlong-gif {
+          display: block;
+          margin: 20px auto;
+          max-width: 100%;
+          height: auto;
+          border-radius: 12px;
+          box-shadow: 0 0 20px #00ffcc;
+          animation: aparecer 2s ease-out forwards, resplandor-mistico 1s infinite ease-in-out;
+        }
+
+        h3 { color: #00ff88; font-size: 18px; margin-bottom: 10px; }
+        h4 { color: #00ff88; font-size: 18px; margin-bottom: 10px; }
+        h5 { color: #ffffff; font-size: 18px; margin-bottom: 10px; }
+        p    { color: #fff; }
+
+        input[type="text"], select, textarea {
+            font-family: 'Cinzel Decorative', cursive;
+            padding: 10px;
+            width: 90%;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #00ff88, #006644);
+            border: none;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: 0.3s ease;
+            font-family: 'Cinzel Decorative', cursive;
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #00ffcc, #004422);
+            transform: scale(1.05);
+            box-shadow: 0 0 10px #00ffcc;
+        }
+
+        .popup-container {
+            animation: fadeInMagic 0.8s ease-out;
+            box-shadow: 0 0 20px #00ff88aa;
+            background: #111;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            max-width: 400px;
+            margin: 100px auto;
+        }
+
+        @keyframes fadeInMagic {
+            0% {opacity: 0; transform: scale(0.9); filter: blur(5px);}
+            100% {opacity: 1; transform: scale(1); filter: blur(0);}
+        }
+
+        .popup-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #000000cc;
+            z-index: 999;
+            display: none;
+        }
+
+        .blur-border {
+            width: 300px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(255, 50, 50, 0.5);
+        }
+
+        .glow-box {
+            width: 250px;
+            height: 250px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin: auto;
+            background-color: #0a0a0a; /* Fondo oscuro dentro del cuadro */
+            box-shadow: 0 0 20px 4px #00ff88aa;
+            animation: pulseGlow 2s infinite alternate;
+        }
+
+        .glow-box2 {
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            margin: auto;
+            background-color: #0a0a0a; /* Fondo oscuro dentro del cuadro */
+            box-shadow: 0 0 20px 4px #00ff88aa;
+            animation: pulseGlow 2s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% {
+            box-shadow: 0 0 10px #00ff88aa;
+            }
+            50% {
+            box-shadow: 0 0 25px #00ffaa;
+            }
+            100% {
+            box-shadow: 0 0 10px #00ff88aa;
+            }
+        }
+
+        .audio-card {
+            background-color: #000;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(29, 185, 84, 0.8); /* Brillo inicial */
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            animation: glow 1.5s infinite alternate; /* Animación de brillo */
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 15px rgba(29, 185, 84, 0.8); }
+            100% { box-shadow: 0 0 25px rgba(29, 185, 84, 1); }
+        }
+
+        /* Reset básico */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 100%;
+            padding: 20px;
+            background-color: transparent; 
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        h1 {
+            margin-bottom: 10px;
+        }
+        .instructions {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        canvas {
+            background-color: #000;
+            border: 0px solid #444;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            /* Aquí se establece el tamaño del canvas */
+            width: 300px;
+            height: 500px;
+        }
+        /* The button styles here are redundant with the general button style above, but keeping for consistency */
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            background-color: #4285f4; /* This will be overridden by the general button style */
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #357ae8; /* This will be overridden by the general button style */
+        }
+        /* Estilos para el popup */
+        #popup {
+            display: none;    
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;    
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 100;
+        }
+        #popup-content { /* This ID is not used in the HTML, consider removing if not needed */
+            position: relative;
+            width: 300px;
+            margin: 15% auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            text-align: center;
+        }
+        #popup-content p { /* This ID is not used in the HTML, consider removing if not needed */
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        #wishInput { /* This ID is not used in the HTML, 'userWish' is used instead */
+            width: 90%;
+            padding: 8px;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        #countdown {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .controls {
+            margin-top: 10px;
+        }
+        .controls button {
+            margin: 0 5px;
+            padding: 8px 16px;
+            font-size: 14px;
+            background-color: #ff9800;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .controls button:hover {
+            background-color: #e68900;
+        }
+    </style>
 </head>
 <body>
 
-  <h1>Reúde las Esferas del Dragón</h1>
-  <div id="instructions">Selecciona las esferas en orden de la 1 a la 7.</div>
+    <div class="container" style="text-align: center; background-color: transparent; box-shadow: none;">
+        <h2 style="color:#ffcc00;" class="titulo-mistico">¡Tienes el valor de invocarme...!</h2>
+        <div class="instructions" id="instructions">
+            Selecciona en orden las esferas del dragón
+        </div>
+        <canvas id="gameCanvas" width="300" height="500"></canvas>
+        <div class="controls">
+            <button onclick="setSpeed(0.5)">Lento</button>
+            <button onclick="setSpeed(1.5)">Normal</button>
+            <button onclick="setSpeed(2.5)">Rápido</button>
+        </div>
+    </div>
 
-  <canvas id="gameCanvas" width="360" height="540"></canvas>
+    <div style="font-size:14px; color:#aaa; font-family:'Poppins', sans-serif; font-weight:300; margin:40px auto; max-width:600px;">
+        <strong>Aviso Legal:</strong>
+        <p>
+            • Esta plataforma es solo para entretenimiento.<br>
+            • El deseo solicitado es una intención personal dentro del ritual.<br>
+            • Las contribuciones son voluntarias y no reembolsables.<br>
+            • Participar implica aceptar estos términos.<br>
+            • Personajes y referencias son ilustrativos, no afiliados a marcas oficiales.<br>
+            © 2025 Invoca al dragón. Todos los derechos reservados. 🐉
+        </p>
+    </div>
 
-  <div class="controls">
-    <button onclick="setSpeed(0.5)">Lento</button>
-    <button onclick="setSpeed(1.5)">Normal</button>
-    <button onclick="setSpeed(2.5)">Rápido</button>
-  </div>
+    <div id="popup" class="popup-overlay">
+        <div class="popup-container">
+            <img src="Invocacion2.gif" alt="Invocación Shenlong" class="shenlong-gif">
+            <div id="countdown">20</div>            
+            <h4>Sal de ahi Shenlong y concedeme mi deseo</h4>
+            <input type="text" id="userWish" placeholder="Escribe tu deseo aquí..." />
+            <br><br>
+            <button onclick="submitWish()">Pedir Deseo</button><br><br>
+        </div>
+    </div>
 
-  <script>
-    const canvas = document.getElementById("gameCanvas");
-    const ctx = canvas.getContext("2d");
-    const sphereRadius = 30;
-    const margin = 2;
-    let speedMultiplier = 1.5;
+    <div id="popup3" class="popup-overlay">
+        <div class="popup-container">
+            <img src="Shenlong.png" alt="Invocación Shenlong" class="shenlong">
+            <h3>Ese será un deseo muy fácil de realizar...</h3>
+            <p id="fullPhraseText" style="font-size:20px; margin:20px 0;"></p>
+            <button onclick="continueToForm()">Continuar</button>
+        </div>
+    </div>
 
-    let currentStep = 1;
-    let spheres = [];
+    <div id="popup2" class="popup-overlay" style="z-index:1000;">
+        <div class="popup-container">
 
-    // Cargar imágenes
-    const images = [];
-    for (let i = 1; i <= 7; i++) {
-      const img = new Image();
-      img.src = `esfera${i}.png`;
-      images.push(img);
-    }
+            <form id="mysticForm">
 
-    class DragonBall {
-      constructor(x, y, number) {
-        this.x = x;
-        this.y = y;
-        const angle = Math.random() * 2 * Math.PI;
-        this.vx = Math.cos(angle);
-        this.vy = Math.sin(angle);
-        this.number = number;
-        this.radius = sphereRadius;
-        this.found = false;
-        this.image = images[number - 1];
-      }
+                <label style="display:block; margin-bottom:10px;"><h4>¿Te gustó el ritual?✨</h4></label>
+                <div id="energia" style="display: flex; flex-direction: column; gap: 5px;">
 
-      update() {
-        if (this.found) return;
+                    <label style="display: flex; align-items: center; gap: 10px;">
+                        <input type="radio" name="energia" value="¡Me encantó!">
+                        🤩 ¡Me encantó!
+                    </label>
 
-        this.x += this.vx * speedMultiplier;
-        this.y += this.vy * speedMultiplier;
+                    <label style="display: flex; align-items: center; gap: 10px;">
+                        <input type="radio" name="energia" value="Estuvo bien">
+                        🙂 Estuvo bien
+                    </label>
 
-        const leftLimit = this.radius + margin;
-        const rightLimit = canvas.width - this.radius - margin;
-        const topLimit = this.radius + margin;
-        const bottomLimit = canvas.height - this.radius - margin;
+                    <label style="display: flex; align-items: center; gap: 10px;">
+                        <input type="radio" name="energia" value="No mucho">
+                        😐 No mucho
+                    </label>
 
-        if (this.x < leftLimit) {
-          this.x = leftLimit;
-          this.vx *= -1;
+                </div>
+
+                <label style="display:block; margin-top:20px; margin-bottom:10px;"><h4>¿Lo compartirías?📣</h4></label>
+                <div id="experiencia" style="display: flex; flex-direction: column; gap: 5px;">
+
+                    <label style="display: flex; align-items: center; gap: 10px;">
+                        <input type="radio" name="experiencia" value="Sí">
+                        🌟Si
+                    </label>
+
+                    <label style="display: flex; align-items: center; gap: 10px;">
+                        <input type="radio" name="experiencia" value="No">
+                        🤫 No
+                    </label>
+
+                </div>
+
+                <label style="display:block; margin-top: 20px; margin-bottom:10px;"><h4>¿Conocías a Shenlong?🐉</h4></label>
+                <div id="consentimiento" style="display: flex; flex-direction: column; gap: 10px;">
+
+                    <label style="display: flex; align-items: center; gap: 10px;">
+                        <input type="radio" name="consentimiento" value="Si">
+                        🐲 Si
+                    </label>
+
+                    <label style="display: flex; align-items: center; gap: 10px;">
+                        <input type="radio" name="consentimiento" value="No">
+                        🐣 No, es mi primera vez
+                    </label>
+
+                </div>
+
+                <button type="submit" style="margin-top:20px;">Terminar y sellar</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="popup4" class="popup-overlay" style="z-index:1003;">
+        <div class="popup-container">
+
+            <h3 style="font-size: 22px;">¡ Tu deseo ha sido sellado en el universo !</h3>
+
+            <button onclick="compartirExperiencia()" style="margin-bottom: 10px;">📲 Compartir por WhatsApp</button>
+            <button onclick="invocarNuevamente()" style="margin-bottom: 10px;">🔁 Volver a invocar</button>
+            <div style="margin-top:20px;">
+                <img src="QR.jpg" alt="Invocación Shenlong" class="qr-yape">
+                <p style="font-size:0.6em;">QR de Yape - Aporta de manera voluntaria<br>Solo si estas seguro de haber pedido con el corazón.</p>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        /* Variables iniciales */
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        const sphereRadius = 30;
+        const margin = 2; // Margin for sphere movement boundaries
+        let countdownValue = 20;
+        let countdownInterval;
+        let userWish = ""; // Ensure userWish is globally accessible
+
+        // New: Audio for Sphere 7 selection
+        const sphere7Audio = new Audio('quienmehallamado.mp3');
+        const sphere8Audio = new Audio('deseofacil.mp3');
+
+        // New: Game variables for moving spheres
+        let speedMultiplier = 1.5;
+        let currentStep = 1;
+        let spheres = [];
+        let animationFrameId; // To control the animation loop
+
+        // Cargar imágenes para las esferas del dragón
+        const images = [];
+        for (let i = 1; i <= 7; i++) {
+            const img = new Image();
+            img.src = `esfera${i}.png`; // Make sure you have esfera1.png to esfera7.png
+            images.push(img);
         }
-        if (this.x > rightLimit) {
-          this.x = rightLimit;
-          this.vx *= -1;
-        }
-        if (this.y < topLimit) {
-          this.y = topLimit;
-          this.vy *= -1;
-        }
-        if (this.y > bottomLimit) {
-          this.y = bottomLimit;
-          this.vy *= -1;
-        }
-      }
 
-      draw() {
-        ctx.drawImage(this.image, this.x - this.radius, this.y - this.radius, this.radius * 2, this.radius * 2);
-      }
+        // New: DragonBall Class for moving spheres
+        class DragonBall {
+            constructor(x, y, number) {
+                this.x = x;
+                this.y = y;
+                const angle = Math.random() * 2 * Math.PI;
+                this.vx = Math.cos(angle);
+                this.vy = Math.sin(angle);
+                this.number = number;
+                this.radius = sphereRadius;
+                this.found = false;
+                this.image = images[number - 1]; // Use pre-loaded images
+            }
 
-      isInside(mx, my) {
-        return Math.hypot(mx - this.x, my - this.y) <= this.radius;
-      }
-    }
+            update() {
+                if (this.found) return;
 
-    function generateSpheres() {
-      const newSpheres = [];
+                this.x += this.vx * speedMultiplier;
+                this.y += this.vy * speedMultiplier;
 
-      for (let i = 1; i <= 7; i++) {
-        let valid = false, x, y;
-        while (!valid) {
-          x = Math.random() * (canvas.width - 2 * (sphereRadius + margin)) + (sphereRadius + margin);
-          y = Math.random() * (canvas.height - 2 * (sphereRadius + margin)) + (sphereRadius + margin);
-          valid = true;
-          for (const s of newSpheres) {
-            const dx = s.x - x;
-            const dy = s.y - y;
-            if (Math.hypot(dx, dy) < sphereRadius * 2 + 4) {
-              valid = false;
-              break;
+                const leftLimit = this.radius + margin;
+                const rightLimit = canvas.width - this.radius - margin;
+                const topLimit = this.radius + margin;
+                const bottomLimit = canvas.height - this.radius - margin;
+
+                if (this.x < leftLimit) {
+                    this.x = leftLimit;
+                    this.vx *= -1;
+                }
+                if (this.x > rightLimit) {
+                    this.x = rightLimit;
+                    this.vx *= -1;
+                }
+                if (this.y < topLimit) {
+                    this.y = topLimit;
+                    this.vy *= -1;
+                }
+                if (this.y > bottomLimit) {
+                    this.y = bottomLimit;
+                    this.vy *= -1;
+                }
+            }
+
+            draw() {
+                // Draw the sphere image
+                ctx.drawImage(this.image, this.x - this.radius, this.y - this.radius, this.radius * 2, this.radius * 2);
+            }
+
+            isInside(mx, my) {
+                return Math.hypot(mx - this.x, my - this.y) <= this.radius;
+            }
+        }
+
+        // Function to generate spheres
+        function generateSpheres() {
+            const newSpheres = [];
+            for (let i = 1; i <= 7; i++) {
+                let valid = false, x, y;
+                while (!valid) {
+                    x = Math.random() * (canvas.width - 2 * (sphereRadius + margin)) + (sphereRadius + margin);
+                    y = Math.random() * (canvas.height - 2 * (sphereRadius + margin)) + (sphereRadius + margin);
+                    valid = true;
+                    // Check for overlaps with existing spheres
+                    for (const s of newSpheres) {
+                        const dx = s.x - x;
+                        const dy = s.y - y;
+                        if (Math.hypot(dx, dy) < sphereRadius * 2 + 4) { // Add a small buffer
+                            valid = false;
+                            break;
+                        }
+                    }
+                }
+                newSpheres.push(new DragonBall(x, y, i));
+            }
+            return newSpheres;
+        }
+        
+        // Main game loop for drawing and updating moving spheres
+        function drawAll() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (const s of spheres) {
+                s.update(); // Update position for moving spheres
+                s.draw();
             }
-          }
+            animationFrameId = requestAnimationFrame(drawAll);
         }
-        newSpheres.push(new DragonBall(x, y, i));
-      }
-      return newSpheres;
-    }
 
-    function drawAll() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (const s of spheres) {
-        s.update();
-        s.draw();
-      }
-      requestAnimationFrame(drawAll);
-    }
+        function resetGame() {
+            cancelAnimationFrame(animationFrameId); // Stop current animation
+            currentStep = 1;
+            spheres = generateSpheres(); // Regenerate new positions for spheres
+            document.getElementById("instructions").textContent =
+                "Selecciona en orden las esferas del dragón";
+            startGame(); // Restart the animation
+        }
 
-    canvas.addEventListener("click", e => {
-      const rect = canvas.getBoundingClientRect();
-      const mx = e.clientX - rect.left;
-      const my = e.clientY - rect.top;
+        canvas.addEventListener("click", (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
 
-      for (const s of spheres) {
-        if (!s.found && s.isInside(mx, my)) {
-          if (s.number === currentStep) {
-            s.found = true;
-            s.vx = 0;
-            s.vy = 0;
-            currentStep++;
-            document.getElementById("instructions").textContent = `¡Correcto! Ahora busca la esfera ${currentStep}.`;
-            if (currentStep > 7) {
-              document.getElementById("instructions").textContent = "¡Has reunido todas las esferas!";
+            const clickedSphere = spheres.find(sphere => !sphere.found && sphere.isInside(mouseX, mouseY));
+
+            if (clickedSphere) {
+                if (clickedSphere.number === currentStep) {
+                    clickedSphere.found = true;
+                    // Stop movement of the found sphere
+                    clickedSphere.vx = 0;
+                    clickedSphere.vy = 0;
+                    currentStep++;
+                    document.getElementById("instructions").textContent = `¡Correcto! Ahora busca la esfera ${currentStep}.`;
+
+                    if (currentStep > 7) {
+                        document.getElementById("instructions").textContent =
+                            "¡Felicidades! Has conectado todas las esferas.";
+                        // Play audio when sphere 7 is clicked AND the popup opens
+                        sphere7Audio.play().catch(e => console.error("Error playing audio:", e));
+                        cancelAnimationFrame(animationFrameId); // Stop the game animation
+                        openPopup();
+                    }
+                } else {
+                    document.getElementById("instructions").textContent =
+                        `¡Esa no es! Busca la esfera de ${currentStep} estrellas`;
+                }
+            }
+        });
+
+        // Function to set the speed of the moving spheres
+        function setSpeed(factor) {
+            speedMultiplier = factor;
+            // Optionally, re-calculate velocity to maintain direction but adjust speed
+            for (const s of spheres) {
+                if (!s.found) {
+                    const angle = Math.atan2(s.vy, s.vx);
+                    s.vx = Math.cos(angle);
+                    s.vy = Math.sin(angle);
+                }
             }
-          } else {
-            document.getElementById("instructions").textContent = `Esa no es. Busca la esfera ${currentStep}.`;
-          }
-          break;
         }
-      }
-    });
 
-    function setSpeed(factor) {
-      speedMultiplier = factor;
-      for (const s of spheres) {
-        if (!s.found) {
-          const angle = Math.atan2(s.vy, s.vx);
-          s.vx = Math.cos(angle);
-          s.vy = Math.sin(angle);
+        // 📤 Abrir el primer popup para ingresar deseo
+        function openPopup() {
+            document.getElementById('popup').style.display = 'block';
+            document.getElementById('userWish').value = '';
+            document.getElementById('userWish').focus();
+
+            countdownValue = 20;
+            document.getElementById("countdown").innerText = countdownValue;
+            countdownInterval = setInterval(() => {
+                countdownValue--;
+                document.getElementById("countdown").innerText = countdownValue;
+                if (countdownValue <= 0) {
+                    clearInterval(countdownInterval);
+                    closePopup();
+                    resetGame();
+                }
+            }, 1000);
+        }
+
+        // 🔒 Cerrar el primer popup
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+            clearInterval(countdownInterval); // Ensure countdown stops when popup is closed manually
+        }
+
+        /**
+         * Sends data to a Google Sheets script.
+         * @param {Object} data - The data to send.
+         */
+        async function sendToGoogleSheets(data) {
+            const params = new URLSearchParams(data).toString();
+            try {
+                // Using fetch with 'no-cors' mode is tricky for getting responses,
+                // but it's suitable for simple data submission without needing the response.
+                await fetch('https://script.google.com/macros/s/AKfycbwFLL954GSvF127n_H4N-vEdyIuleRF3fC_0hJw8G8J50hS9KMShj0sZfuBC7c_iYeS/exec', {
+                    method: "POST",
+                    mode: "no-cors", // Required for cross-origin requests to Google Apps Script
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: params
+                });
+                console.log("Data sent to Google Sheets successfully (no-cors mode).");
+            } catch (error) {
+                console.error("Error sending data to Google Sheets:", error);
+            }
+        }
+
+
+        // 📩 Enviar deseo a Google Sheets y mostrar mensaje de Shenlong
+        function submitWish() {
+            const wish = document.getElementById('userWish').value.trim();
+            if (!wish) {
+                alert("Debes escribir tu deseo, mortal.");
+                return;
+            }
+
+            userWish = wish;
+            sendToGoogleSheets({
+                deseo: userWish
+            });
+
+            closePopup();
+            // Play audio when sphere 8 is clicked AND the popup opens
+            sphere8Audio.play().catch(e => console.error("Error playing audio:", e));
+            document.getElementById('fullPhraseText').innerHTML = `<em>“${userWish}”</em><br><br><h5>¡Adelante, sigue el camino de la luz y haz que el universo conspire a favor de tu grandeza!</h5>`;
+            document.getElementById('popup3').style.display = 'block';
+        }
+
+        // 👉 Pasar al formulario místico
+        function continueToForm() {
+            document.getElementById('popup3').style.display = 'none';
+            document.getElementById('popup2').style.display = 'block';
+        }
+
+        // 📋 Enviar el formulario místico
+        document.getElementById("mysticForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            const energia = this.energia.value;
+            // Get the selected radio button value for 'experiencia'
+            const experiencia = document.querySelector('input[name="experiencia"]:checked');
+            const experienciaValue = experiencia ? experiencia.value : ""; // Get value or empty string if none selected
+
+            // Get the selected radio button value for 'consentimiento'
+            const consentimiento = document.querySelector('input[name="consentimiento"]:checked');
+            const consentimientoValue = consentimiento ? consentimiento.value : ""; // Get value or empty string if none selected
+
+
+            if (!experienciaValue) {
+                alert("Por favor, cuéntanos si lo compartirías.");
+                return;
+            }
+            if (!consentimientoValue) {
+                alert("Por favor, dinos si conocías a Shenlong.");
+                return;
+            }
+
+            sendToGoogleSheets({
+                energia: energia,
+                experiencia: experienciaValue,
+                consentimiento: consentimientoValue,
+                deseo: userWish // Include the user's wish with the form data
+            });
+
+            document.getElementById('popup2').style.display = 'none';
+            document.getElementById('popup4').style.display = 'block';
+        });
+
+        // 📤 Compartir experiencia
+        function compartirExperiencia() {
+            const mensaje = "*Acabo de pedirle un deseo a Shenlong 🐉👇*\n https://sites.google.com/view/invocaldragon\n\n*¡Apresúrate!*\nQuizá te comparta un poco de mi suerte🍀";
+            const whatsappURL = "https://wa.me/?text=" + encodeURIComponent(mensaje);
+
+            // Abrir WhatsApp en una nueva pestaña
+            window.open(whatsappURL, "_blank");
+        }
+
+
+        // 🔁 Reiniciar ritual
+        function invocarNuevamente() {
+            userWish = "";
+            document.getElementById("userWish").value = "";
+            document.getElementById("mysticForm").reset(); // Resets the form inputs
+            ['popup', 'popup2', 'popup3', 'popup4'].forEach(id => document.getElementById(id).style.display = 'none'); // Hide all popups
+            resetGame(); // Reset the canvas game
+        }
+
+        // ⛔ Cerrar popups con ESC
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                ['popup', 'popup2', 'popup3', 'popup4'].forEach(id => document.getElementById(id).style.display = 'none');
+                clearInterval(countdownInterval); // Stop countdown if ESC is pressed during wish input
+                cancelAnimationFrame(animationFrameId); // Stop the game animation
+                // Potentially, reset the game or decide if it should resume where it left off
+            }
+        });
+
+        // Initial game start after all images are loaded
+        function startGame() {
+            spheres = generateSpheres();
+            drawAll();
         }
-      }
-    }
 
-    function startGame() {
-      spheres = generateSpheres();
-      drawAll();
-    }
-
-    Promise.all(images.map(img => new Promise(res => img.onload = res))).then(startGame);
-  </script>
+        // Wait for all images to load before starting the game
+        Promise.all(images.map(img => new Promise(res => img.onload = res))).then(startGame);
+    </script>
 
 </body>
 </html>
