@@ -4,6 +4,7 @@
     src: url('FeENrm2.ttf') format('truetype'); /* Specify the path to your font file and its format */
     font-weight: normal;
     font-style: normal;
+    line-height: 1; /* Aumentado el espaciado de línea general para el cuerpo */
 }
 
 /* General Styles */
@@ -13,7 +14,6 @@ body, html {
     color: #fff;
     /* Removed !important - visible is often default, or you manage overflow on specific elements */
     overflow-x: hidden; /* Prevent horizontal scroll from animations */
-    line-height: 1; /* Aumentado el espaciado de línea general para el cuerpo */
 }
 
 /* Base element styles */
@@ -49,7 +49,7 @@ button {
     cursor: pointer;
     border-radius: 6px;
     transition: 0.3s ease;
-    ly: 'FeENrm2', cursive;
+    font-family: 'FeENrm2', cursive;
     margin-top: 20px; /* General button margin-top */
 }
 
@@ -76,7 +76,7 @@ button:hover {
 .legal-notice {
     font-size: 14px;
     color: #aaa;
-    ly: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-weight: 300;
     margin: 40px auto;
     max-width: 600px;
