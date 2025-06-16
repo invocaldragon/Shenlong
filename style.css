@@ -81,7 +81,7 @@ button:hover {
     font-weight: 300;
     margin: 40px auto;
     max-width: 600px;
-    text-align: center;
+    text-align: left;
 }
 
 /* Game Canvas */
