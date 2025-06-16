@@ -9,7 +9,7 @@
 /* General Styles */
 body, html {
     font-family: 'FeENrm2', cursive;
-    line-height: 1.5; /* Aumentado el espaciado de línea general para el cuerpo */
+    line-height: 1.3; /* Aumentado el espaciado de línea general para el cuerpo */
     background: #000;
     color: #fff;
     /* Removed !important - visible is often default, or you manage overflow on specific elements */
