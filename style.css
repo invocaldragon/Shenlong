@@ -77,7 +77,7 @@ button:hover {
 /* Game Canvas */
 canvas {
     background-color: #000;
-    border: 0px solid #444; /* Consider adding a subtle border or glow if desired */
+    border: 3px solid #ff9800; /* Consider adding a subtle border or glow if desired */
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     width: 300px;
