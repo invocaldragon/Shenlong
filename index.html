@@ -600,6 +600,10 @@
 
         // 📩 Enviar deseo a Google Sheets y mostrar mensaje de Shenlong
         function submitWish() {
+            
+            // Stop the countdown when the wish is submitted
+            clearInterval(countdownInterval);            
+            
             sphere7Audio.pause();
             const wish = document.getElementById('userWish').value.trim();
             if (!wish) {
