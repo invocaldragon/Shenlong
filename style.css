@@ -56,7 +56,7 @@ button {
     justify-content: center; /* Center content horizontally */
     align-items: center; /* Center content vertically */
     text-align: center; /* Ensures text is horizontally centered within the flex item */
-    line-height: 1; /* Reset line-height to avoid extra space pushing text down */
+    line-height: 1.5; /* Reset line-height to avoid extra space pushing text down */
 }
 
 button:hover {
