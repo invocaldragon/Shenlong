@@ -4,12 +4,12 @@
     src: url('FeENrm2.ttf') format('truetype'); /* Specify the path to your font file and its format */
     font-weight: normal;
     font-style: normal;
-    line-height: 1; /* Aumentado el espaciado de línea general para el cuerpo */
 }
 
 /* General Styles */
 body, html {
     font-family: 'FeENrm2', cursive;
+    line-height: 1; /* Aumentado el espaciado de línea general para el cuerpo */
     background: #000;
     color: #fff;
     /* Removed !important - visible is often default, or you manage overflow on specific elements */
