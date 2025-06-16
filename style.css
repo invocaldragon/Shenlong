@@ -13,6 +13,7 @@ body, html {
     color: #fff;
     /* Removed !important - visible is often default, or you manage overflow on specific elements */
     overflow-x: hidden; /* Prevent horizontal scroll from animations */
+    line-height: 1.6; /* Aumentado el espaciado de línea general para el cuerpo */
 }
 
 /* Base element styles */
