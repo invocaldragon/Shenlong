@@ -50,7 +50,8 @@ button {
     border-radius: 6px;
     transition: 0.3s ease;
     font-family: 'FeENrm2', cursive;
-    margin-top: 20px; /* General button margin-top */
+    margin-top: 15px; /* General button margin-top */
+    margin-bottom: 15px; /* General button margin-top */
 }
 
 button:hover {
