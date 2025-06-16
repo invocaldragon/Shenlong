@@ -266,8 +266,8 @@
         </div>
   <div class="controls">
     <button onclick="setSpeed(0.5)">Oolong</button>
-    <button onclick="setSpeed(3)">Humano</button>
-    <button onclick="setSpeed(6)">Sayajin</button>
+    <button onclick="setSpeed(2.5)">Humano</button>
+    <button onclick="setSpeed(5)">Sayajin</button>
   </div>
         <canvas id="gameCanvas" width="300" height="500"></canvas>
     </div>
@@ -396,7 +396,7 @@
     const ctx = canvas.getContext("2d");
     const sphereRadius = 30;
     const margin = 2;
-    let speedMultiplier = 1.5;
+    let speedMultiplier = 2.5;
 
     let currentStep = 1;
     let spheres = [];
@@ -665,7 +665,7 @@
 
         // 📤 Compartir experiencia
         function compartirExperiencia() {
-            const mensaje = "*Acabo de pedirle un deseo a Shenlong 🐉👇*\n https://sites.google.com/view/invocaldragon\n\n*¡Apresúrate!*\nQuizá te comparta un poco de mi suerte🍀";
+            const mensaje = "*Acabo de pedirle un deseo a Shenlong 🐉👇*\nhttps://invocaldragon.github.io/Shenlong\n\n*¡Apresúrate!*\nQuizá te comparta un poco de mi suerte🍀";
             const whatsappURL = "https://wa.me/?text=" + encodeURIComponent(mensaje);
 
             // Abrir WhatsApp en una nueva pestaña
