@@ -1,0 +1,230 @@
+/* General Styles */
+body, html {
+    font-family: 'Cinzel Decorative', cursive;
+    background: #000;
+    color: #fff;
+    /* Removed !important - visible is often default, or you manage overflow on specific elements */
+    overflow-x: hidden; /* Prevent horizontal scroll from animations */
+}
+
+/* Base element styles */
+h2 { color: #ffcc00; }
+h3 { color: #00ff88; font-size: 18px; margin-bottom: 10px; }
+h4 { color: #00ff88; font-size: 18px; margin-bottom: 10px; }
+h5 { color: #ffffff; font-size: 18px; margin-bottom: 10px; }
+p { color: #fff; }
+
+/* Form Elements */
+input[type="text"], select, textarea {
+    font-family: 'Cinzel Decorative', cursive;
+    padding: 10px;
+    width: 90%;
+    border-radius: 6px;
+    margin-top: 10px;
+    font-size: 16px;
+    border: 1px solid #00ff88; /* Added a subtle border */
+    background-color: #0a0a0a; /* Darker background for inputs */
+    color: #fff;
+}
+input[type="text"]::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Buttons */
+button {
+    background: linear-gradient(135deg, #00ff88, #006644);
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: 0.3s ease;
+    font-family: 'Cinzel Decorative', cursive;
+    margin-top: 20px; /* General button margin-top */
+}
+
+button:hover {
+    background: linear-gradient(135deg, #00ffcc, #004422);
+    transform: scale(1.05);
+    box-shadow: 0 0 10px #00ffcc;
+}
+
+/* Layout Containers */
+.container {
+    text-align: center;
+    max-width: 100%;
+    padding: 20px;
+    margin-bottom: 20px;
+    /* Removed old background-color and box-shadow that were overridden by inline style */
+}
+
+.container--game-section { /* Specific class for the game section container */
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.legal-notice {
+    font-size: 14px;
+    color: #aaa;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    margin: 40px auto;
+    max-width: 600px;
+    text-align: center;
+}
+
+/* Game Canvas */
+canvas {
+    background-color: #000;
+    border: 0px solid #444; /* Consider adding a subtle border or glow if desired */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 300px;
+    height: 500px;
+}
+
+/* Popup Overlays */
+.popup-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8); /* Slightly darker for better contrast */
+    z-index: 999;
+    display: none; /* Hidden by default */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+}
+
+.popup-container {
+    animation: fadeInMagic 0.8s ease-out;
+    box-shadow: 0 0 20px #00ff88aa;
+    background: #111;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%; /* Responsive width */
+    margin: 0 auto; /* Center with auto margins for non-flex container */
+}
+
+/* Animations */
+@keyframes fadeInMagic {
+    0% {opacity: 0; transform: scale(0.9); filter: blur(5px);}
+    100% {opacity: 1; transform: scale(1); filter: blur(0);}
+}
+
+/* Specific Image Styles & Animations */
+.qr-yape {
+    max-width: 250px;
+    margin: 20px auto;
+    display: block;
+    border-radius: 20px;
+    animation: resplandor-yape 3s infinite ease-in-out;
+    filter: drop-shadow(0 0 10px #800080) drop-shadow(0 0 20px #800080);
+}
+
+@keyframes resplandor-yape {
+    0%, 100% {
+        filter: drop-shadow(0 0 10px #800080) drop-shadow(0 0 20px #800080);
+    }
+    50% {
+        filter: drop-shadow(0 0 20px #a020f0) drop-shadow(0 0 35px #a020f0);
+    }
+}
+
+.shenlong-static { /* Renamed for clarity, original was 'shenlong' */
+    max-width: 80%;
+    height: auto;
+    margin-top: 30px;
+    animation: aparecer 2s ease-out forwards, resplandor-mistico 3s infinite ease-in-out;
+}
+
+@keyframes resplandor-mistico {
+    0%, 100% {
+        filter: drop-shadow(0 0 15px #00ffcc) drop-shadow(0 0 25px #00ffcc);
+    }
+    50% {
+        filter: drop-shadow(0 0 25px #00ffcc) drop-shadow(0 0 40px #00ffcc);
+    }
+}
+
+.shenlong-gif {
+    display: block;
+    margin: 20px auto;
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 0 20px #00ffcc;
+    animation: aparecer 2s ease-out forwards, resplandor-mistico 1s infinite ease-in-out;
+}
+
+/* Form Specific Styles */
+.form-question {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Consistent gap for radio buttons */
+    margin-bottom: 15px; /* Spacing between form groups */
+}
+
+.form-group label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff; /* Ensure label text is white */
+}
+
+/* Specific Button Styles */
+.button--submit-form {
+    margin-top: 20px;
+}
+
+.button--final-action {
+    margin-bottom: 10px; /* Space between final action buttons */
+    width: 90%; /* Make buttons full width in final popup */
+    max-width: 300px; /* Limit max width */
+}
+
+/* Other Specific Styles */
+.title--mystic {
+    color: #ffcc00;
+}
+
+.instructions {
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.countdown {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.shenlong-phrase {
+    font-size: 20px;
+    margin: 20px 0;
+}
+
+.donation-section {
+    margin-top: 20px;
+}
+
+.donation-text {
+    font-size: 0.8em; /* Slightly larger for readability */
+}
+
+/* Keyframes (appears to be for .shenlong-gif and .shenlong) */
+@keyframes aparecer {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Unused/Removed Styles (for your reference, if you want to explicitly remove them) */
+/* .audio-card, .blur-border, .glow-box, .glow-box2, #popup-content, #wishInput */
