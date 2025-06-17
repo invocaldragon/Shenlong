@@ -601,7 +601,7 @@ submitWishButton.addEventListener('click', () => {
     clearInterval(countdownInterval); // Stop the countdown
     sphere7Audio.pause(); // Pause the previous audio
     sphere8Audio.play().catch(err => console.error("Error playing audio:", err));
-    fullPhraseText.innerHTML = `<em>“${userWish}”</em><br><br><h5>¡Adelante, sigue el camino de la luz y haz que el universo conspire a favor de tu grandeza!</h5>`;
+    fullPhraseText.innerHTML = `<em>“${userWish}”</em><br><h5>¡Adelante, sigue el camino de la luz y haz que el universo conspire a favor de tu grandeza!</h5>`;
     openPopup(popupShenlongReply);
 });
 
