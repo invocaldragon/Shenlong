@@ -588,9 +588,6 @@ gameCanvas.addEventListener("click", e => {
 
 // Submit Wish Button
 submitWishButton.addEventListener('click', () => {
-    clearInterval(countdownInterval); // Stop the countdown
-    sphere7Audio.pause(); // Pause the previous audio
-
     const wish = userWishInput.value.trim();
     if (!wish) {
         alert("Debes escribir tu deseo, mortal.");
@@ -601,6 +598,8 @@ submitWishButton.addEventListener('click', () => {
     sendToGoogleSheets({ deseo: userWish });
 
     closePopup(popupWish);
+    clearInterval(countdownInterval); // Stop the countdown
+    sphere7Audio.pause(); // Pause the previous audio
     sphere8Audio.play().catch(err => console.error("Error playing audio:", err));
     fullPhraseText.innerHTML = `<em>“${userWish}”</em><br><br><h5>¡Adelante, sigue el camino de la luz y haz que el universo conspire a favor de tu grandeza!</h5>`;
     openPopup(popupShenlongReply);
