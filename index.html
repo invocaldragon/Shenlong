@@ -6,7 +6,250 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>MVP - Invocación Mística</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css"> </head>
+
+    <style>
+
+/* Import Custom Font */
+@font-face {
+    font-family: 'FeENrm2'; /* Choose a name for your font */
+    src: url('FeENrm2.ttf') format('truetype'); /* Specify the path to your font file and its format */
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* General Styles */
+body, html {
+    font-family: 'FeENrm2', cursive;
+    background: #000;
+    color: #fff;
+    /* Removed !important - visible is often default, or you manage overflow on specific elements */
+    overflow-x: hidden; /* Prevent horizontal scroll from animations */
+}
+
+/* Base element styles */
+h2 { color: #ffcc00; }
+h3 { color: #00ff88; font-size: 18px; margin-bottom: 10px; }
+h4 { color: #00ff88; font-size: 18px; margin-bottom: 10px; }
+h5 { color: #ffffff; font-size: 18px; margin-bottom: 10px; }
+p { color: #fff; }
+
+/* Form Elements */
+input[type="text"], select, textarea {
+    font-family: 'Cinzel Decorative', cursive;
+    padding: 10px;
+    width: 90%;
+    border-radius: 6px;
+    margin-top: 10px;
+    font-size: 16px;
+    border: 1px solid #00ff88; /* Added a subtle border */
+    background-color: #0a0a0a; /* Darker background for inputs */
+    color: #fff;
+}
+input[type="text"]::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Buttons */
+button {
+    background: linear-gradient(135deg, #00ff88, #006644);
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: 0.3s ease;
+    font-family: 'Cinzel Decorative', cursive;
+    margin-top: 20px; /* General button margin-top */
+}
+
+button:hover {
+    background: linear-gradient(135deg, #00ffcc, #004422);
+    transform: scale(1.05);
+    box-shadow: 0 0 10px #00ffcc;
+}
+
+/* Layout Containers */
+.container {
+    text-align: center;
+    max-width: 100%;
+    padding: 20px;
+    margin-bottom: 20px;
+    /* Removed old background-color and box-shadow that were overridden by inline style */
+}
+
+.container--game-section { /* Specific class for the game section container */
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.legal-notice {
+    font-size: 14px;
+    color: #aaa;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    margin: 40px auto;
+    max-width: 600px;
+    text-align: center;
+}
+
+/* Game Canvas */
+canvas {
+    background-color: #000;
+    border: 3px solid #ff9800; /* Consider adding a subtle border or glow if desired */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 300px;
+    height: 500px;
+}
+
+/* Popup Overlays */
+.popup-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
+    z-index: 999;
+    display: none; /* <--- KEEP ONLY THIS LINE FOR HIDING BY DEFAULT */
+    align-items: center; /* These are fine, they only apply when display is not 'none' */
+    justify-content: center; /* These are fine, they only apply when display is not 'none' */
+}
+
+.popup-container {
+    animation: fadeInMagic 0.8s ease-out;
+    box-shadow: 0 0 20px #00ff88aa;
+    background: #111;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%; /* Responsive width */
+    margin: 0 auto; /* Center with auto margins for non-flex container */
+}
+
+/* Animations */
+@keyframes fadeInMagic {
+    0% {opacity: 0; transform: scale(0.9); filter: blur(5px);}
+    100% {opacity: 1; transform: scale(1); filter: blur(0);}
+}
+
+/* Specific Image Styles & Animations */
+.qr-yape {
+    max-width: 250px;
+    margin: 20px auto;
+    display: block;
+    border-radius: 20px;
+    animation: resplandor-yape 3s infinite ease-in-out;
+    filter: drop-shadow(0 0 10px #800080) drop-shadow(0 0 20px #800080);
+}
+
+@keyframes resplandor-yape {
+    0%, 100% {
+        filter: drop-shadow(0 0 10px #800080) drop-shadow(0 0 20px #800080);
+    }
+    50% {
+        filter: drop-shadow(0 0 20px #a020f0) drop-shadow(0 0 35px #a020f0);
+    }
+}
+
+.shenlong-static { /* Renamed for clarity, original was 'shenlong' */
+    max-width: 80%;
+    height: auto;
+    margin-top: 30px;
+    animation: aparecer 2s ease-out forwards, resplandor-mistico 3s infinite ease-in-out;
+}
+
+@keyframes resplandor-mistico {
+    0%, 100% {
+        filter: drop-shadow(0 0 15px #00ffcc) drop-shadow(0 0 25px #00ffcc);
+    }
+    50% {
+        filter: drop-shadow(0 0 25px #00ffcc) drop-shadow(0 0 40px #00ffcc);
+    }
+}
+
+.shenlong-gif {
+    display: block;
+    margin: 20px auto;
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 0 20px #00ffcc;
+    animation: aparecer 2s ease-out forwards, resplandor-mistico 1s infinite ease-in-out;
+}
+
+/* Form Specific Styles */
+.form-question {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Consistent gap for radio buttons */
+    margin-bottom: 15px; /* Spacing between form groups */
+}
+
+.form-group label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff; /* Ensure label text is white */
+}
+
+/* Specific Button Styles */
+.button--submit-form {
+    margin-top: 20px;
+}
+
+.button--final-action {
+    margin-bottom: 10px; /* Space between final action buttons */
+    width: 90%; /* Make buttons full width in final popup */
+    max-width: 300px; /* Limit max width */
+}
+
+/* Other Specific Styles */
+.title--mystic {
+    color: #ffcc00;
+}
+
+.instructions {
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.countdown {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.shenlong-phrase {
+    font-size: 20px;
+    margin: 20px 0;
+}
+
+.donation-section {
+    margin-top: 20px;
+}
+
+.donation-text {
+    font-size: 0.8em; /* Slightly larger for readability */
+}
+
+/* Keyframes (appears to be for .shenlong-gif and .shenlong) */
+@keyframes aparecer {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Unused/Removed Styles (for your reference, if you want to explicitly remove them) */
+/* .audio-card, .blur-border, .glow-box, .glow-box2, #popup-content, #wishInput */
+
+
+</style>
+</head>
 <body>
 
     <div class="container container--game-section">
@@ -114,5 +357,318 @@
         </div>
     </div>
 
-    <script src="script.js"></script> </body>
+    <script>
+
+// Constants
+const SPHERE_RADIUS = 30;
+const MARGIN = 2;
+const GOOGLE_SHEETS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwFLL954GSvF127n_H4N-vEdyIuleRF3fC_0hJw8G8J50hS9KMShj0sZfuBC7c_iYeS/exec';
+
+// DOM Elements
+const gameCanvas = document.getElementById("gameCanvas");
+const ctx = gameCanvas.getContext("2d");
+const instructionsElement = document.getElementById("instructions");
+const countdownElement = document.getElementById("countdown");
+const userWishInput = document.getElementById("userWishInput");
+const fullPhraseText = document.getElementById("fullPhraseText");
+
+// Popups
+const popupWish = document.getElementById("popup-wish");
+const popupShenlongReply = document.getElementById("popup-shenlong-reply");
+const popupMysticForm = document.getElementById("popup-mystic-form");
+const popupFinal = document.getElementById("popup-final");
+
+// Buttons
+const submitWishButton = document.getElementById("submitWishButton");
+const continueToFormButton = document.getElementById("continueToFormButton");
+const shareWhatsappButton = document.getElementById("shareWhatsappButton");
+const invokeAgainButton = document.getElementById("invokeAgainButton");
+const mysticForm = document.getElementById("mysticForm"); // Get the form itself
+
+// Audio
+const sphere7Audio = new Audio('quienmehallamado.mp3');
+const sphere8Audio = new Audio('deseofacil.mp3');
+
+// Game State Variables
+let speedMultiplier = 2.5;
+let currentStep = 1;
+let spheres = [];
+let countdownInterval;
+let userWish = "";
+
+// Image Preloading
+const images = [];
+for (let i = 1; i <= 7; i++) {
+    const img = new Image();
+    img.src = `esfera${i}.png`;
+    images.push(img);
+}
+
+// --- DragonBall Class ---
+class DragonBall {
+    constructor(x, y, number) {
+        this.x = x;
+        this.y = y;
+        const angle = Math.random() * 2 * Math.PI;
+        this.vx = Math.cos(angle);
+        this.vy = Math.sin(angle);
+        this.number = number;
+        this.radius = SPHERE_RADIUS;
+        this.found = false;
+        this.image = images[number - 1];
+    }
+
+    update() {
+        if (this.found) return;
+
+        this.x += this.vx * speedMultiplier;
+        this.y += this.vy * speedMultiplier;
+
+        // Boundary collision detection
+        const leftLimit = this.radius + MARGIN;
+        const rightLimit = gameCanvas.width - this.radius - MARGIN;
+        const topLimit = this.radius + MARGIN;
+        const bottomLimit = gameCanvas.height - this.radius - MARGIN;
+
+        if (this.x < leftLimit) {
+            this.x = leftLimit;
+            this.vx *= -1;
+        }
+        if (this.x > rightLimit) {
+            this.x = rightLimit;
+            this.vx *= -1;
+        }
+        if (this.y < topLimit) {
+            this.y = topLimit;
+            this.vy *= -1;
+        }
+        if (this.y > bottomLimit) {
+            this.y = bottomLimit;
+            this.vy *= -1;
+        }
+    }
+
+    draw() {
+        ctx.drawImage(this.image, this.x - this.radius, this.y - this.radius, this.radius * 2, this.radius * 2);
+    }
+
+    isInside(mx, my) {
+        return Math.hypot(mx - this.x, my - this.y) <= this.radius;
+    }
+}
+
+// --- Game Functions ---
+function generateSpheres() {
+    const newSpheres = [];
+    for (let i = 1; i <= 7; i++) {
+        let valid = false, x, y;
+        while (!valid) {
+            x = Math.random() * (gameCanvas.width - 2 * (SPHERE_RADIUS + MARGIN)) + (SPHERE_RADIUS + MARGIN);
+            y = Math.random() * (gameCanvas.height - 2 * (SPHERE_RADIUS + MARGIN)) + (SPHERE_RADIUS + MARGIN);
+            valid = true;
+            // Check for overlap with existing spheres
+            for (const s of newSpheres) {
+                const dx = s.x - x;
+                const dy = s.y - y;
+                if (Math.hypot(dx, dy) < SPHERE_RADIUS * 2 + 4) { // Add a small buffer (4)
+                    valid = false;
+                    break;
+                }
+            }
+        }
+        newSpheres.push(new DragonBall(x, y, i));
+    }
+    return newSpheres;
+}
+
+function drawAll() {
+    ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
+    for (const s of spheres) {
+        s.update();
+        s.draw();
+    }
+    requestAnimationFrame(drawAll);
+}
+
+function resetGame() {
+    currentStep = 1;
+    spheres = generateSpheres();
+    instructionsElement.textContent = "Selecciona en orden las esferas del dragón";
+}
+
+function setSpeed(factor) {
+    speedMultiplier = factor;
+    for (const s of spheres) {
+        if (!s.found) {
+            const angle = Math.atan2(s.vy, s.vx);
+            s.vx = Math.cos(angle);
+            s.vy = Math.sin(angle);
+        }
+    }
+}
+
+// --- Popup Management ---
+function openPopup(popupElement) {
+    // Hide all popups first to ensure only one is visible
+    [popupWish, popupShenlongReply, popupMysticForm, popupFinal].forEach(p => p.style.display = 'none');
+    popupElement.style.display = 'flex'; // Use flex to center
+}
+
+function closePopup(popupElement) {
+    popupElement.style.display = 'none';
+}
+
+// --- Data Submission ---
+async function sendToGoogleSheets(data) {
+    const params = new URLSearchParams(data).toString();
+    try {
+        await fetch(GOOGLE_SHEETS_SCRIPT_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: params
+        });
+        console.log("Data sent to Google Sheets successfully (no-cors mode).");
+    } catch (error) {
+        console.error("Error sending data to Google Sheets:", error);
+    }
+}
+
+// --- Event Handlers ---
+
+// Game Canvas Click
+gameCanvas.addEventListener("click", e => {
+    const rect = gameCanvas.getBoundingClientRect();
+    const mx = e.clientX - rect.left;
+    const my = e.clientY - rect.top;
+
+    for (const s of spheres) {
+        if (!s.found && s.isInside(mx, my)) {
+            if (s.number === currentStep) {
+                s.found = true;
+                s.vx = 0; // Stop the sphere
+                s.vy = 0;
+                currentStep++;
+                instructionsElement.textContent = `¡Correcto! Ahora busca la esfera ${currentStep}.`;
+
+                if (currentStep > 7) {
+                    instructionsElement.textContent = "¡Has reunido todas las esferas!";
+                    sphere7Audio.play().catch(err => console.error("Error playing audio:", err));
+                    openPopup(popupWish);
+
+                    let countdownValue = 20;
+                    countdownElement.innerText = countdownValue;
+                    countdownInterval = setInterval(() => {
+                        countdownValue--;
+                        countdownElement.innerText = countdownValue;
+                        if (countdownValue <= 0) {
+                            clearInterval(countdownInterval);
+                            closePopup(popupWish);
+                            location.reload(); // Full reload if time runs out
+                        }
+                    }, 1000);
+                }
+            } else {
+                instructionsElement.textContent = `Esa no es. Busca la esfera ${currentStep}.`;
+            }
+            break; // Stop checking after finding a clicked sphere
+        }
+    }
+});
+
+// Submit Wish Button
+submitWishButton.addEventListener('click', () => {
+    clearInterval(countdownInterval); // Stop the countdown
+    sphere7Audio.pause(); // Pause the previous audio
+
+    const wish = userWishInput.value.trim();
+    if (!wish) {
+        alert("Debes escribir tu deseo, mortal.");
+        return;
+    }
+
+    userWish = wish; // Store the wish
+    sendToGoogleSheets({ deseo: userWish });
+
+    closePopup(popupWish);
+    sphere8Audio.play().catch(err => console.error("Error playing audio:", err));
+    fullPhraseText.innerHTML = `<em>“${userWish}”</em><br><br><h5>¡Adelante, sigue el camino de la luz y haz que el universo conspire a favor de tu grandeza!</h5>`;
+    openPopup(popupShenlongReply);
+});
+
+// Continue to Form Button
+continueToFormButton.addEventListener('click', () => {
+    closePopup(popupShenlongReply);
+    openPopup(popupMysticForm);
+});
+
+// Mystic Form Submission
+mysticForm.addEventListener("submit", function(e) {
+    e.preventDefault(); // Prevent default form submission
+
+    const energia = this.energia.value; // Radio buttons use `this.name.value`
+    const experiencia = this.experiencia.value;
+    const consentimiento = this.consentimiento.value;
+
+    // Basic client-side validation (HTML 'required' attribute helps too)
+    if (!energia || !experiencia || !consentimiento) {
+        alert("Por favor, responde todas las preguntas antes de sellar tu deseo.");
+        return;
+    }
+
+    sendToGoogleSheets({
+        deseo: userWish, // Include the stored wish
+        energia: energia,
+        experiencia: experiencia,
+        consentimiento: consentimiento
+    });
+
+    closePopup(popupMysticForm);
+    openPopup(popupFinal);
+});
+
+// Share on WhatsApp Button
+shareWhatsappButton.addEventListener('click', () => {
+    const mensaje = "*Acabo de pedirle un deseo a Shenlong 🐉👇*\nhttps://invocaldragon.github.io/Shenlong\n\n*¡Apresúrate!*\nQuizá te comparta un poco de mi suerte🍀";
+    const whatsappURL = "https://wa.me/?text=" + encodeURIComponent(mensaje);
+    window.open(whatsappURL, "_blank"); // Open in new tab
+});
+
+// Invoke Again Button
+invokeAgainButton.addEventListener('click', () => {
+    userWish = ""; // Reset wish
+    userWishInput.value = ""; // Clear input field
+    mysticForm.reset(); // Reset radio buttons and form state
+    // Hide all popups, then fully reload the page to restart the game
+    [popupWish, popupShenlongReply, popupMysticForm, popupFinal].forEach(p => p.style.display = 'none');
+    location.reload();
+});
+
+// Close popups with ESC key
+document.addEventListener('keydown', function(event) {
+    if (event.key === "Escape") {
+        // Find the currently visible popup and close it
+        const visiblePopup = [popupWish, popupShenlongReply, popupMysticForm, popupFinal].find(p => p.style.display === 'flex');
+        if (visiblePopup) {
+            closePopup(visiblePopup);
+            clearInterval(countdownInterval); // Stop countdown if active popup is wish input
+        }
+    }
+});
+
+// --- Initialization ---
+// Ensure all images are loaded before starting the game
+Promise.all(images.map(img => new Promise(res => img.onload = res)))
+    .then(startGame)
+    .catch(err => console.error("Failed to load one or more sphere images:", err));
+
+function startGame() {
+    resetGame(); // Initialize spheres and game state
+    drawAll(); // Start the animation loop
+}
+
+</script>
+</body>
 </html>
