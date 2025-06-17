@@ -34,6 +34,9 @@ h4 { color: #00ff88; font-size: 18px; margin-bottom: 10px; }
 h5 { color: #ffffff; font-size: 18px; margin-bottom: 10px; }
 p { color: #fff; }
 
+
+
+        
 /* Form Elements */
 input[type="text"], select, textarea {
     font-family: 'FeENrm2', cursive;
@@ -46,7 +49,7 @@ input[type="text"], select, textarea {
     background-color: #0a0a0a; /* Darker background for inputs */
     color: #fff;
 }
-input[type="text"]::placeholder {
+textarea::placeholder {
     color: rgba(255, 255, 255, 0.7);
 }
 
@@ -286,6 +289,7 @@ canvas {
             <img src="Invocacion2.gif" alt="Invocación Shenlong" class="shenlong-gif">
             <div id="countdown">20</div>
             <h4>Sal de ahi Shenlong y concedeme mi deseo</h4>
+            <textarea id="userWishInput" class="campo-deseo" rows="2" placeholder="Escribe tu deseo aquí..." aria-label="Escribe tu deseo"></textarea>
             <input type="text" id="userWishInput" placeholder="Escribe tu deseo aquí..." aria-label="Escribe tu deseo" />
             <br><br>
             <button id="submitWishButton">Pedir Deseo</button><br><br>
@@ -307,7 +311,7 @@ canvas {
                 <h4 class="form-question">¿Te gustó el ritual?✨</h4>
                 <div class="form-group">
                     <label>
-                        <input type="radio" name="energia" value="¡Me encantó!" required>
+                        <input type="radio" name="energia" value="¡Me encantó!">
                         🤩 ¡Me encantó!
                     </label>
                     <label>
@@ -323,7 +327,7 @@ canvas {
                 <h4 class="form-question">¿Lo compartirías?📣</h4>
                 <div class="form-group">
                     <label>
-                        <input type="radio" name="experiencia" value="Sí" required>
+                        <input type="radio" name="experiencia" value="Sí">
                         🌟 Si
                     </label>
                     <label>
@@ -335,7 +339,7 @@ canvas {
                 <h4 class="form-question">¿Conocías a Shenlong?🐉</h4>
                 <div class="form-group">
                     <label>
-                        <input type="radio" name="consentimiento" value="Si" required>
+                        <input type="radio" name="consentimiento" value="Si">
                         🐲 Si
                     </label>
                     <label>
