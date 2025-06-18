@@ -164,7 +164,7 @@ canvas {
     max-width: 80%;
     height: auto;
     margin-top: 30px;
-    animation: aparecer 2s ease-out forwards, resplandor-mistico 3s infinite ease-in-out;
+    animation: aparecer 2s ease-out forwards, resplandor-mistico 3s infinite ease-in-out, flotar 4s ease-in-out infinite;
 }
 
 @keyframes resplandor-mistico {
@@ -252,6 +252,16 @@ canvas {
     to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes flotar {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+        
 /* Unused/Removed Styles (for your reference, if you want to explicitly remove them) */
 /* .audio-card, .blur-border, .glow-box, .glow-box2, #popup-content, #wishInput */
 
