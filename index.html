@@ -402,6 +402,7 @@ speed-controls {
             <h3 class="final-message-title">¡ Tu deseo ha sido sellado en el universo !</h3>
             <button id="shareWhatsappButton" class="button--final-action">📲 Compartir por WhatsApp</button>
             <button id="invokeAgainButton" class="button--final-action">🔁 Volver a invocar</button>
+            <button id="openSurveyButton" class="button--final-action">🧪 Dar tu opinión</button> 
             <div class="donation-section">
                 <img src="QR.jpg" alt="QR de Yape" class="qr-yape">
                 <p class="donation-text">QR de Yape - Aporta de manera voluntaria<br>Solo si estás seguro de haber pedido con el corazón.</p>
@@ -662,7 +663,7 @@ submitWishButton.addEventListener('click', () => {
 // Continue to Form Button
 continueToFormButton.addEventListener('click', () => {
     closePopup(popupShenlongReply);
-    openPopup(popupMysticForm);
+    openPopup(popupFinal);
 });
 
 // Mystic Form Submission
@@ -707,6 +708,16 @@ invokeAgainButton.addEventListener('click', () => {
     location.reload();
 });
 
+
+const openSurveyButton = document.getElementById("openSurveyButton");
+
+openSurveyButton.addEventListener("click", () => {
+    closePopup(popupFinal);
+    openPopup(popupMysticForm);
+});
+
+
+        
 // Close popups with ESC key
 document.addEventListener('keydown', function(event) {
     if (event.key === "Escape") {
