@@ -496,9 +496,19 @@ class DragonBall {
         }
     }
 
-    draw() {
-        ctx.drawImage(this.image, this.x - this.radius, this.y - this.radius, this.radius * 2, this.radius * 2);
+draw() {
+    if (this.found) {
+        ctx.save();
+        ctx.shadowColor = '#ffff00'; // Color de resplandor (amarillo brillante)
+        ctx.shadowBlur = 30;
     }
+
+    ctx.drawImage(this.image, this.x - this.radius, this.y - this.radius, this.radius * 2, this.radius * 2);
+
+    if (this.found) {
+        ctx.restore(); // Restaurar contexto sin sombra
+    }
+}
 
     isInside(mx, my) {
         return Math.hypot(mx - this.x, my - this.y) <= this.radius;
