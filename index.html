@@ -262,14 +262,29 @@ canvas {
 
     <div class="container container--game-section">
         <h2 class="title--mystic">Tienes el valor de invocarme...</h2>
+        
+<div class="speed-selection-container">
+    <div class="speed-text">
         <div class="instructions" id="instructions">
-            Selecciona en orden las esferas del dragón
+            Que tan veloz eres...
         </div>
-        <div>
-            <button onclick="setSpeed(0.5)">🐷Oolong</button>
-            <button onclick="setSpeed(2.5)">👤Humano</button>
-            <button onclick="setSpeed(5)">🔥Sayajin</button>
-        </div>
+    </div>
+    <div class="speed-controls">
+        <label class="radio-speed-option">
+            <input type="radio" name="speed" value="0.5" onclick="setSpeed(0.5)">
+            🐷 Oolong
+        </label>
+        <label class="radio-speed-option">
+            <input type="radio" name="speed" value="2.5" onclick="setSpeed(2.5)" checked>
+            👤 Humano
+        </label>
+        <label class="radio-speed-option">
+            <input type="radio" name="speed" value="5" onclick="setSpeed(5)">
+            🔥 Sayajin
+        </label>
+    </div>
+</div>
+
         <canvas id="gameCanvas" width="300" height="500"></canvas>
     </div>
 
