@@ -255,6 +255,57 @@ canvas {
 /* Unused/Removed Styles (for your reference, if you want to explicitly remove them) */
 /* .audio-card, .blur-border, .glow-box, .glow-box2, #popup-content, #wishInput */
 
+.speed-selection-container {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Centra verticalmente */
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.speed-text {
+    flex: 1;
+    min-width: 200px;
+    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.speed-controls {
+    flex: 1;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.radio-speed-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'FeENrm2', cursive;
+    color: #00ff88;
+    background: linear-gradient(135deg, #004422, #00ff88);
+    padding: 10px;
+    border-radius: 8px;
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+
+.radio-speed-option:hover {
+    background: linear-gradient(135deg, #006644, #00ffaa);
+    transform: scale(1.02);
+    box-shadow: 0 0 10px #00ffaa;
+}
+
+.radio-speed-option input[type="radio"] {
+    accent-color: #00ff88;
+    transform: scale(1.2);
+    cursor: pointer;
+}
+        
 
 </style>
 </head>
