@@ -405,13 +405,10 @@ canvas {
     <div id="popup-final" class="popup-overlay">
         <div class="popup-container">
             <h3 class="final-message-title">¡ Tu deseo ha sido sellado en el universo !</h3>
-            <button id="shareWhatsappButton" class="button--final-action">📲 Compartir por WhatsApp</button>
-            <button id="invokeAgainButton" class="button--final-action">🔁 Volver a invocar</button>
+            <button id="shareWhatsappButton" class="button--final-action">📲 Compartir</button>
+            <button id="invokeAgainButton" class="button--final-action">🔁 Invocar otra vez</button>
             <button id="openSurveyButton" class="button--final-action">🧪 Dar tu opinión</button> 
-            <button id="shareWhatsappButton" class="button--final-action">Ayudar a la causa</button>
-            <button id="invokeAgainButton" class="button--final-action">Top Mejores Deseos</button>
-            <button id="openSurveyButton" class="button--final-action">Votacion de deseos</button> 
-            <button id="openSurveyButton" class="button--final-action">Deso Supremo</button>             
+            <button id="DeseoSupremoButton" class="button--final-action">✨ Deseo Supremo</button>        
             <div class="donation-section">
                 <img src="QR.jpg" alt="QR de Yape" class="qr-yape">
                 <p class="donation-text">QR de Yape - Aporta de manera voluntaria<br>Solo si estás seguro de haber pedido con el corazón.</p>
@@ -419,6 +416,22 @@ canvas {
         </div>
     </div>
 
+    <div id="popup-DeseoSupremo" class="popup-overlay">
+        <div class="popup-container">
+            <h3 class="final-message-title">¡ Haz una ofrenda para que el universo escuche tu deseo !</h3><br><br>
+            <h4>DESEO<br>SUPREMO</h4><br>
+            1. Salud para mi familia
+            2. La paz mundial
+            <button id="VotarDeseoButton" class="button--final-action">Votar por un deseo</button>
+            <button id="SubirDeseoButton" class="button--final-action">Subir mi Deseo Supremo</button>  
+        </div>
+    </div>
+
+
+
+
+
+    
     <script>
 
 // Constants
@@ -439,6 +452,7 @@ const popupWish = document.getElementById("popup-wish");
 const popupShenlongReply = document.getElementById("popup-shenlong-reply");
 const popupMysticForm = document.getElementById("popup-mystic-form");
 const popupFinal = document.getElementById("popup-final");
+const popupDeseoSupremo = document.getElementById("popup-DeseoSupremo");
 
 // Buttons
 const submitWishButton = document.getElementById("submitWishButton");
@@ -446,6 +460,8 @@ const continueToFormButton = document.getElementById("continueToFormButton");
 const shareWhatsappButton = document.getElementById("shareWhatsappButton");
 const invokeAgainButton = document.getElementById("invokeAgainButton");
 const mysticForm = document.getElementById("mysticForm"); // Get the form itself
+const openSurveyButton = document.getElementById("openSurveyButton");
+const DeseoSupremoButton = document.getElementById("DeseoSupremoButton");
 
 // Audio
 const sphere7Audio = new Audio('quienmehallamado.mp3');
@@ -727,14 +743,15 @@ function resizeCanvas() {
 resizeCanvas(); // Llamada inicial
 window.addEventListener("resize", resizeCanvas); // Reajusta si cambia el tamaño de ventana
 
-        
-const openSurveyButton = document.getElementById("openSurveyButton");
+DeseoSupremoButton.addEventListener("click", () => {
+    closePopup(popupFinal);
+    openPopup(popupDeseoSupremo);
+});
 
 openSurveyButton.addEventListener("click", () => {
     closePopup(popupFinal);
     openPopup(popupMysticForm);
 });
-
 
         
 // Close popups with ESC key
