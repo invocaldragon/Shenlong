@@ -103,12 +103,15 @@ button:hover {
 
 /* Game Canvas */
 canvas {
+    width: 100%;
+    max-width: 400px; /* o el máximo que desees */
+    aspect-ratio: 3 / 5; /* Mantiene proporción tipo 300x500 */
+    display: block;
+    margin: 0 auto;
     background-color: #000;
-    border: 3px solid #ff9800; /* Consider adding a subtle border or glow if desired */
+    border: 3px solid #ff9800;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    width: 300px;
-    height: 500px;
 }
 
 /* Popup Overlays */
@@ -315,7 +318,7 @@ canvas {
     </div>
 </div>
 
-        <canvas id="gameCanvas" width="300" height="500"></canvas>
+        <canvas id="gameCanvas"></canvas>
     </div>
 
     <div class="legal-notice">
