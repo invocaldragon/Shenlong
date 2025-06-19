@@ -418,13 +418,35 @@ canvas {
 
     <div id="popup-DeseoSupremo" class="popup-overlay">
         <div class="popup-container">
-            <h3 class="final-message-title">¡ Haz una ofrenda para que el universo escuche tu deseo !</h3><br><br>
+            <h3 class="final-message-title">¡ Haz una ofrenda para que el universo escuche tu deseo !</h3>
             <img src="TopDeseos.png" alt="QR de Yape" class="qr-yape">
             <button id="VotarDeseoButton" class="button--final-action">Votar por un deseo</button>
-            <button id="SubirDeseoButton" class="button--final-action">Subir mi Deseo Supremo</button>  
+            <button id="SubirDeseoButton" class="button--final-action">Subir mi Deseo Supremo</button>
+            <button id="RegresarButton" class="button--final-action">Regresar</button>
+            
         </div>
     </div>
 
+    <div id="popup-VotarDeseo" class="popup-overlay">
+        <div class="popup-container">
+            <h3 class="final-message-title">¡ Votar por un deseo !</h3>
+            <img src="VotarDeseo.png" alt="QR de Yape" class="qr-yape">
+            <button id="Regresar2Button" class="button--final-action">Regresar</button>
+            
+        </div>
+    </div>
+
+
+        <div id="popup-SubirDeseo" class="popup-overlay">
+        <div class="popup-container">
+            <h3 class="final-message-title">¡ Subir mi deseo Supremo !</h3>
+            <img src="SubirDeseo.png" alt="QR de Yape" class="qr-yape">
+            <button id="Regresar3Button" class="button--final-action">Regresar</button>
+            
+        </div>
+    </div>
+
+    
     <script>
 
 // Constants
@@ -446,7 +468,9 @@ const popupShenlongReply = document.getElementById("popup-shenlong-reply");
 const popupMysticForm = document.getElementById("popup-mystic-form");
 const popupFinal = document.getElementById("popup-final");
 const popupDeseoSupremo = document.getElementById("popup-DeseoSupremo");
-
+const popupVotarDeseo = document.getElementById("popup-VotarDeseo");        
+const popupSubirDeseo = document.getElementById("popup-SubirDeseo");
+        
 // Buttons
 const submitWishButton = document.getElementById("submitWishButton");
 const continueToFormButton = document.getElementById("continueToFormButton");
@@ -455,6 +479,9 @@ const invokeAgainButton = document.getElementById("invokeAgainButton");
 const mysticForm = document.getElementById("mysticForm"); // Get the form itself
 const openSurveyButton = document.getElementById("openSurveyButton");
 const DeseoSupremoButton = document.getElementById("DeseoSupremoButton");
+const RegresarButton = document.getElementById("RegresarButton");
+const Regresar2Button = document.getElementById("RegresarButton");   
+const Regresar3Button = document.getElementById("RegresarButton");             
 
 // Audio
 const sphere7Audio = new Audio('quienmehallamado.mp3');
@@ -744,6 +771,22 @@ DeseoSupremoButton.addEventListener("click", () => {
 openSurveyButton.addEventListener("click", () => {
     closePopup(popupFinal);
     openPopup(popupMysticForm);
+});
+
+RegresarButton.addEventListener("click", () => {
+    closePopup(popupDeseoSupremo);
+    openPopup(popupFinal);
+});
+        
+
+Regresar2Button.addEventListener("click", () => {
+    closePopup(popupVotarDeseo);
+    openPopup(popupDeseoSupremo);
+});
+
+Regresar3Button.addEventListener("click", () => {
+    closePopup(popupSubirDeseo);
+    openPopup(popupDeseoSupremo);
 });
 
         
