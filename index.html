@@ -395,12 +395,60 @@ canvas {
         </div>
     </div>
 
+    <div id="popup-mystic-form" class="popup-overlay">
+        <div class="popup-container">
+            <form id="mysticForm">
+                <h4 class="form-question">¿Te gustó el ritual?✨</h4>
+                <div class="form-group">
+                    <label>
+                        <input type="radio" name="energia" value="¡Me encantó!">
+                        🤩 ¡Me encantó!
+                    </label>
+                    <label>
+                        <input type="radio" name="energia" value="Estuvo bien">
+                        🙂 Estuvo bien
+                    </label>
+                    <label>
+                        <input type="radio" name="energia" value="No mucho">
+                        😐 No mucho
+                    </label>
+                </div>
+
+                <h4 class="form-question">¿Lo compartirías?📣</h4>
+                <div class="form-group">
+                    <label>
+                        <input type="radio" name="experiencia" value="Sí">
+                        🌟 Si
+                    </label>
+                    <label>
+                        <input type="radio" name="experiencia" value="No">
+                        🤫 No
+                    </label>
+                </div>
+
+                <h4 class="form-question">¿Conocías a Shenlong?🐉</h4>
+                <div class="form-group">
+                    <label>
+                        <input type="radio" name="consentimiento" value="Si">
+                        🐲 Si
+                    </label>
+                    <label>
+                        <input type="radio" name="consentimiento" value="No">
+                        🐣 No, es mi primera vez
+                    </label>
+                </div>
+
+                <button type="submit" class="button--submit-form">Terminar y sellar</button>
+            </form>
+        </div>
+    </div>
+
     <div id="popup-final" class="popup-overlay">
         <div class="popup-container">
             <h3 class="final-message-title">¡ Tu deseo ha sido sellado en el universo !</h3>
             <button id="DeseoSupremoButton" class="button--final-action">🏆 Top Deseos Supremos</button>                          
             <button id="shareWhatsappButton" class="button--final-action">📲 Compartir</button>
-            
+            <button id="openSurveyButton" class="button--final-action" style="display: none;">🧪 Dar tu opinión</button>
             <button id="invokeAgainButton" class="button--final-action">🔁 Volver a invocar</button>
         </div>
     </div>
@@ -481,6 +529,7 @@ const continueToFormButton = document.getElementById("continueToFormButton");
 const shareWhatsappButton = document.getElementById("shareWhatsappButton");
 const invokeAgainButton = document.getElementById("invokeAgainButton");
 const mysticForm = document.getElementById("mysticForm"); // Get the form itself
+const openSurveyButton = document.getElementById("openSurveyButton");
 const DeseoSupremoButton = document.getElementById("DeseoSupremoButton");
 const VotarDeseoButton = document.getElementById("VotarDeseoButton");
 const SubirDeseoButton = document.getElementById("SubirDeseoButton");
@@ -771,6 +820,11 @@ window.addEventListener("resize", resizeCanvas); // Reajusta si cambia el tamañ
 DeseoSupremoButton.addEventListener("click", () => {
     closePopup(popupFinal);
     openPopup(popupDeseoSupremo);
+});
+
+openSurveyButton.addEventListener("click", () => {
+    closePopup(popupFinal);
+    openPopup(popupMysticForm);
 });
 
 VotarDeseoButton.addEventListener("click", () => {
