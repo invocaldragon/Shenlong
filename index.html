@@ -290,10 +290,42 @@ canvas {
   align-items: center;
   gap: 10px;
 }   
+
+#barra-top-supremos {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(90deg, #3b0274, #5d199b);
+  color: white;
+  text-align: center;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  z-index: 9999;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+  transition: background 0.3s;
+}
+
+#barra-top-supremos:hover {
+  background: linear-gradient(90deg, #5d199b, #3b0274);
+}
+
+
+
+
+        
 </style>
 </head>
 <body>
 
+<div id="barra-top-supremos" onclick="verTopDeseos()">
+  🏆 Ver el Top de Deseos Supremos
+</div>
+
+
+    
     <div class="container container--game-section">
         <h2 class="title--mystic">Tienes el valor de invocarme...</h2>
         
@@ -834,6 +866,15 @@ function startGame() {
     drawAll(); // Start the animation loop
 }
 
+function verTopDeseos() {
+  // Aquí puedes abrir un popup, navegar a una sección o mostrar un modal
+  alert("Aquí se mostraría el ranking de los Deseos Supremos 🔮");
+  // Ejemplo con navegación a un ID de sección:
+  // window.location.href = "#ranking";
+}
+
+
+        
 </script>
 </body>
 </html>
