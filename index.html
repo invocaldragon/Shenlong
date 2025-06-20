@@ -460,7 +460,7 @@ canvas {
             <img src="Shenlong.png" alt="Invocación Shenlong" class="shenlong-static">
             <h3>Ese será un deseo muy fácil de realizar...</h3>
             <p id="fullPhraseText" class="shenlong-phrase"></p>
-            <button id="continueToSubirDeseoButton">🔥 Sí</button>
+            <button id="SubirDeseoButton">🔥 Sí</button>
             <button id="continueToFormButton">🙏 No</button>
         </div>
     </div>
@@ -906,7 +906,7 @@ VotarDeseoButton.addEventListener("click", () => {
     openPopup(popupVotarDeseo);
 });
 SubirDeseoButton.addEventListener("click", () => {
-    closePopup(popupDeseoSupremo);
+    closePopup(popupShenlongReply);
     openPopup(popupSubirDeseo);    
 });        
 RegresarButton.addEventListener("click", () => {
@@ -921,7 +921,7 @@ Regresar2Button.addEventListener("click", () => {
 
 Regresar3Button.addEventListener("click", () => {
     closePopup(popupSubirDeseo);
-    openPopup(popupDeseoSupremo);
+    openPopup(popupFinal);
 });
 Regresar4Button.addEventListener("click", () => {
     closePopup(popupFinal);
