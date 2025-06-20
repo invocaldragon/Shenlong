@@ -382,10 +382,8 @@ canvas {
             <img src="Shenlong.png" alt="Invocación Shenlong" class="shenlong-static">
             <h3>Ese será un deseo muy fácil de realizar...</h3>
             <p id="fullPhraseText" class="shenlong-phrase"></p>
-            <button>🔥 Sí</button>
-            <button>🙏 No</button>
-
-            <button id="continueToFormButton">Continuar</button>
+            <button id="continueToSubirDeseoButton">🔥 Sí</button>
+            <button id="continueToFormButton">🙏 No</button>
         </div>
     </div>
 
@@ -750,8 +748,7 @@ submitWishButton.addEventListener('click', () => {
     clearInterval(countdownInterval); // Stop the countdown
     sphere7Audio.pause(); // Pause the previous audio
     sphere8Audio.play().catch(err => console.error("Error playing audio:", err));
-    fullPhraseText.innerHTML = `<em>“${userWish}”</em><br><h2>¿Volver deseo supremo?</h2>
-<p style="font-size: 14px; margin-top: -5px;">(Para entrar al ranking sagrado)</p>`;
+    fullPhraseText.innerHTML = `<em>“${userWish}”</em><br><p style="font-size: 14px; margin-top: -5px;">¿Quieres volver este deseo un Deseo Supremo y competir en el Top semanal de los más poderosos?</p>`;
     openPopup(popupShenlongReply);
 });
 
