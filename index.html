@@ -506,9 +506,9 @@ canvas {
               <div id="countdown">Cambiando en: 10 segundos</div>
               <form id="votacionDeseos">
                 <div id="contenedor-deseos"></div>
-                <button type="submit" id="votarBtn">Votar por este deseo</button>
+                <button id="Regresar2Button" class="button--final-action">Regresar</button>
               </form>
-            <button id="Regresar2Button" class="button--final-action">Regresar</button>
+            
             
         </div>
     </div>
@@ -874,7 +874,7 @@ RegresarButton.addEventListener("click", () => {
     
 Regresar2Button.addEventListener("click", () => {
     closePopup(popupVotarDeseo);
-    openPopup(popupDeseoSupremo);
+    openPopup(popupFinal);
 });
 
 Regresar3Button.addEventListener("click", () => {
