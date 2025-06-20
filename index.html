@@ -484,8 +484,8 @@ canvas {
             <button id="DeseoSupremoButton" class="button--final-action" style="display: none;">🏆 Top Deseos Supremos</button>
             <button id="shareWhatsappButton" class="button--final-action" style="display: none;">📲 Compartir</button>
             <button id="openSurveyButton" class="button--final-action" style="display: none;">🧪 Dar tu opinión</button>
-            <button id="invokeAgainButton" class="button--final-action">🔁 Volver a invocar</button>
             <button id="Regresar4Button" class="button--final-action">🔮 Mi deseo</button>
+            <button id="invokeAgainButton" class="button--final-action">🔁 Volver a invocar</button>
         </div>
     </div>
 
@@ -503,16 +503,11 @@ canvas {
     <div id="popup-VotarDeseo" class="popup-overlay">
         <div class="popup-container">
             <h3 class="final-message-title">¡ Votar por un Deseo Supremo !</h3>
-            <div class="donation-section">
-                <select id="selectDeseo">
-                  <option value="">Cargando deseos...</option>
-                </select>
-                <p class="donation-text">Ingresa a Yape para enviar S/1<br>y vota por tu Deseo Supremo favorito!</p>
-                <img src="QR.jpg" alt="QR de Yape" class="qr-yape">
-                <p class="donation-text" style="font-size: 14px; color: #ccc;">
-                  ✨ Los votos pasan por una validación sagrada antes de aparecer públicamente
-                </p>
-            </div>
+              <div id="countdown">Cambiando en: 10 segundos</div>
+              <form id="votacionDeseos">
+                <div id="contenedor-deseos"></div>
+                <button type="submit" id="votarBtn">Votar por este deseo</button>
+              </form>
             <button id="Regresar2Button" class="button--final-action">Regresar</button>
             
         </div>
@@ -921,7 +916,80 @@ function verTopDeseos() {
   // window.location.href = "#ranking";
 }
 
+  const deseosSupremos = [
+      { id: 1, nombre: "ElMístico99", texto: "Paz eterna en el universo dsjd fkdsof dfu4 dmnfd jdnf dskmfshdf dsf iodsn fmidsn ds fisdmi sdj fybdsjkfsd uhjfdf 🌌" },
+      { id: 2, nombre: "SayajinAzul", texto: "Convertirme en el ser más fuerte 🔥" },
+      { id: 3, nombre: "NiñoDragón", texto: "Tener un dragón de mascota 🐉" },
+      { id: 4, nombre: "LuzInterior", texto: "Sanar todos los corazones rotos 💔" },
+      { id: 5, nombre: "DamaOculta", texto: "Ver el futuro por un día 🔮" },
+      { id: 6, nombre: "ReyCósmico", texto: "Dominar el arte de la teletransportación 🚀" },
+      { id: 7, nombre: "BrujoEstelar", texto: "Leer todos los pensamientos 👁️‍🗨️" },
+      { id: 8, nombre: "EcoEterno", texto: "Detener el tiempo por 5 minutos ⏳" },
+    ];
 
+    const contenedor = document.getElementById('contenedor-deseos');
+    const countdown = document.getElementById('countdown');
+    const form = document.getElementById('votacionDeseos');
+    let tiempo = 10;
+    let intervalo;
+
+    function obtener3Aleatorios() {
+      const copia = [...deseosSupremos];
+      const elegidos = [];
+
+      for (let i = 0; i < 3 && copia.length > 0; i++) {
+        const index = Math.floor(Math.random() * copia.length);
+        elegidos.push(copia.splice(index, 1)[0]);
+      }
+
+      return elegidos;
+    }
+
+    function mostrarDeseos() {
+      const deseos = obtener3Aleatorios();
+      contenedor.innerHTML = deseos.map(d =>
+        `<label class="deseo">
+          <div class="radio-container">
+            <input type="radio" name="deseoSeleccionado" value="${d.id}">
+          </div>
+          <div class="texto-nombre">
+            <div class="texto">“${d.texto}”</div>
+            <div class="nombre">– ${d.nombre}</div>
+          </div>
+        </label>`
+      ).join('');
+    }
+
+    function iniciarTemporizador() {
+      tiempo = 10;
+      countdown.textContent = `Cambiando en: ${tiempo} segundos`;
+
+      clearInterval(intervalo);
+      intervalo = setInterval(() => {
+        tiempo--;
+        countdown.textContent = `Cambiando en: ${tiempo} segundos`;
+        if (tiempo <= 0) {
+          mostrarDeseos();
+          iniciarTemporizador();
+        }
+      }, 1000);
+    }
+
+    // Evento al votar
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const seleccionado = form.deseoSeleccionado.value;
+      if (seleccionado) {
+        alert(`🌟 Has votado por el deseo #${seleccionado}. Gracias por tu energía mística.`);
+        // Aquí podrías enviar el ID del deseo a Google Sheets o a un backend
+      } else {
+        alert("Por favor, selecciona un deseo antes de votar.");
+      }
+    });
+
+    // Inicialización
+    mostrarDeseos();
+    iniciarTemporizador();
         
 </script>
 </body>
