@@ -481,10 +481,11 @@ canvas {
               </ul>
             <p class="nota-mistica">✨ Vota por el deseo que sientas más fuerte, o sube el tuyo para aparecer aquí...</p>
             <button id="VotarDeseoButton" class="button--final-action">🗳️ Votar por un Deseo Supremo</button>
-            <button id="DeseoSupremoButton" class="button--final-action">🏆 Top Deseos Supremos</button>
-            <button id="shareWhatsappButton" class="button--final-action">📲 Compartir</button>
+            <button id="DeseoSupremoButton" class="button--final-action" style="display: none;">🏆 Top Deseos Supremos</button>
+            <button id="shareWhatsappButton" class="button--final-action" style="display: none;">📲 Compartir</button>
             <button id="openSurveyButton" class="button--final-action" style="display: none;">🧪 Dar tu opinión</button>
             <button id="invokeAgainButton" class="button--final-action">🔁 Volver a invocar</button>
+            <button id="Regresar4Button" class="button--final-action">🔮 Mi deseo</button>
         </div>
     </div>
 
@@ -570,7 +571,8 @@ const VotarDeseoButton = document.getElementById("VotarDeseoButton");
 const SubirDeseoButton = document.getElementById("SubirDeseoButton");
 const RegresarButton = document.getElementById("RegresarButton");
 const Regresar2Button = document.getElementById("Regresar2Button");   
-const Regresar3Button = document.getElementById("Regresar3Button");             
+const Regresar3Button = document.getElementById("Regresar3Button");        
+const Regresar4Button = document.getElementById("Regresar4Button");   
 
 // Audio
 const sphere7Audio = new Audio('quienmehallamado.mp3');
@@ -884,7 +886,10 @@ Regresar3Button.addEventListener("click", () => {
     closePopup(popupSubirDeseo);
     openPopup(popupDeseoSupremo);
 });
-
+Regresar4Button.addEventListener("click", () => {
+    closePopup(popupFinal);
+    openPopup(popupShenlongReply);
+});
         
 // Close popups with ESC key
 document.addEventListener('keydown', function(event) {
