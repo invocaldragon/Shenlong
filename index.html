@@ -928,7 +928,7 @@ function verTopDeseos() {
     ];
 
     const contenedor = document.getElementById('contenedor-deseos');
-    const countdown = document.getElementById('countdown');
+    const countdown2 = document.getElementById('countdown2');
     const form = document.getElementById('votacionDeseos');
     let tiempo = 10;
     let intervalo;
@@ -962,12 +962,12 @@ function verTopDeseos() {
 
     function iniciarTemporizador() {
       tiempo = 10;
-      countdown.textContent = `Cambiando en: ${tiempo} segundos`;
+      countdown2.textContent = `Cambiando en: ${tiempo} segundos`;
 
       clearInterval(intervalo);
       intervalo = setInterval(() => {
         tiempo--;
-        countdown.textContent = `Cambiando en: ${tiempo} segundos`;
+        countdown2.textContent = `Cambiando en: ${tiempo} segundos`;
         if (tiempo <= 0) {
           mostrarDeseos();
           iniciarTemporizador();
