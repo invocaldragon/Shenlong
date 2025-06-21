@@ -488,7 +488,7 @@ canvas {
 // Constants
 const SPHERE_RADIUS = 30;
 const MARGIN = 2;
-const GOOGLE_SHEETS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwI5oJA0dVQ3enqujA5TGHioykmeG02fMONhjEqAqnZFdJ7uf5CDil6PZqUKF7uUuO2/exec';
+const GOOGLE_SHEETS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby9k8aDRDRAuiTb4IpvLvG4elOTDkvRVnSO_PIcyZZzhZPmGqoP2zLGkC2Xd3M5xIi9/exec';
 
 // DOM Elements
 const gameCanvas = document.getElementById("gameCanvas");
@@ -831,75 +831,119 @@ function verTopDeseos() {
   }
 }
 
-const deseosSupremos = [
-    { id: 1, nombre: "ElMístico99", texto: "Paz eterna en el universo 🌌" },
-    { id: 2, nombre: "SayajinAzul", texto: "Convertirme en el ser más fuerte 🔥" },
-    { id: 3, nombre: "NiñoDragón", texto: "Tener un dragón de mascota 🐉" },
-    { id: 4, nombre: "LuzInterior", texto: "Sanar todos los corazones rotos 💔" },
-    { id: 5, nombre: "DamaOculta", texto: "Ver el futuro por un día 🔮" },
-    { id: 6, nombre: "ReyCósmico", texto: "Dominar el arte de la teletransportación 🚀" },
-    { id: 7, nombre: "BrujoEstelar", texto: "Leer todos los pensamientos 👁️‍🗨️" },
-    { id: 8, nombre: "EcoEterno", texto: "Detener el tiempo por 5 minutos ⏳" },
-];
+// --- Lógica para la Votación de Deseos Supremos ---
 
-const contenedor = document.getElementById('contenedor-deseos');
-const countdown2 = document.getElementById('countdown2');
-const form = document.getElementById('votacionDeseos');
-let tiempo = 10;
-let intervalo;
+// Referencias a los elementos del DOM para la votación
+const contenedorDeseos = document.getElementById('contenedor-deseos');
+const countdownVotacion = document.getElementById('countdown2');
+const formVotacion = document.getElementById('votacionDeseos');
 
-function obtener3Aleatorios() {
-  const copia = [...deseosSupremos];
-  const elegidos = [];
-  for (let i = 0; i < 3 && copia.length > 0; i++) {
-    const index = Math.floor(Math.random() * copia.length);
-    elegidos.push(copia.splice(index, 1)[0]);
+let intervaloVotacion;
+let listaCompletaDeseos = []; // Almacenará los deseos cargados desde la hoja
+
+/**
+ * Función principal para cargar los deseos desde Google Sheets.
+ */
+async function cargarDeseosSupremos() {
+  try {
+    // Hacemos una petición GET a la URL de nuestro script.
+    // fetch() por defecto usa el método GET, así que activará la función doGet.
+    const response = await fetch(GOOGLE_SHEETS_SCRIPT_URL);
+    if (!response.ok) {
+      throw new Error('Error al conectar con el Oráculo de los Deseos. Código: ' + response.status);
+    }
+    
+    const deseos = await response.json();
+    
+    if (deseos.result === 'error') {
+        throw new Error(deseos.error);
+    }
+
+    listaCompletaDeseos = deseos; // Guardamos la lista completa
+    
+    // Si se cargan deseos, iniciamos el proceso de votación.
+    if (listaCompletaDeseos.length > 0) {
+      iniciarCicloDeVotacion();
+    } else {
+      contenedorDeseos.innerHTML = "<p>El Oráculo está en silencio... No hay deseos supremos para votar en este momento.</p>";
+    }
+
+  } catch (error) {
+    console.error("Error al cargar los Deseos Supremos:", error);
+    contenedorDeseos.innerHTML = `<p>Hubo un problema al contactar al Oráculo. Inténtalo de nuevo más tarde.</p>`;
   }
-  return elegidos;
 }
 
-function mostrarDeseos() {
-  const deseos = obtener3Aleatorios();
-  contenedor.innerHTML = deseos.map(d =>
-    `<label class="deseo">
-      <div class="radio-container">
-        <input type="radio" name="deseoSeleccionado" value="${d.id}">
-      </div>
-      <div class="texto-nombre">
-        <div class="texto">“${d.texto}”</div>
-        <div class="nombre">– ${d.nombre}</div>
-      </div>
-    </label>`
-  ).join('');
-}
+/**
+ * Inicia y reinicia el temporizador y la muestra de deseos.
+ */
+function iniciarCicloDeVotacion() {
+  mostrarNuevosDeseos(); // Muestra el primer set de deseos
+  
+  let tiempo = 10;
+  countdownVotacion.textContent = `Cambiando en: ${tiempo} segundos`;
 
-function iniciarTemporizador() {
-  tiempo = 10;
-  countdown2.textContent = `Cambiando en: ${tiempo} segundos`;
-  clearInterval(intervalo);
-  intervalo = setInterval(() => {
+  clearInterval(intervaloVotacion); // Limpia cualquier temporizador anterior
+  intervaloVotacion = setInterval(() => {
     tiempo--;
-    countdown2.textContent = `Cambiando en: ${tiempo} segundos`;
+    countdownVotacion.textContent = `Cambiando en: ${tiempo} segundos`;
     if (tiempo <= 0) {
-      mostrarDeseos();
-      iniciarTemporizador();
+      tiempo = 10; // Reinicia el contador
+      mostrarNuevosDeseos(); // Muestra nuevos deseos
     }
   }, 1000);
 }
 
-form.addEventListener('submit', function (e) {
+/**
+ * Selecciona 3 deseos aleatorios de la lista completa y los muestra.
+ */
+function mostrarNuevosDeseos() {
+  const copiaDeseos = [...listaCompletaDeseos];
+  const elegidos = [];
+
+  // Elige hasta 3 deseos aleatorios
+  const cantidadAMostrar = Math.min(3, copiaDeseos.length);
+
+  for (let i = 0; i < cantidadAMostrar; i++) {
+    const index = Math.floor(Math.random() * copiaDeseos.length);
+    elegidos.push(copiaDeseos.splice(index, 1)[0]);
+  }
+
+  // Genera el HTML para los deseos elegidos
+  if (elegidos.length > 0) {
+    contenedorDeseos.innerHTML = elegidos.map(d =>
+      `<label class="deseo">
+        <div class="radio-container">
+          <input type="radio" name="deseoSeleccionado" value="${d.id}">
+        </div>
+        <div class="texto-nombre">
+          <div class="texto">“${d.texto}”</div>
+          <div class="nombre">– ${d.nombre}</div>
+        </div>
+      </label>`
+    ).join('');
+  } else if (listaCompletaDeseos.length > 0) {
+      // Si hay deseos pero no se pudieron elegir (caso raro)
+      contenedorDeseos.innerHTML = "<p>Mezclando las energías de los deseos...</p>";
+  }
+}
+
+// Evento para manejar el envío del voto
+formVotacion.addEventListener('submit', function (e) {
   e.preventDefault();
-  const seleccionado = form.deseoSeleccionado.value;
+  const seleccionado = formVotacion.deseoSeleccionado.value;
   if (seleccionado) {
-    alert(`🌟 Has votado por el deseo #${seleccionado}. Gracias por tu energía mística.`);
+    alert(`🌟 Has votado por el deseo #${seleccionado}. ¡Gracias por tu energía mística!`);
+    // Aquí podrías añadir una llamada a `doPost` para registrar el voto si quisieras.
   } else {
     alert("Por favor, selecciona un deseo antes de votar.");
   }
 });
 
-mostrarDeseos();
-iniciarTemporizador();
-
+// --- INICIALIZACIÓN ---
+// En lugar de llamar a las funciones directamente, llamamos a la función que carga los datos.
+cargarDeseosSupremos();
+        
 </script>
 </body>
 </html>
