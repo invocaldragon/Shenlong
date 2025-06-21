@@ -883,8 +883,14 @@ Regresar3Button.addEventListener("click", () => {
     openPopup(popupFinal);
 });
 Regresar4Button.addEventListener("click", () => {
-    closePopup(popupFinal);
-    openPopup(popupShenlongReply);
+    // Si el usuario no ha escrito un deseo
+    if (!userWish || userWish.trim() === "") {
+        location.reload(); // Reinicia la experiencia
+    } else {
+        // Si sí ha escrito un deseo, muestra la respuesta de Shenlong
+        closePopup(popupFinal);
+        openPopup(popupShenlongReply);
+    }
 });
         
 // Close popups with ESC key
