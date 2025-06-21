@@ -911,11 +911,21 @@ function startGame() {
 }
 
 function verTopDeseos() {
-  // Aquí puedes abrir un popup, navegar a una sección o mostrar un modal
-  alert("Aquí se mostraría el ranking de los Deseos Supremos 🔮");
-  // Ejemplo con navegación a un ID de sección:
-  // window.location.href = "#ranking";
+  // Lista de todos los popups que podrían estar abiertos
+  const allPopups = document.querySelectorAll('.popup-overlay');
+
+  // Cierra cualquier popup visible
+  allPopups.forEach(popup => {
+    popup.style.display = 'none';
+  });
+
+  // Abre el popup-final
+  const popupFinal = document.getElementById('popup-final');
+  if (popupFinal) {
+    popupFinal.style.display = 'flex';
+  }
 }
+
 
   const deseosSupremos = [
       { id: 1, nombre: "ElMístico99", texto: "Paz eterna en el universo dsjd fkdsof dfu4 dmnfd jdnf dskmfshdf dsf iodsn fmidsn ds fisdmi sdj fybdsjkfsd uhjfdf 🌌" },
