@@ -23,7 +23,6 @@ body, html {
     line-height: 1.6; /* Increased general line height for better readability */
     background: #000;
     color: #fff;
-    /* Removed !important - visible is often default, or you manage overflow on specific elements */
     overflow-x: hidden; /* Prevent horizontal scroll from animations */
 }
 
@@ -37,17 +36,17 @@ p { color: #fff; }
 /* Form Elements */
 input[type="text"], select, textarea {
     font-family: 'FeENrm2', cursive;
-    line-height: 1.6; /* Increased general line height for better readability */
+    line-height: 1.6;
     padding: 10px 10px;
     width: 90%;
     border-radius: 6px;
     margin-top: 10px;
     font-size: 16px;
-    border: 1px solid #00ff88; /* Added a subtle border */
-    background-color: #0a0a0a; /* Darker background for inputs */
+    border: 1px solid #00ff88;
+    background-color: #0a0a0a;
     color: #fff;
 }
-textarea::placeholder {
+textarea::placeholder, input::placeholder {
     color: rgba(255, 255, 255, 0.7);
 }
 
@@ -62,9 +61,9 @@ button {
     border-radius: 6px;
     transition: 0.3s ease;
     font-family: 'FeENrm2', cursive;
-    margin-top: 15px; /* General button margin-top */
-    margin-bottom: 10px; /* General button margin-top */
-    min-height: 45px; /* Esto asegura que el botón tenga al menos 50px de alto */
+    margin-top: 15px;
+    margin-bottom: 10px;
+    min-height: 45px;
 }
 
 button:hover {
@@ -81,7 +80,7 @@ button:hover {
     margin-bottom: 20px;
 }
 
-.container--game-section { /* Specific class for the game section container */
+.container--game-section {
     background-color: transparent;
     box-shadow: none;
 }
@@ -128,8 +127,8 @@ canvas {
     border-radius: 12px;
     text-align: center;
     max-width: 400px;
-    width: 90%; /* Responsive width */
-    margin: 0 auto; /* Center with auto margins for non-flex container */
+    width: 90%;
+    margin: 0 auto;
 }
 
 /* Animations */
@@ -185,9 +184,9 @@ canvas {
 
 /* Specific Button Styles */
 .button--final-action {
-    margin-bottom: 10px; /* Space between final action buttons */
-    width: 90%; /* Make buttons full width in final popup */
-    max-width: 300px; /* Limit max width */
+    margin-bottom: 10px;
+    width: 90%;
+    max-width: 300px;
 }
 
 /* Other Specific Styles */
@@ -195,10 +194,7 @@ canvas {
     color: #ffcc00;
 }
 
-.instructions {
-    /* margin: 20px;
-    font-size: 16px; */
-}
+.instructions { }
 
 .countdown {
     font-size: 24px;
@@ -216,7 +212,7 @@ canvas {
 }
 
 .donation-text {
-    font-size: 0.8em; /* Slightly larger for readability */
+    font-size: 0.8em;
 }
 
 /* Keyframes */
@@ -236,8 +232,8 @@ canvas {
 
 .speed-selection-container {
   display: flex;
-  justify-content: center; /* Centra horizontalmente */
-  align-items: center;     /* Centra verticalmente */
+  justify-content: center;
+  align-items: center;
   gap: 5px;
   flex-wrap: nowrap;
   margin-bottom: 20px;
@@ -248,7 +244,6 @@ canvas {
   .speed-controls {
     flex: 1 1 100%;
   }
-
 
 .speed-controls label {
   display: flex;
@@ -315,49 +310,47 @@ canvas {
   text-align: center;
 }
 
+.deseo {
+  background: linear-gradient(135deg, #1e1e1e, #2e2e2e);
+  border: 1px solid #444;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 10px auto;
+  max-width: 500px;
+  box-shadow: 0 0 10px #00ff88;
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
-    .deseo {
-      background: linear-gradient(135deg, #1e1e1e, #2e2e2e);
-      border: 1px solid #444;
-      border-radius: 10px;
-      padding: 15px;
-      margin: 10px auto;
-      max-width: 500px;
-      box-shadow: 0 0 10px #00ff88;
-      transition: all 0.3s ease-in-out;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+.deseo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  justify-content: flex-start;
+  padding: 15px;
+}
 
-    .deseo {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      justify-content: flex-start;
-      padding: 15px;
-    }
+.texto-nombre {
+  text-align: left;
+  max-width: 80%;
+}
 
+.nombre {
+  font-size: 13px;
+  color: #ffcc00;
+}
 
-    .texto-nombre {
-      text-align: left;
-      max-width: 80%;
-    }
+.texto {
+  font-size: 15px;
+}
 
-    .nombre {
-      font-size: 13px;
-      color: #ffcc00;
-    }
-
-    .texto {
-      font-size: 15px;
-    }
-
-    .radio-container {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+.radio-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
 </style>
 </head>
@@ -412,9 +405,12 @@ canvas {
             <img src="Invocacion2.gif" alt="Invocación Shenlong" class="shenlong-gif">
             <div id="countdown">25</div>
             <h4>Sal de ahi Shenlong y concedeme mi deseo</h4>
+
+            <input type="text" id="userAliasInput" placeholder="Tu alias místico..." aria-label="Escribe tu alias místico">
+            
             <textarea id="userWishInput" class="campo-deseo" rows="2" placeholder="Escribe tu deseo aquí..." aria-label="Escribe tu deseo"></textarea>
-            <br><br>
-            <button id="submitWishButton">Pedir Deseo</button><br><br>
+            
+            <button id="submitWishButton">Pedir Deseo</button>
         </div>
     </div>
 
@@ -471,7 +467,7 @@ canvas {
     </div>
 
 
-        <div id="popup-SubirDeseo" class="popup-overlay">
+    <div id="popup-SubirDeseo" class="popup-overlay">
         <div class="popup-container">
             <h3 class="final-message-title">¡ Subir mi Deseo Supremo !</h3>
             <div class="donation-section">
@@ -500,6 +496,7 @@ const ctx = gameCanvas.getContext("2d");
 const instructionsElement = document.getElementById("instructions");
 const countdownElement = document.getElementById("countdown");
 const userWishInput = document.getElementById("userWishInput");
+const userAliasInput = document.getElementById("userAliasInput"); // AÑADIDO: Referencia al campo de alias
 const fullPhraseText = document.getElementById("fullPhraseText");
 
 // Popups
@@ -533,6 +530,7 @@ let currentStep = 1;
 let spheres = [];
 let countdownInterval;
 let userWish = "";
+let userAlias = ""; // AÑADIDO: Variable para guardar el alias
 
 // Image Preloading
 const images = [];
@@ -568,35 +566,21 @@ class DragonBall {
         const topLimit = this.radius + MARGIN;
         const bottomLimit = gameCanvas.height - this.radius - MARGIN;
 
-        if (this.x < leftLimit) {
-            this.x = leftLimit;
-            this.vx *= -1;
-        }
-        if (this.x > rightLimit) {
-            this.x = rightLimit;
-            this.vx *= -1;
-        }
-        if (this.y < topLimit) {
-            this.y = topLimit;
-            this.vy *= -1;
-        }
-        if (this.y > bottomLimit) {
-            this.y = bottomLimit;
-            this.vy *= -1;
-        }
+        if (this.x < leftLimit) { this.x = leftLimit; this.vx *= -1; }
+        if (this.x > rightLimit) { this.x = rightLimit; this.vx *= -1; }
+        if (this.y < topLimit) { this.y = topLimit; this.vy *= -1; }
+        if (this.y > bottomLimit) { this.y = bottomLimit; this.vy *= -1; }
     }
 
     draw() {
         if (this.found) {
             ctx.save();
-            ctx.shadowColor = '#ffff00'; // Color de resplandor (amarillo brillante)
+            ctx.shadowColor = '#ffff00';
             ctx.shadowBlur = 30;
         }
-
         ctx.drawImage(this.image, this.x - this.radius, this.y - this.radius, this.radius * 2, this.radius * 2);
-
         if (this.found) {
-            ctx.restore(); // Restaurar contexto sin sombra
+            ctx.restore();
         }
     }
 
@@ -614,11 +598,8 @@ function generateSpheres() {
             x = Math.random() * (gameCanvas.width - 2 * (SPHERE_RADIUS + MARGIN)) + (SPHERE_RADIUS + MARGIN);
             y = Math.random() * (gameCanvas.height - 2 * (SPHERE_RADIUS + MARGIN)) + (SPHERE_RADIUS + MARGIN);
             valid = true;
-            // Check for overlap with existing spheres
             for (const s of newSpheres) {
-                const dx = s.x - x;
-                const dy = s.y - y;
-                if (Math.hypot(dx, dy) < SPHERE_RADIUS * 2 + 4) { // Add a small buffer (4)
+                if (Math.hypot(s.x - x, s.y - y) < SPHERE_RADIUS * 2 + 4) {
                     valid = false;
                     break;
                 }
@@ -657,9 +638,8 @@ function setSpeed(factor) {
 
 // --- Popup Management ---
 function openPopup(popupElement) {
-    // Hide all popups first to ensure only one is visible
     [popupWish, popupShenlongReply, popupFinal, popupDeseoSupremo, popupVotarDeseo, popupSubirDeseo].forEach(p => p.style.display = 'none');
-    popupElement.style.display = 'flex'; // Use flex to center
+    popupElement.style.display = 'flex';
 }
 
 function closePopup(popupElement) {
@@ -673,9 +653,7 @@ async function sendToGoogleSheets(data) {
         await fetch(GOOGLE_SHEETS_SCRIPT_URL, {
             method: "POST",
             mode: "no-cors",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
             body: params
         });
         console.log("Data sent to Google Sheets successfully (no-cors mode).");
@@ -696,8 +674,7 @@ gameCanvas.addEventListener("click", e => {
         if (!s.found && s.isInside(mx, my)) {
             if (s.number === currentStep) {
                 s.found = true;
-                s.vx = 0; // Stop the sphere
-                s.vy = 0;
+                s.vx = 0; s.vy = 0;
                 currentStep++;
                 instructionsElement.textContent = `¡Correcto! Ahora busca la esfera de ${currentStep} estrellas`;
 
@@ -714,32 +691,42 @@ gameCanvas.addEventListener("click", e => {
                         if (countdownValue <= 0) {
                             clearInterval(countdownInterval);
                             closePopup(popupWish);
-                            location.reload(); // Full reload if time runs out
+                            location.reload();
                         }
                     }, 1000);
                 }
             } else {
                 instructionsElement.textContent = `Esa no es. Busca la esfera de ${currentStep} estrellas`;
             }
-            break; // Stop checking after finding a clicked sphere
+            break;
         }
     }
 });
 
 // Submit Wish Button
 submitWishButton.addEventListener('click', () => {
+    // AÑADIDO: Captura y validación del alias
+    const alias = userAliasInput.value.trim();
     const wish = userWishInput.value.trim();
+    
+    if (!alias) {
+        alert("No olvides tu alias místico.");
+        return;
+    }
     if (!wish) {
         alert("Debes escribir tu deseo, mortal.");
         return;
     }
 
-    userWish = wish; // Store the wish
-    sendToGoogleSheets({ deseo: userWish });
+    userAlias = alias; // Guarda el alias
+    userWish = wish; // Guarda el deseo
+    
+    // AÑADIDO: Envío del alias junto con el deseo
+    sendToGoogleSheets({ alias: userAlias, deseo: userWish });
 
     closePopup(popupWish);
-    clearInterval(countdownInterval); // Stop the countdown
-    sphere7Audio.pause(); // Pause the previous audio
+    clearInterval(countdownInterval);
+    sphere7Audio.pause();
     sphere8Audio.play().catch(err => console.error("Error playing audio:", err));
     fullPhraseText.innerHTML = `<em>“${userWish}”</em><br><br><hr class="linea-divisoria" /><br><p style="font-size: 14px; margin-top: -5px;">¿Quieres volver este deseo un Deseo Supremo y competir en el Top semanal de los más poderosos?</p>`;
     openPopup(popupShenlongReply);
@@ -755,27 +742,28 @@ continueToFormButton.addEventListener('click', () => {
 shareWhatsappButton.addEventListener('click', () => {
     const mensaje = "*Acabo de pedirle un deseo a Shenlong 🐉👇*\nhttps://invocaldragon.github.io/Shenlong\n\n*¡Apresúrate!*\nQuizá te comparta un poco de mi suerte🍀";
     const whatsappURL = "https://wa.me/?text=" + encodeURIComponent(mensaje);
-    window.open(whatsappURL, "_blank"); // Open in new tab
+    window.open(whatsappURL, "_blank");
 });
 
 // Invoke Again Button
 invokeAgainButton.addEventListener('click', () => {
-    userWish = ""; // Reset wish
-    userWishInput.value = ""; // Clear input field
-    // Hide all popups, then fully reload the page to restart the game
+    userWish = ""; 
+    userAlias = ""; // AÑADIDO: Resetea el alias
+    userWishInput.value = "";
+    userAliasInput.value = ""; // AÑADIDO: Limpia el campo de alias
+    
     [popupWish, popupShenlongReply, popupFinal, popupDeseoSupremo, popupVotarDeseo, popupSubirDeseo].forEach(p => p.style.display = 'none');
     location.reload();
 });
 
-// Ajustar el tamaño real del canvas en relación al tamaño en pantalla
 function resizeCanvas() {
     const rect = gameCanvas.getBoundingClientRect();
     gameCanvas.width = rect.width;
     gameCanvas.height = rect.height;
 }
 
-resizeCanvas(); // Llamada inicial
-window.addEventListener("resize", resizeCanvas); // Reajusta si cambia el tamaño de ventana
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
 
 DeseoSupremoButton.addEventListener("click", () => {
     closePopup(popupFinal);
@@ -805,130 +793,112 @@ Regresar3Button.addEventListener("click", () => {
     openPopup(popupFinal);
 });
 Regresar4Button.addEventListener("click", () => {
-    // Si el usuario no ha escrito un deseo
     if (!userWish || userWish.trim() === "") {
-        location.reload(); // Reinicia la experiencia
+        location.reload();
     } else {
-        // Si sí ha escrito un deseo, muestra la respuesta de Shenlong
         closePopup(popupFinal);
         openPopup(popupShenlongReply);
     }
 });
 
-// Close popups with ESC key
 document.addEventListener('keydown', function(event) {
     if (event.key === "Escape") {
-        // Find the currently visible popup and close it
         const visiblePopup = [popupWish, popupShenlongReply, popupFinal, popupDeseoSupremo, popupVotarDeseo, popupSubirDeseo].find(p => p.style.display === 'flex');
         if (visiblePopup) {
             closePopup(visiblePopup);
-            clearInterval(countdownInterval); // Stop countdown if active popup is wish input
+            clearInterval(countdownInterval);
         }
     }
 });
 
-// --- Initialization ---
-// Ensure all images are loaded before starting the game
 Promise.all(images.map(img => new Promise(res => img.onload = res)))
     .then(startGame)
     .catch(err => console.error("Failed to load one or more sphere images:", err));
 
 function startGame() {
-    resetGame(); // Initialize spheres and game state
-    drawAll(); // Start the animation loop
+    resetGame();
+    drawAll();
 }
 
 function verTopDeseos() {
-  // Lista de todos los popups que podrían estar abiertos
   const allPopups = document.querySelectorAll('.popup-overlay');
-
-  // Cierra cualquier popup visible
   allPopups.forEach(popup => {
     popup.style.display = 'none';
   });
-
-  // Abre el popup-final
   const popupFinal = document.getElementById('popup-final');
   if (popupFinal) {
     popupFinal.style.display = 'flex';
   }
 }
 
+const deseosSupremos = [
+    { id: 1, nombre: "ElMístico99", texto: "Paz eterna en el universo 🌌" },
+    { id: 2, nombre: "SayajinAzul", texto: "Convertirme en el ser más fuerte 🔥" },
+    { id: 3, nombre: "NiñoDragón", texto: "Tener un dragón de mascota 🐉" },
+    { id: 4, nombre: "LuzInterior", texto: "Sanar todos los corazones rotos 💔" },
+    { id: 5, nombre: "DamaOculta", texto: "Ver el futuro por un día 🔮" },
+    { id: 6, nombre: "ReyCósmico", texto: "Dominar el arte de la teletransportación 🚀" },
+    { id: 7, nombre: "BrujoEstelar", texto: "Leer todos los pensamientos 👁️‍🗨️" },
+    { id: 8, nombre: "EcoEterno", texto: "Detener el tiempo por 5 minutos ⏳" },
+];
 
-  const deseosSupremos = [
-      { id: 1, nombre: "ElMístico99", texto: "Paz eterna en el universo 🌌" },
-      { id: 2, nombre: "SayajinAzul", texto: "Convertirme en el ser más fuerte 🔥" },
-      { id: 3, nombre: "NiñoDragón", texto: "Tener un dragón de mascota 🐉" },
-      { id: 4, nombre: "LuzInterior", texto: "Sanar todos los corazones rotos 💔" },
-      { id: 5, nombre: "DamaOculta", texto: "Ver el futuro por un día 🔮" },
-      { id: 6, nombre: "ReyCósmico", texto: "Dominar el arte de la teletransportación 🚀" },
-      { id: 7, nombre: "BrujoEstelar", texto: "Leer todos los pensamientos 👁️‍🗨️" },
-      { id: 8, nombre: "EcoEterno", texto: "Detener el tiempo por 5 minutos ⏳" },
-    ];
+const contenedor = document.getElementById('contenedor-deseos');
+const countdown2 = document.getElementById('countdown2');
+const form = document.getElementById('votacionDeseos');
+let tiempo = 10;
+let intervalo;
 
-    const contenedor = document.getElementById('contenedor-deseos');
-    const countdown2 = document.getElementById('countdown2');
-    const form = document.getElementById('votacionDeseos');
-    let tiempo = 10;
-    let intervalo;
+function obtener3Aleatorios() {
+  const copia = [...deseosSupremos];
+  const elegidos = [];
+  for (let i = 0; i < 3 && copia.length > 0; i++) {
+    const index = Math.floor(Math.random() * copia.length);
+    elegidos.push(copia.splice(index, 1)[0]);
+  }
+  return elegidos;
+}
 
-    function obtener3Aleatorios() {
-      const copia = [...deseosSupremos];
-      const elegidos = [];
+function mostrarDeseos() {
+  const deseos = obtener3Aleatorios();
+  contenedor.innerHTML = deseos.map(d =>
+    `<label class="deseo">
+      <div class="radio-container">
+        <input type="radio" name="deseoSeleccionado" value="${d.id}">
+      </div>
+      <div class="texto-nombre">
+        <div class="texto">“${d.texto}”</div>
+        <div class="nombre">– ${d.nombre}</div>
+      </div>
+    </label>`
+  ).join('');
+}
 
-      for (let i = 0; i < 3 && copia.length > 0; i++) {
-        const index = Math.floor(Math.random() * copia.length);
-        elegidos.push(copia.splice(index, 1)[0]);
-      }
-
-      return elegidos;
+function iniciarTemporizador() {
+  tiempo = 10;
+  countdown2.textContent = `Cambiando en: ${tiempo} segundos`;
+  clearInterval(intervalo);
+  intervalo = setInterval(() => {
+    tiempo--;
+    countdown2.textContent = `Cambiando en: ${tiempo} segundos`;
+    if (tiempo <= 0) {
+      mostrarDeseos();
+      iniciarTemporizador();
     }
+  }, 1000);
+}
 
-    function mostrarDeseos() {
-      const deseos = obtener3Aleatorios();
-      contenedor.innerHTML = deseos.map(d =>
-        `<label class="deseo">
-          <div class="radio-container">
-            <input type="radio" name="deseoSeleccionado" value="${d.id}">
-          </div>
-          <div class="texto-nombre">
-            <div class="texto">“${d.texto}”</div>
-            <div class="nombre">– ${d.nombre}</div>
-          </div>
-        </label>`
-      ).join('');
-    }
+form.addEventListener('submit', function (e) {
+  e.preventDefault();
+  const seleccionado = form.deseoSeleccionado.value;
+  if (seleccionado) {
+    alert(`🌟 Has votado por el deseo #${seleccionado}. Gracias por tu energía mística.`);
+  } else {
+    alert("Por favor, selecciona un deseo antes de votar.");
+  }
+});
 
-    function iniciarTemporizador() {
-      tiempo = 10;
-      countdown2.textContent = `Cambiando en: ${tiempo} segundos`;
-
-      clearInterval(intervalo);
-      intervalo = setInterval(() => {
-        tiempo--;
-        countdown2.textContent = `Cambiando en: ${tiempo} segundos`;
-        if (tiempo <= 0) {
-          mostrarDeseos();
-          iniciarTemporizador();
-        }
-      }, 1000);
-    }
-
-    // Evento al votar
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      const seleccionado = form.deseoSeleccionado.value;
-      if (seleccionado) {
-        alert(`🌟 Has votado por el deseo #${seleccionado}. Gracias por tu energía mística.`);
-        // Aquí podrías enviar el ID del deseo a Google Sheets o a un backend
-      } else {
-        alert("Por favor, selecciona un deseo antes de votar.");
-      }
-    });
-
-    // Inicialización
-    mostrarDeseos();
-    iniciarTemporizador();
+mostrarDeseos();
+iniciarTemporizador();
 
 </script>
 </body>
