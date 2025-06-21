@@ -34,9 +34,6 @@ h4 { color: #00ff88; font-size: 18px; margin-bottom: 10px; }
 h5 { color: #ffffff; font-size: 18px; margin-bottom: 10px; }
 p { color: #fff; }
 
-
-
-        
 /* Form Elements */
 input[type="text"], select, textarea {
     font-family: 'FeENrm2', cursive;
@@ -65,10 +62,9 @@ button {
     border-radius: 6px;
     transition: 0.3s ease;
     font-family: 'FeENrm2', cursive;
-/*    line-height: 1; /* Increased general line height for better readability */
     margin-top: 15px; /* General button margin-top */
     margin-bottom: 10px; /* General button margin-top */
-    min-height: 45px; /* Esto asegura que el botón tenga al menos 50px de alto */    
+    min-height: 45px; /* Esto asegura que el botón tenga al menos 50px de alto */
 }
 
 button:hover {
@@ -83,7 +79,6 @@ button:hover {
     max-width: 100%;
     padding: 20px;
     margin-bottom: 20px;
-    /* Removed old background-color and box-shadow that were overridden by inline style */
 }
 
 .container--game-section { /* Specific class for the game section container */
@@ -104,8 +99,6 @@ button:hover {
 /* Game Canvas */
 canvas {
     width: 100%;
-    /* max-width: 400px; /* o el máximo que desees */
-    /* aspect-ratio: 3 / 5; /* Mantiene proporción tipo 300x500 */
     height: 600px;
     display: block;
     margin: 0 auto;
@@ -122,9 +115,9 @@ canvas {
     width: 100%; height: 100%;
     background: rgba(0,0,0,0.8);
     z-index: 999;
-    display: none; /* <--- KEEP ONLY THIS LINE FOR HIDING BY DEFAULT */
-    align-items: center; /* These are fine, they only apply when display is not 'none' */
-    justify-content: center; /* These are fine, they only apply when display is not 'none' */
+    display: none;
+    align-items: center;
+    justify-content: center;
 }
 
 .popup-container {
@@ -164,7 +157,7 @@ canvas {
     }
 }
 
-.shenlong-static { /* Renamed for clarity, original was 'shenlong' */
+.shenlong-static {
     max-width: 80%;
     height: auto;
     margin-top: 30px;
@@ -190,31 +183,7 @@ canvas {
     animation: aparecer 2s ease-out forwards, resplandor-mistico 1s infinite ease-in-out;
 }
 
-/* Form Specific Styles */
-.form-question {
-    margin-top: 20px;
-    margin-bottom: 10px;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 10px; /* Consistent gap for radio buttons */
-    margin-bottom: 15px; /* Spacing between form groups */
-}
-
-.form-group label {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #fff; /* Ensure label text is white */
-}
-
 /* Specific Button Styles */
-.button--submit-form {
-    margin-top: 20px;
-}
-
 .button--final-action {
     margin-bottom: 10px; /* Space between final action buttons */
     width: 90%; /* Make buttons full width in final popup */
@@ -228,7 +197,7 @@ canvas {
 
 .instructions {
     /* margin: 20px;
-    font-size: 16px;
+    font-size: 16px; */
 }
 
 .countdown {
@@ -250,7 +219,7 @@ canvas {
     font-size: 0.8em; /* Slightly larger for readability */
 }
 
-/* Keyframes (appears to be for .shenlong-gif and .shenlong) */
+/* Keyframes */
 @keyframes aparecer {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
@@ -264,10 +233,6 @@ canvas {
         transform: translateY(-10px);
     }
 }
-
-        
-/* Unused/Removed Styles (for your reference, if you want to explicitly remove them) */
-/* .audio-card, .blur-border, .glow-box, .glow-box2, #popup-content, #wishInput */
 
 .speed-selection-container {
   display: flex;
@@ -284,12 +249,12 @@ canvas {
     flex: 1 1 100%;
   }
 
-        
+
 .speed-controls label {
   display: flex;
   align-items: center;
   gap: 10px;
-}   
+}
 
 #barra-top-supremos {
   position: fixed;
@@ -393,7 +358,7 @@ canvas {
       align-items: center;
       gap: 10px;
     }
-        
+
 </style>
 </head>
 <body>
@@ -402,11 +367,9 @@ canvas {
   🏆 Ver el Top de Deseos Supremos
 </div>
 
-
-    
     <div class="container container--game-section">
         <h2 class="title--mystic">Reúne las esferas del dragón y pide tu deseo</h2>
-        
+
 <div class="speed-selection-container">
     <div class="speed-text">
         <div class="instructions" id="instructions">
@@ -465,54 +428,6 @@ canvas {
         </div>
     </div>
 
-    <div id="popup-mystic-form" class="popup-overlay">
-        <div class="popup-container">
-            <form id="mysticForm">
-                <h4 class="form-question">¿Te gustó el ritual?✨</h4>
-                <div class="form-group">
-                    <label>
-                        <input type="radio" name="energia" value="¡Me encantó!">
-                        🤩 ¡Me encantó!
-                    </label>
-                    <label>
-                        <input type="radio" name="energia" value="Estuvo bien">
-                        🙂 Estuvo bien
-                    </label>
-                    <label>
-                        <input type="radio" name="energia" value="No mucho">
-                        😐 No mucho
-                    </label>
-                </div>
-
-                <h4 class="form-question">¿Lo compartirías?📣</h4>
-                <div class="form-group">
-                    <label>
-                        <input type="radio" name="experiencia" value="Sí">
-                        🌟 Si
-                    </label>
-                    <label>
-                        <input type="radio" name="experiencia" value="No">
-                        🤫 No
-                    </label>
-                </div>
-
-                <h4 class="form-question">¿Conocías a Shenlong?🐉</h4>
-                <div class="form-group">
-                    <label>
-                        <input type="radio" name="consentimiento" value="Si">
-                        🐲 Si
-                    </label>
-                    <label>
-                        <input type="radio" name="consentimiento" value="No">
-                        🐣 No, es mi primera vez
-                    </label>
-                </div>
-
-                <button type="submit" class="button--submit-form">Terminar y sellar</button>
-            </form>
-        </div>
-    </div>
-
     <div id="popup-final" class="popup-overlay">
         <div class="popup-container">
             <h3 class="final-message-title">🏆 Top 3 Deseos Supremos</h3><p class="nota-mistica">(Semana #23 - 9-jun al 15-jun)</p>
@@ -525,10 +440,9 @@ canvas {
             <button id="VotarDeseoButton" class="button--final-action">🗳️ Votar por un Deseo Supremo</button>
             <button id="DeseoSupremoButton" class="button--final-action" style="display: none;">🏆 Top Deseos Supremos</button>
             <button id="shareWhatsappButton" class="button--final-action" style="display: none;">📲 Compartir</button>
-            <button id="openSurveyButton" class="button--final-action" style="display: none;">🧪 Dar tu opinión</button>
             <button id="invokeAgainButton" class="button--final-action">🔁 Volver a invocar</button>
             <button id="Regresar4Button" class="button--final-action">🔮 Mi deseo</button>
-            
+
         </div>
     </div>
 
@@ -539,7 +453,7 @@ canvas {
             <button id="VotarDeseoButton" class="button--final-action">Votar por un deseo</button>
             <button id="SubirDeseo2Button" class="button--final-action">Subir mi Deseo Supremo</button>
             <button id="RegresarButton" class="button--final-action">Regresar</button>
-            
+
         </div>
     </div>
 
@@ -552,7 +466,7 @@ canvas {
                 <button type="submit" id="votarBtn">Votar por este deseo</button>
               </form>
             <button id="Regresar2Button" class="button--final-action">Regresar</button>
-            
+
         </div>
     </div>
 
@@ -568,11 +482,11 @@ canvas {
                 </p>
             </div>
             <button id="Regresar3Button" class="button--final-action">Regresar</button>
-            
+
         </div>
     </div>
 
-    
+
     <script>
 
 // Constants
@@ -591,26 +505,23 @@ const fullPhraseText = document.getElementById("fullPhraseText");
 // Popups
 const popupWish = document.getElementById("popup-wish");
 const popupShenlongReply = document.getElementById("popup-shenlong-reply");
-const popupMysticForm = document.getElementById("popup-mystic-form");
 const popupFinal = document.getElementById("popup-final");
 const popupDeseoSupremo = document.getElementById("popup-DeseoSupremo");
-const popupVotarDeseo = document.getElementById("popup-VotarDeseo");        
+const popupVotarDeseo = document.getElementById("popup-VotarDeseo");
 const popupSubirDeseo = document.getElementById("popup-SubirDeseo");
-        
+
 // Buttons
 const submitWishButton = document.getElementById("submitWishButton");
 const continueToFormButton = document.getElementById("continueToFormButton");
 const shareWhatsappButton = document.getElementById("shareWhatsappButton");
 const invokeAgainButton = document.getElementById("invokeAgainButton");
-const mysticForm = document.getElementById("mysticForm"); // Get the form itself
-const openSurveyButton = document.getElementById("openSurveyButton");
 const DeseoSupremoButton = document.getElementById("DeseoSupremoButton");
 const VotarDeseoButton = document.getElementById("VotarDeseoButton");
 const SubirDeseoButton = document.getElementById("SubirDeseoButton");
 const RegresarButton = document.getElementById("RegresarButton");
-const Regresar2Button = document.getElementById("Regresar2Button");   
-const Regresar3Button = document.getElementById("Regresar3Button");        
-const Regresar4Button = document.getElementById("Regresar4Button");   
+const Regresar2Button = document.getElementById("Regresar2Button");
+const Regresar3Button = document.getElementById("Regresar3Button");
+const Regresar4Button = document.getElementById("Regresar4Button");
 
 // Audio
 const sphere7Audio = new Audio('quienmehallamado.mp3');
@@ -675,19 +586,19 @@ class DragonBall {
         }
     }
 
-draw() {
-    if (this.found) {
-        ctx.save();
-        ctx.shadowColor = '#ffff00'; // Color de resplandor (amarillo brillante)
-        ctx.shadowBlur = 30;
-    }
+    draw() {
+        if (this.found) {
+            ctx.save();
+            ctx.shadowColor = '#ffff00'; // Color de resplandor (amarillo brillante)
+            ctx.shadowBlur = 30;
+        }
 
-    ctx.drawImage(this.image, this.x - this.radius, this.y - this.radius, this.radius * 2, this.radius * 2);
+        ctx.drawImage(this.image, this.x - this.radius, this.y - this.radius, this.radius * 2, this.radius * 2);
 
-    if (this.found) {
-        ctx.restore(); // Restaurar contexto sin sombra
+        if (this.found) {
+            ctx.restore(); // Restaurar contexto sin sombra
+        }
     }
-}
 
     isInside(mx, my) {
         return Math.hypot(mx - this.x, my - this.y) <= this.radius;
@@ -747,7 +658,7 @@ function setSpeed(factor) {
 // --- Popup Management ---
 function openPopup(popupElement) {
     // Hide all popups first to ensure only one is visible
-    [popupWish, popupShenlongReply, popupMysticForm, popupFinal].forEach(p => p.style.display = 'none');
+    [popupWish, popupShenlongReply, popupFinal, popupDeseoSupremo, popupVotarDeseo, popupSubirDeseo].forEach(p => p.style.display = 'none');
     popupElement.style.display = 'flex'; // Use flex to center
 }
 
@@ -834,34 +745,9 @@ submitWishButton.addEventListener('click', () => {
     openPopup(popupShenlongReply);
 });
 
-// Continue to Form Button
+// Continue to Form Button -> Now goes to Final Popup
 continueToFormButton.addEventListener('click', () => {
     closePopup(popupShenlongReply);
-    openPopup(popupFinal);
-});
-
-// Mystic Form Submission
-mysticForm.addEventListener("submit", function(e) {
-    e.preventDefault(); // Prevent default form submission
-
-    const energia = this.energia.value; // Radio buttons use `this.name.value`
-    const experiencia = this.experiencia.value;
-    const consentimiento = this.consentimiento.value;
-
-    // Basic client-side validation (HTML 'required' attribute helps too)
-    if (!energia || !experiencia || !consentimiento) {
-        alert("Por favor, responde todas las preguntas antes de sellar tu deseo.");
-        return;
-    }
-
-    sendToGoogleSheets({
-        deseo: userWish, // Include the stored wish
-        energia: energia,
-        experiencia: experiencia,
-        consentimiento: consentimiento
-    });
-
-    closePopup(popupMysticForm);
     openPopup(popupFinal);
 });
 
@@ -876,9 +762,8 @@ shareWhatsappButton.addEventListener('click', () => {
 invokeAgainButton.addEventListener('click', () => {
     userWish = ""; // Reset wish
     userWishInput.value = ""; // Clear input field
-    mysticForm.reset(); // Reset radio buttons and form state
     // Hide all popups, then fully reload the page to restart the game
-    [popupWish, popupShenlongReply, popupMysticForm, popupFinal].forEach(p => p.style.display = 'none');
+    [popupWish, popupShenlongReply, popupFinal, popupDeseoSupremo, popupVotarDeseo, popupSubirDeseo].forEach(p => p.style.display = 'none');
     location.reload();
 });
 
@@ -897,24 +782,19 @@ DeseoSupremoButton.addEventListener("click", () => {
     openPopup(popupDeseoSupremo);
 });
 
-openSurveyButton.addEventListener("click", () => {
-    closePopup(popupFinal);
-    openPopup(popupMysticForm);
-});
-
 VotarDeseoButton.addEventListener("click", () => {
     closePopup(popupDeseoSupremo);
     openPopup(popupVotarDeseo);
 });
 SubirDeseoButton.addEventListener("click", () => {
     closePopup(popupDeseoSupremo);
-    openPopup(popupSubirDeseo);    
-});        
+    openPopup(popupSubirDeseo);
+});
 RegresarButton.addEventListener("click", () => {
     closePopup(popupDeseoSupremo);
     openPopup(popupFinal);
 });
-    
+
 Regresar2Button.addEventListener("click", () => {
     closePopup(popupVotarDeseo);
     openPopup(popupFinal);
@@ -934,12 +814,12 @@ Regresar4Button.addEventListener("click", () => {
         openPopup(popupShenlongReply);
     }
 });
-        
+
 // Close popups with ESC key
 document.addEventListener('keydown', function(event) {
     if (event.key === "Escape") {
         // Find the currently visible popup and close it
-        const visiblePopup = [popupWish, popupShenlongReply, popupMysticForm, popupFinal].find(p => p.style.display === 'flex');
+        const visiblePopup = [popupWish, popupShenlongReply, popupFinal, popupDeseoSupremo, popupVotarDeseo, popupSubirDeseo].find(p => p.style.display === 'flex');
         if (visiblePopup) {
             closePopup(visiblePopup);
             clearInterval(countdownInterval); // Stop countdown if active popup is wish input
@@ -1049,7 +929,7 @@ function verTopDeseos() {
     // Inicialización
     mostrarDeseos();
     iniciarTemporizador();
-        
+
 </script>
 </body>
 </html>
