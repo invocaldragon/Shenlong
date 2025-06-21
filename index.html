@@ -351,48 +351,6 @@ canvas {
 }
 
 
-    .deseo {
-      background: linear-gradient(135deg, #1e1e1e, #2e2e2e);
-      border: 1px solid #444;
-      border-radius: 10px;
-      padding: 15px;
-      margin: 10px auto;
-      max-width: 500px;
-      box-shadow: 0 0 10px #00ff88;
-      transition: all 0.3s ease-in-out;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .deseo {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      justify-content: flex-start;
-      padding: 15px;
-    }
-
-
-    .texto-nombre {
-      text-align: left;
-      max-width: 80%;
-    }
-
-    .nombre {
-      font-size: 13px;
-      color: #ffcc00;
-    }
-
-    .texto {
-      font-size: 15px;
-    }
-
-    .radio-container {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
         
 </style>
 </head>
@@ -545,12 +503,12 @@ canvas {
     <div id="popup-VotarDeseo" class="popup-overlay">
         <div class="popup-container">
             <h3 class="final-message-title">¡ Votar por un Deseo Supremo !</h3>
-              <div id="countdown2">Cambiando en: 10 segundos</div>
+              <div id="countdown">Cambiando en: 10 segundos</div>
               <form id="votacionDeseos">
                 <div id="contenedor-deseos"></div>
-                <button id="Regresar2Button" class="button--final-action">Regresar</button>
+                <button type="submit" id="votarBtn">Votar por este deseo</button>
               </form>
-            
+            <button id="Regresar2Button" class="button--final-action">Regresar</button>
             
         </div>
     </div>
@@ -916,7 +874,7 @@ RegresarButton.addEventListener("click", () => {
     
 Regresar2Button.addEventListener("click", () => {
     closePopup(popupVotarDeseo);
-    openPopup(popupFinal);
+    openPopup(popupDeseoSupremo);
 });
 
 Regresar3Button.addEventListener("click", () => {
@@ -959,18 +917,18 @@ function verTopDeseos() {
 }
 
   const deseosSupremos = [
-      { id: 1, nombre: "ElMístico99", texto: Paz eterna en el universo 🌌 },
-      { id: 2, nombre: "SayajinAzul", texto: Convertirme en el ser más fuerte 🔥 },
-      { id: 3, nombre: "NiñoDragón", texto: Tener un dragón de mascota 🐉 },
-      { id: 4, nombre: "LuzInterior", texto: Sanar todos los corazones rotos 💔 },
-      { id: 5, nombre: "DamaOculta", texto: Ver el futuro por un día 🔮 },
-      { id: 6, nombre: "ReyCósmico", texto: Dominar el arte de la teletransportación 🚀 },
-      { id: 7, nombre: "BrujoEstelar", texto: Leer todos los pensamientos 👁️‍🗨️ },
-      { id: 8, nombre: "EcoEterno", texto: Detener el tiempo por 5 minutos ⏳ },
+      { id: 1, nombre: "ElMístico99", texto: "Paz eterna en el universo dsjd fkdsof dfu4 dmnfd jdnf dskmfshdf dsf iodsn fmidsn ds fisdmi sdj fybdsjkfsd uhjfdf 🌌" },
+      { id: 2, nombre: "SayajinAzul", texto: "Convertirme en el ser más fuerte 🔥" },
+      { id: 3, nombre: "NiñoDragón", texto: "Tener un dragón de mascota 🐉" },
+      { id: 4, nombre: "LuzInterior", texto: "Sanar todos los corazones rotos 💔" },
+      { id: 5, nombre: "DamaOculta", texto: "Ver el futuro por un día 🔮" },
+      { id: 6, nombre: "ReyCósmico", texto: "Dominar el arte de la teletransportación 🚀" },
+      { id: 7, nombre: "BrujoEstelar", texto: "Leer todos los pensamientos 👁️‍🗨️" },
+      { id: 8, nombre: "EcoEterno", texto: "Detener el tiempo por 5 minutos ⏳" },
     ];
 
     const contenedor = document.getElementById('contenedor-deseos');
-    const countdown2 = document.getElementById('countdown2');
+    const countdown = document.getElementById('countdown');
     const form = document.getElementById('votacionDeseos');
     let tiempo = 10;
     let intervalo;
@@ -1004,12 +962,12 @@ function verTopDeseos() {
 
     function iniciarTemporizador() {
       tiempo = 10;
-      countdown2.textContent = `Cambiando en: ${tiempo} segundos`;
+      countdown.textContent = `Cambiando en: ${tiempo} segundos`;
 
       clearInterval(intervalo);
       intervalo = setInterval(() => {
         tiempo--;
-        countdown2.textContent = `Cambiando en: ${tiempo} segundos`;
+        countdown.textContent = `Cambiando en: ${tiempo} segundos`;
         if (tiempo <= 0) {
           mostrarDeseos();
           iniciarTemporizador();
