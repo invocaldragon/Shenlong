@@ -931,15 +931,47 @@ function mostrarNuevosDeseos() {
 // Evento para manejar el envío del voto
 formVotacion.addEventListener('submit', function (e) {
   e.preventDefault();
-  const seleccionado = formVotacion.deseoSeleccionado.value;
+  const seleccionado = formVotacion.deseoSeleccionado.value; // Este es el ID del deseo
+
   if (seleccionado) {
-    alert(`🌟 Has votado por el deseo #${seleccionado}. ¡Gracias por tu energía mística!`);
-    // Aquí podrías añadir una llamada a `doPost` para registrar el voto si quisieras.
+    // URL de tu Google Apps Script desplegado como Web App para VOTAR
+    const scriptURLVoto = 'https://script.google.com/macros/s/AKfycbwo1a_kQh-bc4kYa3gQ1RU2VOG4WSWCaroXl9n_1M2O-sVS-5kJZP4qLmNCmEwUwvtV/exec'; // ¡Pega la URL de la función doPostVote aquí!
+
+    // Datos a enviar (el ID del deseo seleccionado)
+    const data = new FormData();
+    data.append('desireId', seleccionado);
+
+    fetch(scriptURLVoto, {
+      method: 'POST',
+      body: data
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Error de red: ${response.status} ${response.statusText}`);
+      }
+      return response.json();
+    })
+    .then(result => {
+      if (result.result === 'success') {
+        alert(`🌟 Has votado por el deseo #${seleccionado}. ¡Gracias por tu energía mística! Tu voto ha sido registrado.`);
+        // Opcional: Podrías recargar los deseos para mostrar el nuevo conteo de votos
+        // invocarDeseosAleatorios(); // Si doGet también actualiza los votos
+      } else {
+        alert(`❌ Hubo un error al registrar tu voto: ${result.error}`);
+        console.error('Error del servidor:', result.error);
+      }
+    })
+    .catch(error => {
+      console.error('Error al enviar el voto:', error);
+      alert('⚠️ Hubo un problema al conectar con el servicio de votación.');
+    });
   } else {
-    alert("Por favor, selecciona un deseo antes de votar.");
+    alert('Por favor, selecciona un deseo antes de votar.');
   }
 });
-
+        
+        
+        
 // --- INICIALIZACIÓN ---
 // En lugar de llamar a las funciones directamente, llamamos a la función que carga los datos.
 cargarDeseosSupremos();
