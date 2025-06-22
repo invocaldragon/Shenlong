@@ -931,44 +931,49 @@ function mostrarNuevosDeseos() {
 // Evento para manejar el envío del voto
 formVotacion.addEventListener('submit', function (e) {
   e.preventDefault();
-  const seleccionado = formVotacion.deseoSeleccionado.value; // Este es el ID del deseo
+  const seleccionado = formVotacion.deseoSeleccionado?.value;
 
-  if (seleccionado) {
-    // URL de tu Google Apps Script desplegado como Web App para VOTAR
-    const scriptURLVoto = 'https://script.google.com/macros/s/AKfycbzCTUMu-CJtv_tzo-vJhx6-z-ft1n4HVx9DfAeHkwTtGVqpxtPbXA_mxOCmAeRtYR1Y/exec'; // ¡Pega la URL de la función doPostVote aquí!
-
-
-    // Datos a enviar (el ID del deseo seleccionado)
-    const data = new FormData();
-    data.append('desireId', seleccionado);
-
-    fetch(scriptURLVoto, {
-      method: 'POST',
-      body: data
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`Error de red: ${response.status} ${response.statusText}`);
-      }
-      return response.json();
-    })
-    .then(result => {
-      if (result.result === 'success') {
-        alert(`🌟 Has votado por el deseo #${seleccionado}. ¡Gracias por tu energía mística! Tu voto ha sido registrado.`);
-        // Opcional: Podrías recargar los deseos para mostrar el nuevo conteo de votos
-        // invocarDeseosAleatorios(); // Si doGet también actualiza los votos
-      } else {
-        alert(`❌ Hubo un error al registrar tu voto: ${result.error}`);
-        console.error('Error del servidor:', result.error);
-      }
-    })
-    .catch(error => {
-      console.error('Error al enviar el voto:', error);
-      alert('⚠️ Hubo un problema al conectar con el servicio de votación.');
-    });
-  } else {
+  if (!seleccionado) {
     alert('Por favor, selecciona un deseo antes de votar.');
+    return;
   }
+
+  const scriptURLVoto = 'https://script.google.com/macros/s/AKfycbzCTUMu-CJtv_tzo-vJhx6-z-ft1n4HVx9DfAeHkwTtGVqpxtPbXA_mxOCmAeRtYR1Y/exec';
+  const data = new FormData();
+  data.append('desireId', seleccionado);
+
+  fetch(scriptURLVoto, {
+    method: 'POST',
+    body: data
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`Error de red: ${response.status} ${response.statusText}`);
+    }
+    return response.json();
+  })
+  .then(result => {
+    if (result.result === 'success') {
+      // 1. Mensaje opcional (si quieres dejarlo)
+      alert(`🌟 Has votado por el deseo #${seleccionado}. ¡Gracias por tu energía mística!`);
+
+      // 2. Cierra el popup actual (votación)
+      closePopup(popupVotarDeseo);
+
+      // 3. Abre el popup final
+      openPopup(popupFinal);
+
+      // 4. Opcional: recarga los deseos por si quieres que se actualicen los votos
+      cargarDeseosSupremos();
+    } else {
+      alert(`❌ Hubo un error al registrar tu voto: ${result.error}`);
+      console.error('Error del servidor:', result.error);
+    }
+  })
+  .catch(error => {
+    console.error('Error al enviar el voto:', error);
+    alert('⚠️ Hubo un problema al conectar con el servicio de votación.');
+  });
 });
         
         
