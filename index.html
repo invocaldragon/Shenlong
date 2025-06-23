@@ -6,119 +6,203 @@
   <title>Deseos</title>
 
   <!-- 🎨 Estilos -->
-  <style>
-    /* 1. Reset general y tipografía */
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #fafafa;
-      color: #222;
-      margin: 0;
-      padding: 0;
-      text-align: center;
-    }
+<style>
+  /* 🎨 Reset general y tipografía */
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f9f9f9;
+    color: #222;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
 
-    h1, h2 {
-      margin-top: 1em;
-    }
+  h1 {
+    margin-top: 1.2em;
+    font-size: 1.8em;
+    color: #111;
+  }
 
-    /* 2. Componentes visuales */
-    .deseo {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.08);
-      margin: 1em auto;
-      padding: 1em;
-      max-width: 500px;
-      transition: 0.3s;
-    }
+  h2 {
+    margin-top: 2em;
+    font-size: 1.4em;
+    color: #222;
+  }
 
-    .deseo:hover {
-      transform: scale(1.01);
-    }
+  /* 📦 Deseo */
+  .deseo {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+    margin: 1.5em auto;
+    padding: 1.2em;
+    max-width: 500px;
+    transition: 0.3s ease;
+  }
 
-    .votos {
-      font-size: 0.9em;
-      color: #999;
-    }
+  .deseo:hover {
+    transform: scale(1.01);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+  }
 
-    .alias {
-      margin-top: 4px;
-      font-style: italic;
-      font-size: 14px;
-      color: #666;
-    }
+  .votos {
+    font-size: 14px;
+    color: #888;
+    margin-top: 0.3em;
+  }
 
-    .boton {
-      background: #222;
-      color: white;
-      padding: 12px 24px;
-      border: none;
-      border-radius: 30px;
-      font-size: 16px;
-      cursor: pointer;
-      margin: 1em auto;
-      display: inline-block;
-      transition: background 0.3s;
-    }
+  .alias {
+    margin-top: 0.4em;
+    font-style: italic;
+    font-size: 14px;
+    color: #666;
+  }
 
-    .boton:hover {
-      background: #444;
-    }
+  /* ✨ Botones */
+  .boton {
+    background: #111;
+    color: white;
+    padding: 12px 26px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 1.2em auto 0.5em;
+    display: inline-block;
+    transition: all 0.25s ease;
+  }
 
-    .campo-texto {
-      width: 80%;
-      padding: 12px;
-      margin-top: 1em;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-    }
+  .boton:hover {
+    background: #444;
+  }
 
-    .seccion {
-      margin: 2em 1em;
-    }
+  .boton-flotante {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #222;
+    color: white;
+    padding: 14px 20px;
+    border-radius: 30px;
+    font-size: 14px;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    cursor: pointer;
+  }
 
-    .boton-flotante {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #222;
-      color: white;
-      padding: 14px 20px;
-      border-radius: 30px;
-      font-size: 14px;
-      z-index: 1000;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      cursor: pointer;
-    }
+  /* ✍️ Inputs */
+  .campo-texto {
+    width: 85%;
+    padding: 14px;
+    margin-top: 1em;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+  }
 
-    #contador-global {
-      margin-top: 2em;
-      color: #888;
-      font-size: 14px;
-    }
+  /* 📐 Secciones */
+  .seccion {
+    margin: 2.5em 1em;
+  }
 
-    @media (max-width: 600px) {
-      .campo-texto {
-        width: 90%;
-      }
-    }
+  #contador-global {
+    margin-top: 3em;
+    color: #888;
+    font-size: 14px;
+  }
 
-.pulso-temporal {
-  animation: pulsoSuave 1.4s ease-in-out infinite;
+  footer {
+    font-size: 13px;
+    color: #999;
+    padding: 2em 1em 5em;
+  }
+
+  footer a {
+    color: #666;
+    text-decoration: none;
+  }
+
+  footer a:hover {
+    text-decoration: underline;
+  }
+
+  /* 💫 Pulso temporal (para nuevo deseo) */
+  .pulso-temporal {
+    animation: pulsoSuave 1.4s ease-in-out infinite;
+  }
+
+  @keyframes pulsoSuave {
+    0% { box-shadow: 0 0 0px rgba(46, 204, 113, 0.2); }
+    50% { box-shadow: 0 0 16px rgba(46, 204, 113, 0.45); }
+    100% { box-shadow: 0 0 0px rgba(46, 204, 113, 0.2); }
+  }
+
+  /* 🍪 Banner cookies */
+  #cookieBanner {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* 📱 Responsive */
+  @media (max-width: 600px) {
+    h1 { font-size: 1.5em; }
+    h2 { font-size: 1.2em; }
+    .campo-texto { width: 90%; }
+    .boton { width: 90%; }
+    .deseo { margin: 1em 1em; }
+  }
+
+.hero {
+  padding: 80px 20px 60px;
+  background: linear-gradient(to bottom, #111, #222);
+  color: white;
+  text-align: center;
 }
 
-@keyframes pulsoSuave {
-  0% { box-shadow: 0 0 0px rgba(46, 204, 113, 0.3); }
-  50% { box-shadow: 0 0 12px rgba(46, 204, 113, 0.6); }
-  100% { box-shadow: 0 0 0px rgba(46, 204, 113, 0.3); }
+.hero h1 {
+  font-size: 2.2em;
+  margin-bottom: 0.4em;
+  color: #ffd700;
+}
+
+.hero-sub {
+  font-size: 16px;
+  color: #ccc;
+  max-width: 500px;
+  margin: 0 auto 1.8em;
+  line-height: 1.5;
+}
+
+.boton-hero {
+  background: #ffd700;
+  color: #111;
+  border: none;
+  font-size: 18px;
+  padding: 14px 30px;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: background 0.3s ease;
+}
+
+.boton-hero:hover {
+  background: #ffea5a;
 }
 
 
-  </style>
+</style>
+
 </head>
 
 <body>
+
+<section class="hero">
+  <h1>🌠 Pide tu deseo</h1>
+  <p class="hero-sub">Miles ya lo hicieron. ¿Qué deseas tú profundamente?</p>
+  <button class="boton-hero" onclick="irAEscribir()">✨ Escribir mi deseo</button>
+</section>
+
 
   <!-- 🌟 Top Semanal -->
   <h1>🏆 Deseos más votados del mundo esta semana</h1>
