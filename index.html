@@ -211,7 +211,7 @@
 
         document.getElementById('top-semanal').innerHTML = top3.map(d =>
           `<div class="deseo">
-            <div>“${d.texto}”</div>
+            <div>${d.texto}</div>
             <div class="alias">— ${d.nombre || 'Anónimo'}</div>
             <div class="votos">🌟 ${d.votos || 0} votos</div>
           </div>`
@@ -259,7 +259,7 @@
     }
 
     function compartirDeseo(texto) {
-      const mensaje = `Yo ya pedí mi deseo al universo:\n“${texto}”\n✨ Tú también puedes hacerlo en deseos.com`;
+      const mensaje = `Yo ya pedí mi deseo al universo:\n${texto}\n✨ Tú también puedes hacerlo en deseos.com`;
       const url = `https://wa.me/?text=${encodeURIComponent(mensaje)}`;
       window.open(url, '_blank');
     }
@@ -274,7 +274,7 @@ async function cargarVotacion() {
       const votosTexto = d.votos && d.votos > 0 ? `<div class='votos' style='font-size:13px; color:#999; margin-top:4px;'>🌟 ${d.votos} votos</div>` : '';
       return `
         <div class="deseo">
-          <div>“${d.texto}”</div>
+          <div>${d.texto}</div>
           <div class="alias">— ${d.nombre || 'Anónimo'}</div>
           ${votosTexto}
           <button class="boton" onclick="votarDeseo('${d.id}')">✨ Votar</button>
