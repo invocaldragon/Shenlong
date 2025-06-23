@@ -4,7 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Deseos</title>
+
+  <!-- 🎨 Estilos -->
   <style>
+    /* 1. Reset general y tipografía */
     body {
       font-family: 'Segoe UI', sans-serif;
       background: #fafafa;
@@ -18,6 +21,7 @@
       margin-top: 1em;
     }
 
+    /* 2. Componentes visuales */
     .deseo {
       background: white;
       border-radius: 12px;
@@ -70,12 +74,6 @@
       font-size: 16px;
     }
 
-    #contador-global {
-      margin-top: 2em;
-      color: #888;
-      font-size: 14px;
-    }
-
     .seccion {
       margin: 2em 1em;
     }
@@ -94,6 +92,12 @@
       cursor: pointer;
     }
 
+    #contador-global {
+      margin-top: 2em;
+      color: #888;
+      font-size: 14px;
+    }
+
     @media (max-width: 600px) {
       .campo-texto {
         width: 90%;
@@ -101,21 +105,23 @@
     }
   </style>
 </head>
+
 <body>
+
+  <!-- 🌟 Top Semanal -->
   <h1>🏆 Deseos más votados del mundo esta semana</h1>
   <p style="font-size: 14px; color: #666; margin-top: -10px;">
     Los deseos que más han tocado corazones. <br>Votados por la comunidad. Firmados por quienes se atrevieron a desear.
   </p>
   <div id="top-semanal" class="seccion"></div>
+  <p style="color: #666; font-size: 14px; margin-top: -8px;">
+    💫 Este ranking se actualiza con cada voto. ¿Ya diste el tuyo?
+  </p>
 
-
-<p style="color: #666; font-size: 14px; margin-top: -8px;">
-  💫 Este ranking se actualiza con cada voto. ¿Ya diste el tuyo?
-</p>
-
-
+  <!-- ✍️ Botón de invocación -->
   <button class="boton" onclick="irAEscribir()">✨ Escribe tu deseo</button>
 
+  <!-- 📝 Sección: escribir deseo -->
   <div id="seccion-escribir" class="seccion">
     <h2>¿Qué deseas profundamente?</h2>
     <textarea id="deseoInput" class="campo-texto" rows="3" placeholder="Escribe tu deseo aquí..."></textarea><br>
@@ -127,151 +133,66 @@
     <div id="resultadoEnvio"></div>
   </div>
 
+  <!-- 🗳️ Sección: votación -->
   <div id="seccion-votar" class="seccion">
     <h2>Vota por los deseos que te inspiran</h2>
     <div id="zonaVotacion"></div>
   </div>
 
+  <!-- 📈 Contador total -->
   <div id="contador-global"></div>
 
+  <!-- ✨ Botón flotante -->
   <div class="boton-flotante" onclick="irAEscribir()">✨ Escribir deseo</div>
 
-  <footer>
-    <p>
-      📖 <a href="#terminos-uso">Términos de Uso</a> ·
-      <a href="#politica-cookies">Cookies</a> ·
-      <a href="#privacidad">Privacidad</a>
-    </p>
-  </footer>
+  
+  <!-- ⚙️ Script principal -->
+<script>
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbzCTUMu-CJtv_tzo-vJhx6-z-ft1n4HVx9DfAeHkwTtGVqpxtPbXA_mxOCmAeRtYR1Y/exec';
+  let todosLosDeseos = [];
 
-<section id="terminos-uso" style="padding: 2em; font-size: 15px; color: #444; max-width: 600px; margin: auto; text-align: left;">
-  <h2 style="text-align: center;">📜 Términos y Condiciones de Uso</h2>
-  <p><strong>Bienvenido/a a Deseos.</strong> Este espacio ha sido creado para que cualquier persona, en cualquier parte del mundo, pueda expresar sus deseos, leer los de otros, y conectar con algo más grande que uno mismo.</p>
-  <h3>1. Aceptación</h3>
-  <p>Al usar este sitio, aceptas estos términos de forma voluntaria y consciente. Si no estás de acuerdo con alguna parte, simplemente no uses la plataforma.</p>
-  <h3>2. Uso del sitio</h3>
-  <ul>
-    <li>Puedes escribir tus deseos, reales o simbólicos.</li>
-    <li>Puedes votar por los deseos que te inspiren.</li>
-    <li>Puedes compartir tus deseos si lo deseas, pero es completamente opcional.</li>
-    <li>No necesitas registrarte ni compartir información personal.</li>
-  </ul>
-  <h3>3. Contenido permitido</h3>
-  <p>Está prohibido publicar deseos que contengan lenguaje ofensivo, violento, discriminatorio, spam o enlaces externos.</p>
-  <h3>4. Derechos del contenido</h3>
-  <p>Los deseos son de sus autores. Autorizas a Deseos a mostrarlos públicamente de forma respetuosa.</p>
-  <h3>5. Limitación de responsabilidad</h3>
-  <p>Deseos es un espacio simbólico. No garantiza que los deseos se cumplan.</p>
-  <h3>6. Cambios en estos términos</h3>
-  <p>Podemos actualizar estos términos sin previo aviso.</p>
-  <h3>7. Contacto</h3>
-  <p>Escríbenos a: contacto@tudominio.com</p>
-  <p style="font-size: 13px; color: #888;">Última actualización: junio de 2025</p>
-</section>
+  function irAEscribir() {
+    document.getElementById('seccion-escribir').scrollIntoView({ behavior: 'smooth' });
+  }
 
-<section id="politica-cookies" style="padding: 2em; font-size: 15px; color: #444; max-width: 600px; margin: auto; text-align: left;">
-  <h2 style="text-align: center;">🍪 Política de Cookies</h2>
-  <p>Usamos cookies mínimas para que el sitio funcione correctamente. No rastreamos ni vendemos tu información.</p>
-  <h3>¿Qué son las cookies?</h3>
-  <p>Pequeños archivos que mejoran la experiencia. Aquí solo se usan para recordar si aceptaste el banner.</p>
-  <h3>¿Qué cookies usamos?</h3>
-  <ul>
-    <li><strong>Cookies técnicas:</strong> necesarias para el funcionamiento.</li>
-    <li>No usamos cookies publicitarias ni de terceros.</li>
-  </ul>
-  <p style="font-size: 13px; color: #888;">Última actualización: junio de 2025</p>
-</section>
-
-<section id="privacidad" style="padding: 2em; font-size: 15px; color: #444; max-width: 600px; margin: auto; text-align: left;">
-  <h2 style="text-align: center;">🕊️ Política de Privacidad</h2>
-  <p>Solo recogemos el texto del deseo y un alias opcional. Nada más. No almacenamos tu IP ni datos personales.</p>
-  <p>Tu deseo se guarda de forma anónima en una hoja protegida. Solo se usa para mostrarlo aquí.</p>
-  <p>No vendemos, analizamos ni compartimos nada contigo. Aquí tus deseos son solo tuyos.</p>
-  <p style="font-size: 13px; color: #888;">Última actualización: junio de 2025</p>
-</section>
-
-  <div id="cookieBanner" style="position: fixed; bottom: 0; left: 0; right: 0; background: #111; color: white; padding: 1em; font-size: 14px; display: flex; flex-direction: column; align-items: center; z-index: 9999;">
-    <span style="margin-bottom: 0.5em; text-align: center;">
-      Usamos cookies mínimas para mejorar tu experiencia. No rastreamos, no vendemos, no te seguimos.<br>
-      <a href="#politica-cookies" style="color: #ffd700; text-decoration: underline;">Leer más</a>
-    </span>
-    <button onclick="aceptarCookies()" style="background: #ffd700; color: black; border: none; padding: 6px 16px; border-radius: 20px; cursor: pointer;">Aceptar</button>
-  </div>
-
-
-
-  <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzCTUMu-CJtv_tzo-vJhx6-z-ft1n4HVx9DfAeHkwTtGVqpxtPbXA_mxOCmAeRtYR1Y/exec';
-
-    async function cargarTop() {
-      try {
-        const res = await fetch(scriptURL);
-        const deseos = await res.json();
-        const top3 = deseos.sort((a, b) => b.votos - a.votos).slice(0, 3);
-
-        document.getElementById('top-semanal').innerHTML = top3.map(d =>
-          `<div class="deseo">
-            <div>${d.texto}</div>
-            <div class="alias">— ${d.nombre || 'Anónimo'}</div>
-            <div class="votos">🌟 ${d.votos || 0} votos</div>
-          </div>`
-        ).join('');
-
-        document.getElementById('contador-global').innerText =
-          `🌎 Más de ${deseos.length} deseos enviados.`;
-      } catch (error) {
-        console.error('Error al cargar top:', error);
-      }
+  async function cargarDatosIniciales() {
+    try {
+      const res = await fetch(scriptURL);
+      todosLosDeseos = await res.json();
+      renderTop();
+      renderVotacion();
+    } catch (error) {
+      console.error('Error al cargar los deseos:', error);
     }
+  }
 
-    function irAEscribir() {
-      document.getElementById('seccion-escribir').scrollIntoView({ behavior: 'smooth' });
-    }
+  function renderTop() {
+    const top3 = [...todosLosDeseos]
+      .sort((a, b) => b.votos - a.votos)
+      .slice(0, 3);
 
-    async function enviarDeseo() {
-      const texto = document.getElementById('deseoInput').value.trim();
-      const alias = document.getElementById('aliasInput').value.trim() || "Anónimo";
-      if (!texto) return alert('Escribe un deseo antes de enviarlo.');
+    document.getElementById('top-semanal').innerHTML = top3.map(d =>
+      `<div class="deseo">
+        <div>${d.texto}</div>
+        <div class="alias">— ${d.nombre || 'Anónimo'}</div>
+        <div class="votos">🌟 ${d.votos || 0} votos</div>
+      </div>`
+    ).join('');
 
-      const data = new FormData();
-      data.append('deseo', texto);
-      data.append('alias', alias);
+    document.getElementById('contador-global').innerText =
+      `🌎 Más de ${todosLosDeseos.length} deseos enviados.`;
+  }
 
-      try {
-        const res = await fetch(scriptURL, {
-          method: 'POST',
-          body: data
-        });
-        const result = await res.json();
-        if (result.result === 'success') {
-          document.getElementById('resultadoEnvio').innerHTML = `
-            <p>✨ Tu deseo fue enviado al universo.</p>
-            <button class="boton" onclick="compartirDeseo('${texto}')">📤 Compartir deseo</button>
-            <button class="boton" onclick="cargarVotacion()">🔁 Ver deseos del mundo</button>`;
-          document.getElementById('deseoInput').value = '';
-          document.getElementById('aliasInput').value = '';
-        } else {
-          alert('Error al enviar el deseo.');
-        }
-      } catch (error) {
-        console.error('Error al enviar:', error);
-      }
-    }
+  function renderVotacion() {
+    const aleatorios = [...todosLosDeseos]
+      .sort(() => 0.5 - Math.random())
+      .slice(0, 3);
 
-    function compartirDeseo(texto) {
-      const mensaje = `Yo ya pedí mi deseo al universo:\n${texto}\n✨ Tú también puedes hacerlo en deseos.com`;
-      const url = `https://wa.me/?text=${encodeURIComponent(mensaje)}`;
-      window.open(url, '_blank');
-    }
-
-async function cargarVotacion() {
-  try {
-    const res = await fetch(scriptURL);
-    const deseos = await res.json();
-    const aleatorios = deseos.sort(() => 0.5 - Math.random()).slice(0, 3);
-
-    document.getElementById('zonaVotacion').innerHTML = aleatorios.map(d => {
-      const votosTexto = d.votos && d.votos > 0 ? `<div class='votos' style='font-size:13px; color:#999; margin-top:4px;'>🌟 ${d.votos} votos</div>` : '';
+    const contenedor = document.getElementById('zonaVotacion');
+    contenedor.innerHTML = aleatorios.map(d => {
+      const votosTexto = d.votos && d.votos > 0
+        ? `<div class='votos' style='font-size:13px; color:#999; margin-top:4px;'>🌟 ${d.votos} votos</div>`
+        : '';
       return `
         <div class="deseo">
           <div>${d.texto}</div>
@@ -280,44 +201,112 @@ async function cargarVotacion() {
           <button class="boton" onclick="votarDeseo('${d.id}')">✨ Votar</button>
         </div>`;
     }).join('');
-  } catch (error) {
-    console.error('Error al cargar deseos:', error);
   }
-}
 
+  async function enviarDeseo() {
+    const texto = document.getElementById('deseoInput').value.trim();
+    const alias = document.getElementById('aliasInput').value.trim() || "Anónimo";
+    if (!texto) return alert('Escribe un deseo antes de enviarlo.');
 
-    async function votarDeseo(id) {
-      const data = new FormData();
-      data.append('desireId', id);
-      try {
-        const res = await fetch(scriptURL, {
-          method: 'POST',
-          body: data
-        });
-        const result = await res.json();
-        if (result.result === 'success') {
-          alert('✅ Tu voto fue registrado.');
-          cargarVotacion();
-          cargarTop();
-        } else {
-          alert('Error al votar.');
+    const data = new FormData();
+    data.append('deseo', texto);
+    data.append('alias', alias);
+
+    try {
+      const res = await fetch(scriptURL, {
+        method: 'POST',
+        body: data
+      });
+      const result = await res.json();
+      if (result.result === 'success') {
+        document.getElementById('resultadoEnvio').innerHTML = `
+          <p>✨ Tu deseo fue enviado al universo.</p>
+          <button class="boton" onclick="compartirDeseo('${texto}')">📤 Compartir deseo</button>
+          <button class="boton" onclick="renderVotacion()">🔁 Ver deseos del mundo</button>`;
+        document.getElementById('deseoInput').value = '';
+        document.getElementById('aliasInput').value = '';
+      } else {
+        alert('Error al enviar el deseo.');
+      }
+    } catch (error) {
+      console.error('Error al enviar:', error);
+    }
+  }
+
+  function compartirDeseo(texto) {
+    const mensaje = `Yo ya pedí mi deseo al universo:\n${texto}\n✨ Tú también puedes hacerlo en deseos.com`;
+    const url = `https://wa.me/?text=${encodeURIComponent(mensaje)}`;
+    window.open(url, '_blank');
+  }
+
+  async function votarDeseo(id) {
+    const data = new FormData();
+    data.append('desireId', id);
+    const contenedor = document.getElementById('zonaVotacion');
+    const boton = document.querySelector(`button[onclick="votarDeseo('${id}')"]`);
+
+    if (boton) {
+      boton.disabled = true;
+      boton.innerHTML = '✅ ¡Gracias por tu voto!';
+    }
+
+    try {
+      const res = await fetch(scriptURL, {
+        method: 'POST',
+        body: data
+      });
+      const result = await res.json();
+
+      if (result.result === 'success') {
+        // Actualiza votos en memoria
+        const index = todosLosDeseos.findIndex(d => d.id === id);
+        if (index !== -1) {
+          todosLosDeseos[index].votos = (todosLosDeseos[index].votos || 0) + 1;
         }
-      } catch (error) {
-        console.error('Error al votar:', error);
+
+        contenedor.style.opacity = '0';
+
+        setTimeout(async () => {
+          // Mostrar mensaje dinámico de carga
+          const mensaje = document.createElement('div');
+          mensaje.innerText = '🔄 Cargando nuevos deseos inspiradores...';
+          mensaje.style.fontSize = '14px';
+          mensaje.style.color = '#777';
+          mensaje.style.marginTop = '1em';
+          mensaje.style.opacity = '0';
+          mensaje.style.transition = 'opacity 0.3s ease';
+          contenedor.innerHTML = '';
+          contenedor.appendChild(mensaje);
+          setTimeout(() => { mensaje.style.opacity = '1'; }, 10);
+
+          renderVotacion();
+          renderTop();
+
+          mensaje.remove();
+          contenedor.style.opacity = '1';
+        }, 100);
+
+      } else {
+        alert('Error al votar.');
+        if (boton) {
+          boton.disabled = false;
+          boton.innerHTML = '✨ Votar';
+        }
+      }
+    } catch (error) {
+      console.error('Error al votar:', error);
+      if (boton) {
+        boton.disabled = false;
+        boton.innerHTML = '✨ Votar';
       }
     }
+  }
 
-    cargarTop();
-    cargarVotacion();
+  // Inicia al cargar
+  cargarDatosIniciales();
 
-    function aceptarCookies() {
-      localStorage.setItem("cookiesAceptadas", "true");
-      document.getElementById("cookieBanner").style.display = "none";
-    }
-    if (localStorage.getItem("cookiesAceptadas") === "true") {
-      document.getElementById("cookieBanner").style.display = "none";
-    }
+</script>
 
-  </script>
+
 </body>
 </html>
