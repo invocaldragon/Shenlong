@@ -145,9 +145,76 @@
   <!-- ✨ Botón flotante -->
   <div class="boton-flotante" onclick="irAEscribir()">✨ Escribir deseo</div>
 
-  
+  <footer>
+    <p>
+      📖 <a href="#terminos-uso">Términos de Uso</a> ·
+      <a href="#politica-cookies">Cookies</a> ·
+      <a href="#privacidad">Privacidad</a>
+    </p>
+  </footer>
+
+<section id="terminos-uso" style="padding: 2em; font-size: 15px; color: #444; max-width: 600px; margin: auto; text-align: left;">
+  <h2 style="text-align: center;">📜 Términos y Condiciones de Uso</h2>
+  <p><strong>Bienvenido/a a Deseos.</strong> Este espacio ha sido creado para que cualquier persona, en cualquier parte del mundo, pueda expresar sus deseos, leer los de otros, y conectar con algo más grande que uno mismo.</p>
+  <h3>1. Aceptación</h3>
+  <p>Al usar este sitio, aceptas estos términos de forma voluntaria y consciente. Si no estás de acuerdo con alguna parte, simplemente no uses la plataforma.</p>
+  <h3>2. Uso del sitio</h3>
+  <ul>
+    <li>Puedes escribir tus deseos, reales o simbólicos.</li>
+    <li>Puedes votar por los deseos que te inspiren.</li>
+    <li>Puedes compartir tus deseos si lo deseas, pero es completamente opcional.</li>
+    <li>No necesitas registrarte ni compartir información personal.</li>
+  </ul>
+  <h3>3. Contenido permitido</h3>
+  <p>Está prohibido publicar deseos que contengan lenguaje ofensivo, violento, discriminatorio, spam o enlaces externos.</p>
+  <h3>4. Derechos del contenido</h3>
+  <p>Los deseos son de sus autores. Autorizas a Deseos a mostrarlos públicamente de forma respetuosa.</p>
+  <h3>5. Limitación de responsabilidad</h3>
+  <p>Deseos es un espacio simbólico. No garantiza que los deseos se cumplan.</p>
+  <h3>6. Cambios en estos términos</h3>
+  <p>Podemos actualizar estos términos sin previo aviso.</p>
+  <h3>7. Contacto</h3>
+  <p>Escríbenos a: contacto@tudominio.com</p>
+  <p style="font-size: 13px; color: #888;">Última actualización: junio de 2025</p>
+</section>
+
+<section id="politica-cookies" style="padding: 2em; font-size: 15px; color: #444; max-width: 600px; margin: auto; text-align: left;">
+  <h2 style="text-align: center;">🍪 Política de Cookies</h2>
+  <p>Usamos cookies mínimas para que el sitio funcione correctamente. No rastreamos ni vendemos tu información.</p>
+  <h3>¿Qué son las cookies?</h3>
+  <p>Pequeños archivos que mejoran la experiencia. Aquí solo se usan para recordar si aceptaste el banner.</p>
+  <h3>¿Qué cookies usamos?</h3>
+  <ul>
+    <li><strong>Cookies técnicas:</strong> necesarias para el funcionamiento.</li>
+    <li>No usamos cookies publicitarias ni de terceros.</li>
+  </ul>
+  <p style="font-size: 13px; color: #888;">Última actualización: junio de 2025</p>
+</section>
+
+<section id="privacidad" style="padding: 2em; font-size: 15px; color: #444; max-width: 600px; margin: auto; text-align: left;">
+  <h2 style="text-align: center;">🕊️ Política de Privacidad</h2>
+  <p>Solo recogemos el texto del deseo y un alias opcional. Nada más. No almacenamos tu IP ni datos personales.</p>
+  <p>Tu deseo se guarda de forma anónima en una hoja protegida. Solo se usa para mostrarlo aquí.</p>
+  <p>No vendemos, analizamos ni compartimos nada contigo. Aquí tus deseos son solo tuyos.</p>
+  <p style="font-size: 13px; color: #888;">Última actualización: junio de 2025</p>
+</section>
+
+  <div id="cookieBanner" style="position: fixed; bottom: 0; left: 0; right: 0; background: #111; color: white; padding: 1em; font-size: 14px; display: flex; flex-direction: column; align-items: center; z-index: 9999;">
+    <span style="margin-bottom: 0.5em; text-align: center;">
+      Usamos cookies mínimas para mejorar tu experiencia. No rastreamos, no vendemos, no te seguimos.<br>
+      <a href="#politica-cookies" style="color: #ffd700; text-decoration: underline;">Leer más</a>
+    </span>
+    <button onclick="aceptarCookies()" style="background: #ffd700; color: black; border: none; padding: 6px 16px; border-radius: 20px; cursor: pointer;">Aceptar</button>
+  </div>
+
+
+
   <!-- ⚙️ Script principal -->
 <script>
+
+let deseoReciente = null;
+
+
   const scriptURL = 'https://script.google.com/macros/s/AKfycbzCTUMu-CJtv_tzo-vJhx6-z-ft1n4HVx9DfAeHkwTtGVqpxtPbXA_mxOCmAeRtYR1Y/exec';
   let todosLosDeseos = [];
 
@@ -183,25 +250,34 @@
       `🌎 Más de ${todosLosDeseos.length} deseos enviados.`;
   }
 
-  function renderVotacion() {
-    const aleatorios = [...todosLosDeseos]
-      .sort(() => 0.5 - Math.random())
-      .slice(0, 3);
+function renderVotacion() {
+  const contenedor = document.getElementById('zonaVotacion');
+  let mezcla = [];
 
-    const contenedor = document.getElementById('zonaVotacion');
-    contenedor.innerHTML = aleatorios.map(d => {
-      const votosTexto = d.votos && d.votos > 0
-        ? `<div class='votos' style='font-size:13px; color:#999; margin-top:4px;'>🌟 ${d.votos} votos</div>`
-        : '';
-      return `
-        <div class="deseo">
-          <div>${d.texto}</div>
-          <div class="alias">— ${d.nombre || 'Anónimo'}</div>
-          ${votosTexto}
-          <button class="boton" onclick="votarDeseo('${d.id}')">✨ Votar</button>
-        </div>`;
-    }).join('');
+  if (deseoReciente) {
+    // Incluye el nuevo deseo una vez
+    const otros = todosLosDeseos.filter(d => d.id !== deseoReciente.id);
+    const aleatorios = otros.sort(() => 0.5 - Math.random()).slice(0, 2);
+    mezcla = [deseoReciente, ...aleatorios];
+    deseoReciente = null; // ✅ se muestra solo una vez
+  } else {
+    // Flujo normal
+    mezcla = todosLosDeseos.sort(() => 0.5 - Math.random()).slice(0, 3);
   }
+
+  contenedor.innerHTML = mezcla.map(d => {
+    const votosTexto = d.votos && d.votos > 0
+      ? `<div class='votos' style='font-size:13px; color:#999; margin-top:4px;'>🌟 ${d.votos} votos</div>`
+      : '';
+    return `
+      <div class="deseo">
+        <div>${d.texto}</div>
+        <div class="alias">— ${d.nombre || 'Anónimo'}</div>
+        ${votosTexto}
+        <button class="boton" onclick="votarDeseo('${d.id}')">✨ Votar</button>
+      </div>`;
+  }).join('');
+}
 
   async function enviarDeseo() {
     const texto = document.getElementById('deseoInput').value.trim();
@@ -219,13 +295,32 @@
       });
       const result = await res.json();
       if (result.result === 'success') {
-        document.getElementById('resultadoEnvio').innerHTML = `
-          <p>✨ Tu deseo fue enviado al universo.</p>
-          <button class="boton" onclick="compartirDeseo('${texto}')">📤 Compartir deseo</button>
-          <button class="boton" onclick="renderVotacion()">🔁 Ver deseos del mundo</button>`;
-        document.getElementById('deseoInput').value = '';
-        document.getElementById('aliasInput').value = '';
-      } else {
+document.getElementById('resultadoEnvio').innerHTML = `
+  <p>✨ Tu deseo fue enviado al universo.</p>
+  <button class="boton" onclick="compartirDeseo('${texto}')">📤 Compartir deseo</button>
+  <button class="boton" onclick="renderVotacion()">🔁 Refrescar lista de deseos</button>`;
+
+document.getElementById('deseoInput').value = '';
+document.getElementById('aliasInput').value = '';
+
+// 👉 Crear el nuevo deseo una sola vez
+const nuevoDeseo = {
+  id: (todosLosDeseos.length + 1).toString().padStart(3, '0'),
+  nombre: alias,
+  texto: texto,
+  votos: 0
+};
+
+// 👉 Guardar en memoria
+todosLosDeseos.push(nuevoDeseo);
+deseoReciente = nuevoDeseo; // se forzará a mostrar una sola vez
+
+// 👉 Refrescar contador y lista
+renderTop();
+renderVotacion();
+
+}
+ else {
         alert('Error al enviar el deseo.');
       }
     } catch (error) {
@@ -306,7 +401,6 @@
   cargarDatosIniciales();
 
 </script>
-
 
 </body>
 </html>
