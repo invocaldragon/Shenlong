@@ -232,7 +232,12 @@
   <!-- 🗳️ Sección: votación -->
   <div id="seccion-votar" class="seccion">
     <h2>Vota por los deseos que te inspiran</h2>
+
+
     <div id="zonaVotacion"></div>
+
+<button class="boton" onclick="renderVotacion()">🔁 Refrescar lista de deseos</button>
+
   </div>
 
   <!-- 📈 Contador total -->
@@ -404,8 +409,7 @@ document.querySelectorAll('.pulso-temporal').forEach(el => el.classList.remove('
       if (result.result === 'success') {
 document.getElementById('resultadoEnvio').innerHTML = `
   <p>✨ Tu deseo fue enviado al universo.</p>
-  <button class="boton" onclick="compartirDeseo('${texto}')">📤 Compartir deseo</button>
-  <button class="boton" onclick="renderVotacion()">🔁 Refrescar lista de deseos</button>`;
+  <button class="boton" onclick="compartirDeseo('${texto}')">📤 Compartir deseo</button>`;
 
 document.getElementById('deseoInput').value = '';
 document.getElementById('aliasInput').value = '';
