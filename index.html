@@ -103,6 +103,18 @@
         width: 90%;
       }
     }
+
+.pulso-temporal {
+  animation: pulsoSuave 1.4s ease-in-out infinite;
+}
+
+@keyframes pulsoSuave {
+  0% { box-shadow: 0 0 0px rgba(46, 204, 113, 0.3); }
+  50% { box-shadow: 0 0 12px rgba(46, 204, 113, 0.6); }
+  100% { box-shadow: 0 0 0px rgba(46, 204, 113, 0.3); }
+}
+
+
   </style>
 </head>
 
@@ -212,7 +224,13 @@
   <!-- ⚙️ Script principal -->
 <script>
 
+
+
+
+
 let deseoReciente = null;
+
+
 
 
   const scriptURL = 'https://script.google.com/macros/s/AKfycbzCTUMu-CJtv_tzo-vJhx6-z-ft1n4HVx9DfAeHkwTtGVqpxtPbXA_mxOCmAeRtYR1Y/exec';
@@ -264,6 +282,11 @@ function renderVotacion() {
     // Flujo normal
     mezcla = todosLosDeseos.sort(() => 0.5 - Math.random()).slice(0, 3);
   }
+
+
+// Quitar cualquier pulso anterior
+document.querySelectorAll('.pulso-temporal').forEach(el => el.classList.remove('pulso-temporal'));
+
 
   contenedor.innerHTML = mezcla.map(d => {
     const votosTexto = d.votos && d.votos > 0
@@ -318,6 +341,14 @@ deseoReciente = nuevoDeseo; // se forzará a mostrar una sola vez
 // 👉 Refrescar contador y lista
 renderTop();
 renderVotacion();
+
+setTimeout(() => {
+  const primerDeseo = document.querySelector('#zonaVotacion .deseo');
+  if (primerDeseo) {
+    primerDeseo.classList.add('pulso-temporal');
+  }
+}, 100);
+
 
 }
  else {
@@ -397,8 +428,32 @@ renderVotacion();
     }
   }
 
+
   // Inicia al cargar
   cargarDatosIniciales();
+
+
+// 🧁 Gestión de cookies
+document.addEventListener('DOMContentLoaded', () => {
+  const banner = document.getElementById("cookieBanner");
+  if (!banner) return;
+
+  if (localStorage.getItem("cookiesAceptadas") === "true") {
+    banner.style.display = "none";
+  } else {
+    banner.style.display = "block";
+  }
+});
+
+function aceptarCookies() {
+  localStorage.setItem("cookiesAceptadas", "true");
+  const banner = document.getElementById("cookieBanner");
+  if (banner) banner.style.display = "none";
+}
+
+
+
+
 
 </script>
 
