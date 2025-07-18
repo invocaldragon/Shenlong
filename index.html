@@ -833,6 +833,7 @@ VotarDeseoButton.addEventListener("click", () => {
 });
 SubirDeseoButton.addEventListener("click", () => {
     closePopup(popupDeseoSupremo);
+    let codigoSupremo = generarCodigoSupremo();
     document.getElementById('codigoSupremo').textContent = "Código Supremo: " + codigoSupremo;
     openPopup(popupSubirDeseo);
 });
