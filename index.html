@@ -31,6 +31,7 @@ h2 { color: #ffcc00; }
 h3 { color: #00ff88; font-size: 18px; margin-bottom: 10px; }
 h4 { color: #00ff88; font-size: 18px; margin-bottom: 10px; }
 h5 { color: #ffffff; font-size: 18px; margin-bottom: 10px; }
+h6 { color: #CDA74B; font-size: 18px; margin-bottom: 10px; }        
 p { color: #fff; }
 
 /* Form Elements */
@@ -72,6 +73,27 @@ button:hover {
     box-shadow: 0 0 10px #00ffcc;
 }
 
+button2 {
+    background: linear-gradient(135deg, #CDA74B, #826A34);
+    border: none;
+    color: #fff;
+    padding: 10px 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: 0.3s ease;
+    font-family: 'CinzelDecorative-Bold', cursive;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    min-height: 45px;
+}
+
+button2:hover {
+    background: linear-gradient(135deg, #826A34, #CDA74B);
+    transform: scale(1.05);
+    box-shadow: 0 0 10px gold;
+}
+        
 /* Layout Containers */
 .container {
     text-align: center;
@@ -492,12 +514,12 @@ canvas {
 
     <div id="popup-SubirDeseo" class="popup-overlay">
         <div class="popup-container2">
-            <h3 class="final-message-title">¡ Subir mi Deseo Supremo !</h3>
+            <h6 class="final-message-title">¡ Dale poder a tu deseo !</h6>
             <div class="donation-section">
-                <p class="donation-text">Ingresa a Yape para enviar S/1<br>y escribe tu deseo supremo en el mensaje!</p>
+                <p class="donation-text">Usa Yape y escribe tu deseo en el mensaje<br>Con tu aporte voluntario lo vuelves supremo</p>
                 <img src="QR.jpg" alt="QR de Yape" class="qr-yape">
                 <p class="donation-text" style="font-size: 14px; color: #ccc;">
-                  ✨ Los nuevos Deseos Supremos pasan por una validación sagrada antes de aparecer públicamente
+                  ✨ Los Deseos Supremos se validan antes de publicarse
                 </p>
             </div>
             <button id="Regresar3Button" class="button--final-action">Regresar</button>
