@@ -515,7 +515,7 @@ canvas {
 
     <div id="popup-SubirDeseo" class="popup-overlay">
         <div class="popup-container2">
-            <h7 id="codigoSupremo" class="final-message-title">Código Supremo: </h7>
+            <h7 class="final-message-title">Codígo Supremo: SH-472</h7>
             <h6 class="final-message-title">¡ Dale poder a tu deseo !</h6>
             <div class="donation-section">
                 <p class="donation-text" style="font-family: 'Poppins', sans-serif;">Usa Yape y escribe tu CÓDIGO SUPREMO en el mensaje.<br>Con tu aporte voluntario lo vuelves un deseo supremo</p>
@@ -684,14 +684,6 @@ function setSpeed(factor) {
 }
 
 // --- Popup Management ---
-
-function generarCodigoSupremo() {
-  const palabras = ["Luz", "Eco", "Sol", "Raíz", "Fuego", "Bruma", "Paz", "Aura", "Alma", "Cielo"];
-  const palabra = palabras[Math.floor(Math.random() * palabras.length)];
-  const numero = Math.floor(100 + Math.random() * 900);
-  return `${palabra}-${numero}`;
-}      
-        
 function openPopup(popupElement) {
     [popupWish, popupShenlongReply, popupFinal, popupDeseoSupremo, popupVotarDeseo, popupSubirDeseo].forEach(p => p.style.display = 'none');
     popupElement.style.display = 'flex';
@@ -763,8 +755,6 @@ submitWishButton.addEventListener('click', () => {
     // AÑADIDO: Captura y validación del alias
     const alias = userAliasInput.value.trim();
     const wish = userWishInput.value.trim();
-    const codigoSupremo = generarCodigoSupremo();
-
     
     if (!alias) {
         alert("No olvides tu alias místico.");
@@ -779,7 +769,7 @@ submitWishButton.addEventListener('click', () => {
     userWish = wish; // Guarda el deseo
     
     // AÑADIDO: Envío del alias junto con el deseo
-    sendToGoogleSheets({ alias: userAlias, deseo: userWish, codigo: codigoSupremo });
+    sendToGoogleSheets({ alias: userAlias, deseo: userWish });
 
     closePopup(popupWish);
     clearInterval(countdownInterval);
@@ -833,8 +823,6 @@ VotarDeseoButton.addEventListener("click", () => {
 });
 SubirDeseoButton.addEventListener("click", () => {
     closePopup(popupDeseoSupremo);
-    let codigoSupremo = generarCodigoSupremo();
-    document.getElementById('codigoSupremo').textContent = "Código Supremo: " + codigoSupremo;
     openPopup(popupSubirDeseo);
 });
 RegresarButton.addEventListener("click", () => {
