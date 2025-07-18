@@ -672,36 +672,36 @@ gameCanvas.addEventListener("click", e => {
 
     for (const s of spheres) {
         if (!s.found && s.isInside(mx, my)) {
-            if (s.number === currentStep) {
-                s.found = true;
-                s.vx = 0; s.vy = 0;
-                currentStep++;
-                instructionsElement.textContent = `¡Correcto! Ahora busca la esfera de ${currentStep} estrellas`;
+            s.found = true;
+            s.vx = 0; 
+            s.vy = 0;
 
-                if (currentStep > 7) {
-                    instructionsElement.textContent = "¡Has reunido todas las esferas del dragón!";
-                    sphere7Audio.play().catch(err => console.error("Error playing audio:", err));
-                    openPopup(popupWish);
-
-                    let countdownValue = 25;
-                    countdownElement.innerText = countdownValue;
-                    countdownInterval = setInterval(() => {
-                        countdownValue--;
-                        countdownElement.innerText = countdownValue;
-                        if (countdownValue <= 0) {
-                            clearInterval(countdownInterval);
-                            closePopup(popupWish);
-                            location.reload();
-                        }
-                    }, 1000);
-                }
+            // Mostrar cuántas faltan
+            const restantes = spheres.filter(s => !s.found).length;
+            if (restantes > 0) {
+                instructionsElement.textContent = `¡Correcto! Te faltan ${restantes} esfera${restantes === 1 ? '' : 's'} más`;
             } else {
-                instructionsElement.textContent = `Esa no es. Busca la esfera de ${currentStep} estrellas`;
+                instructionsElement.textContent = "¡Has reunido todas las esferas del dragón!";
+                sphere7Audio.play().catch(err => console.error("Error playing audio:", err));
+                openPopup(popupWish);
+
+                let countdownValue = 25;
+                countdownElement.innerText = countdownValue;
+                countdownInterval = setInterval(() => {
+                    countdownValue--;
+                    countdownElement.innerText = countdownValue;
+                    if (countdownValue <= 0) {
+                        clearInterval(countdownInterval);
+                        closePopup(popupWish);
+                        location.reload();
+                    }
+                }, 1000);
             }
             break;
         }
     }
 });
+
 
 // Submit Wish Button
 submitWishButton.addEventListener('click', () => {
