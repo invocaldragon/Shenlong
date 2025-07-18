@@ -763,6 +763,8 @@ submitWishButton.addEventListener('click', () => {
     // AÑADIDO: Captura y validación del alias
     const alias = userAliasInput.value.trim();
     const wish = userWishInput.value.trim();
+    const codigoSupremo = generarCodigoSupremo();
+
     
     if (!alias) {
         alert("No olvides tu alias místico.");
@@ -775,9 +777,10 @@ submitWishButton.addEventListener('click', () => {
 
     userAlias = alias; // Guarda el alias
     userWish = wish; // Guarda el deseo
+    codigo = 
     
     // AÑADIDO: Envío del alias junto con el deseo
-    sendToGoogleSheets({ alias: userAlias, deseo: userWish });
+    sendToGoogleSheets({ alias: userAlias, deseo: userWish, codigo: codigoSupremo });
 
     closePopup(popupWish);
     clearInterval(countdownInterval);
@@ -831,7 +834,7 @@ VotarDeseoButton.addEventListener("click", () => {
 });
 SubirDeseoButton.addEventListener("click", () => {
     closePopup(popupDeseoSupremo);
-    document.getElementById('codigoSupremo').textContent = "Código Supremo: " + generarCodigoSupremo();
+    document.getElementById('codigoSupremo').textContent = "Código Supremo: " + codigoSupremo;
     openPopup(popupSubirDeseo);
 });
 RegresarButton.addEventListener("click", () => {
