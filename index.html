@@ -689,7 +689,7 @@ gameCanvas.addEventListener("click", e => {
             // Mostrar cuántas faltan
             const restantes = spheres.filter(s => !s.found).length;
             if (restantes > 0) {
-                instructionsElement.textContent = `Te faltan ${restantes} esfera${restantes === 1 ? '' : 's'} más`;
+                instructionsElement.textContent = `Faltan ${restantes} esfera${restantes === 1 ? '' : 's'} y el deseo será tuyo`;
             } else {
                 instructionsElement.textContent = "¡Has reunido todas las esferas del dragón!";
                 sphere7Audio.play().catch(err => console.error("Error playing audio:", err));
