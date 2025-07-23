@@ -515,7 +515,7 @@ canvas {
 
     <div id="popup-SubirDeseo" class="popup-overlay">
         <div class="popup-container2">
-            <h7 class="final-message-title">Codígo Supremo: SH-472</h7>
+            <h7 id="codigoSupremoDisplay" class="final-message-title"></h7>
             <h6 class="final-message-title">¡ Dale poder a tu deseo !</h6>
             <div class="donation-section">
                 <p class="donation-text" style="font-family: 'Poppins', sans-serif;">Usa Yape y escribe tu CÓDIGO SUPREMO en el mensaje.<br>Con tu aporte voluntario lo vuelves un deseo supremo</p>
@@ -535,7 +535,7 @@ canvas {
 // Constants
 const SPHERE_RADIUS = 30;
 const MARGIN = 2;
-const GOOGLE_SHEETS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzCTUMu-CJtv_tzo-vJhx6-z-ft1n4HVx9DfAeHkwTtGVqpxtPbXA_mxOCmAeRtYR1Y/exec';
+const GOOGLE_SHEETS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyqFM_rdkLidWzz2sf71eAJxh3KQWNUOm7kNgjCGx0QgFtfXTco0P2WO5JjCLajz5Wz/exec';
 
 // DOM Elements
 const gameCanvas = document.getElementById("gameCanvas");
@@ -577,8 +577,17 @@ let currentStep = 1;
 let spheres = [];
 let countdownInterval;
 let userWish = "";
-let userAlias = ""; // AÑADIDO: Variable para guardar el alias
+let userAlias = "";
+let codigoSupremoGenerado = ""; // NUEVO: Variable para guardar el código
 
+// --- NUEVO: Función para generar el Código Supremo ---
+function generarCodigoSupremo() {
+    const prefijo = 'SH';
+    // Genera un número aleatorio entre 100 y 999
+    const numero = Math.floor(Math.random() * 900) + 100;
+    return `${prefijo}-${numero}`;
+}
+        
 // Image Preloading
 const images = [];
 for (let i = 1; i <= 7; i++) {
@@ -750,26 +759,27 @@ gameCanvas.addEventListener("click", e => {
 });
 
 
-// Submit Wish Button
-submitWishButton.addEventListener('click', () => {
-    // AÑADIDO: Captura y validación del alias
-    const alias = userAliasInput.value.trim();
-    const wish = userWishInput.value.trim();
-    
-    if (!alias) {
-        alert("No olvides tu alias místico.");
-        return;
-    }
-    if (!wish) {
-        alert("Debes escribir tu deseo, mortal.");
-        return;
-    }
+    // MODIFICADO: El listener del botón para pedir el deseo ahora genera y guarda el código
+    document.getElementById("submitWishButton").addEventListener('click', () => {
+        const alias = userAliasInput.value.trim();
+        const wish = userWishInput.value.trim();
 
-    userAlias = alias; // Guarda el alias
-    userWish = wish; // Guarda el deseo
-    
-    // AÑADIDO: Envío del alias junto con el deseo
-    sendToGoogleSheets({ alias: userAlias, deseo: userWish });
+        if (!alias) { alert("No olvides tu alias místico."); return; }
+        if (!wish) { alert("Debes escribir tu deseo, mortal."); return; }
+
+        userAlias = alias;
+        userWish = wish;
+        
+        // NUEVO: Generamos y guardamos el código en este momento
+        codigoSupremoGenerado = generarCodigoSupremo();
+
+        // MODIFICADO: Enviamos el nuevo código a Google Sheets
+        sendToGoogleSheets({ 
+            alias: userAlias, 
+            deseo: userWish, 
+            codigo: codigoSupremoGenerado // Enviamos el código
+        });
+
 
     closePopup(popupWish);
     clearInterval(countdownInterval);
@@ -821,10 +831,12 @@ VotarDeseoButton.addEventListener("click", () => {
     closePopup(popupDeseoSupremo);
     openPopup(popupVotarDeseo);
 });
-SubirDeseoButton.addEventListener("click", () => {
-    closePopup(popupDeseoSupremo);
-    openPopup(popupSubirDeseo);
-});
+    // MODIFICADO: Ahora mostramos el código generado antes de abrir el popup
+    document.getElementById("SubirDeseoButton").addEventListener('click', () => {
+        // NUEVO: Asignamos el código generado al elemento HTML
+        document.getElementById('codigoSupremoDisplay').textContent = `Código Supremo: ${codigoSupremoGenerado}`;
+        openPopup(popupSubirDeseo);
+    });
 RegresarButton.addEventListener("click", () => {
     closePopup(popupDeseoSupremo);
     openPopup(popupFinal);
@@ -987,7 +999,7 @@ formVotacion.addEventListener('submit', function (e) {
     return;
   }
 
-  const scriptURLVoto = 'https://script.google.com/macros/s/AKfycbzCTUMu-CJtv_tzo-vJhx6-z-ft1n4HVx9DfAeHkwTtGVqpxtPbXA_mxOCmAeRtYR1Y/exec';
+  const scriptURLVoto = 'https://script.google.com/macros/s/AKfycbyqFM_rdkLidWzz2sf71eAJxh3KQWNUOm7kNgjCGx0QgFtfXTco0P2WO5JjCLajz5Wz/exec';
   const data = new FormData();
   data.append('desireId', seleccionado);
 
