@@ -153,8 +153,40 @@ canvas {
     max-width: 400px;
     width: 90%;
     margin: 0 auto;
+    position: relative; /* <-- AÑADIDO: Permite posicionar el spinner dentro */
 }
 
+/* ESTILOS AÑADIDOS: Inicio de los estilos para el Spinner de Carga */
+.loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(17, 17, 17, 0.85); /* Fondo oscuro para atenuar el contenido */
+    z-index: 10;
+    display: none; /* Oculto por defecto */
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px; /* Coincide con el radio del popup */
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255, 255, 255, 0.3); /* Color base del círculo */
+    border-top-color: #00ff88; /* Color de la parte que gira */
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+        
 .popup-container2 {
     animation: fadeInMagic 0.8s ease-out;
     box-shadow: 0 0 20px gold;
@@ -501,6 +533,9 @@ canvas {
 
     <div id="popup-VotarDeseo" class="popup-overlay">
         <div class="popup-container">
+            <div id="loadingSpinner" class="loading-overlay">
+                <div class="spinner"></div>
+            </div>    
             <h3 class="final-message-title">¡ Votar por un Deseo Supremo !</h3>
               <div id="countdown2">Cambiando en: 15 segundos</div>
               <form id="votacionDeseos">
@@ -993,11 +1028,17 @@ formVotacion.addEventListener('submit', function (e) {
   e.preventDefault();
   const seleccionado = formVotacion.deseoSeleccionado?.value;
 
+  // AÑADIDO: Obtenemos la referencia al spinner
+  const loadingSpinner = document.getElementById('loadingSpinner');
+
   if (!seleccionado) {
     alert('Por favor, selecciona un deseo antes de votar.');
     return;
   }
 
+  // AÑADIDO: Mostramos el spinner
+  loadingSpinner.style.display = 'flex';
+    
   const scriptURLVoto = 'https://script.google.com/macros/s/AKfycbyqFM_rdkLidWzz2sf71eAJxh3KQWNUOm7kNgjCGx0QgFtfXTco0P2WO5JjCLajz5Wz/exec';
   const data = new FormData();
   data.append('desireId', seleccionado);
@@ -1033,6 +1074,10 @@ formVotacion.addEventListener('submit', function (e) {
   .catch(error => {
     console.error('Error al enviar el voto:', error);
     alert('⚠️ Hubo un problema al conectar con el servicio de votación.');
+  })
+  .finally(() => {
+    // AÑADIDO: Ocultamos el spinner sin importar el resultado
+    loadingSpinner.style.display = 'none';
   });
 });
         
