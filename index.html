@@ -510,8 +510,8 @@ canvas {
                 <li><strong>🥈</strong> Salir de deudas este año<span class="mistico-nombre"> – Javi</span><span class="contador-votos">🌟 164 votos</span></li>
                 <li><strong>🥉</strong> Ser parte de algo bonito<span class="mistico-nombre"> – Gabo</span><span class="contador-votos">🌟 157 votos</span></li>
               </ul>
-            <p class="nota-mistica">✨ El ranking se actualiza los lunes<br>¡Haz que tu favorito llegue al top!!</p>
-            <button id="VotarDeseoButton" class="button--final-action">🗳️ Votar por un Deseo Supremo</button>
+            <p class="nota-mistica">✨ Este ranking se actualiza todos los lunes<br>¡Vota por tu favorito!</p>
+            <button id="VotarDeseoButton" class="button--final-action">🌟 Votar</button>
             <button id="DeseoSupremoButton" class="button--final-action" style="display: none;">🏆 Top Deseos Supremos</button>
             <button id="shareWhatsappButton" class="button--final-action" style="display: none;">📲 Compartir</button>
             <button id="invokeAgainButton" class="button--final-action" style="display: none;">🔁 Volver a invocar</button>
@@ -1056,7 +1056,7 @@ formVotacion.addEventListener('submit', function (e) {
   .then(result => {
     if (result.result === 'success') {
       // 1. Mensaje opcional (si quieres dejarlo)
-      alert(`🌟 Has votado por el deseo #${seleccionado}. ¡Gracias por tu energía mística!`);
+      alert(`🌟 Has votado por el deseo #${seleccionado}. ¡Gracias por tu energía!`);
 
       // 2. Cierra el popup actual (votación)
       closePopup(popupVotarDeseo);
