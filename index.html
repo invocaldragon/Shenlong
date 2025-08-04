@@ -474,9 +474,9 @@ canvas {
         <div class="popup-container">
             <h3 class="final-message-title">🏆 Top de Deseos Supremos de la Semana</h3>
               <ul class="top-deseos-lista">
-                <li><strong>🥇</strong> Que mi familia siempre esté unida 💫<span class="mistico-nombre"> – El Guardián de la Llama</span><span class="contador-votos">🌟 123 votos</span></li>
-                <li><strong>🥈</strong> Ser libre y viajar por el mundo 🌍<span class="mistico-nombre"> – Alma Errante</span><span class="contador-votos">🌟 98 votos</span></li>
-                <li><strong>🥉</strong> Encontrar mi propósito verdadero 🔮<span class="mistico-nombre"> – Buscador de Estrellas</span><span class="contador-votos">🌟 75 votos</span></li>
+                <li><strong>🥇</strong> Conseguir mi primer depa sola<span class="mistico-nombre"> – Tania</span><span class="contador-votos">🌟 173 votos</span></li>
+                <li><strong>🥈</strong> Salir de deudas este año<span class="mistico-nombre"> – Javi</span><span class="contador-votos">🌟 164 votos</span></li>
+                <li><strong>🥉</strong> Ser parte de algo bonito<span class="mistico-nombre"> – Gabo</span><span class="contador-votos">🌟 157 votos</span></li>
               </ul>
             <p class="nota-mistica">✨ El ranking se actualiza los lunes<br>¡Haz que tu favorito llegue al top!!</p>
             <button id="VotarDeseoButton" class="button--final-action">🗳️ Votar por un Deseo Supremo</button>
@@ -502,7 +502,7 @@ canvas {
     <div id="popup-VotarDeseo" class="popup-overlay">
         <div class="popup-container">
             <h3 class="final-message-title">¡ Votar por un Deseo Supremo !</h3>
-              <div id="countdown2">Cambiando en: 10 segundos</div>
+              <div id="countdown2">Cambiando en: 15 segundos</div>
               <form id="votacionDeseos">
                 <div id="contenedor-deseos"></div>
                 <button type="submit" id="votarBtn">Votar por este deseo</button>
@@ -939,7 +939,7 @@ async function cargarDeseosSupremos() {
 function iniciarCicloDeVotacion() {
   mostrarNuevosDeseos(); // Muestra el primer set de deseos
   
-  let tiempo = 10;
+  let tiempo = 15;
   countdownVotacion.textContent = `Cambiando en: ${tiempo} segundos`;
 
   clearInterval(intervaloVotacion); // Limpia cualquier temporizador anterior
@@ -947,7 +947,7 @@ function iniciarCicloDeVotacion() {
     tiempo--;
     countdownVotacion.textContent = `Cambiando en: ${tiempo} segundos`;
     if (tiempo <= 0) {
-      tiempo = 10; // Reinicia el contador
+      tiempo = 15; // Reinicia el contador
       mostrarNuevosDeseos(); // Muestra nuevos deseos
     }
   }, 1000);
