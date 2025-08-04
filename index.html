@@ -510,7 +510,7 @@ canvas {
                 <li><strong>🥈</strong> Salir de deudas este año<span class="mistico-nombre"> – Javi</span><span class="contador-votos">🌟 164 votos</span></li>
                 <li><strong>🥉</strong> Ser parte de algo bonito<span class="mistico-nombre"> – Gabo</span><span class="contador-votos">🌟 157 votos</span></li>
               </ul>
-            <p class="nota-mistica">✨ Este ranking se actualiza todos los lunes<br>¡Vota por tu favorito!</p>
+            <p class="nota-mistica">Este ranking se actualiza todos los lunes<br>¡Vota por tu favorito!</p>
             <button id="VotarDeseoButton" class="button--final-action">🌟 Votar</button>
             <button id="DeseoSupremoButton" class="button--final-action" style="display: none;">🏆 Top Deseos Supremos</button>
             <button id="shareWhatsappButton" class="button--final-action" style="display: none;">📲 Compartir</button>
@@ -819,7 +819,7 @@ gameCanvas.addEventListener("click", e => {
     clearInterval(countdownInterval);
     sphere7Audio.pause();
     sphere8Audio.play().catch(err => console.error("Error playing audio:", err));
-    fullPhraseText.innerHTML = `<em>“${userWish}”</em><br><br><hr class="linea-divisoria" /><br><p style="font-size: 14px; margin-top: -5px;">¿Te sientes listo para el siguiente nivel?</p>`;
+    fullPhraseText.innerHTML = `<em>“${userWish}”</em><br><br><hr class="linea-divisoria" /><br><p style="font-size: 14px; margin-top: -5px;">¿Listo para que tu deseo se revele y encienda algo más grande?</p>`;
     openPopup(popupShenlongReply);
 });
 
