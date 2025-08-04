@@ -761,10 +761,9 @@ gameCanvas.addEventListener("click", e => {
 
     // MODIFICADO: El listener del botón para pedir el deseo ahora genera y guarda el código
     document.getElementById("submitWishButton").addEventListener('click', () => {
-        const alias = userAliasInput.value.trim();
+        const alias = userAliasInput.value.trim() || "Anónimo";
         const wish = userWishInput.value.trim();
 
-        if (!alias) { alert("Escribe tu nombre."); return; }
         if (!wish) { alert("Escribe tu deseo."); return; }
 
         userAlias = alias;
