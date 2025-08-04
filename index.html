@@ -452,9 +452,9 @@ canvas {
             <h4>Mortal, pídeme tu deseo<br>Tengo prisa...</h4>
             <div id="countdown">60</div>
 
-            <input type="text" id="userAliasInput" placeholder="Tu alias místico..." aria-label="Escribe tu alias místico">
+            <input type="text" id="userAliasInput" placeholder="Tu nombre..." aria-label="Escribe tu alias místico">
             
-            <textarea id="userWishInput" class="campo-deseo" rows="2" placeholder="Escribe tu deseo aquí..." aria-label="Escribe tu deseo"></textarea>
+            <textarea id="userWishInput" class="campo-deseo" rows="2" placeholder="Tu deseo..." aria-label="Escribe tu deseo"></textarea>
             
             <button id="submitWishButton">Pedir Deseo</button>
         </div>
@@ -764,8 +764,8 @@ gameCanvas.addEventListener("click", e => {
         const alias = userAliasInput.value.trim();
         const wish = userWishInput.value.trim();
 
-        if (!alias) { alert("No olvides tu alias místico."); return; }
-        if (!wish) { alert("Debes escribir tu deseo, mortal."); return; }
+        if (!alias) { alert("Escribe tu nombre."); return; }
+        if (!wish) { alert("Escribe tu deseo."); return; }
 
         userAlias = alias;
         userWish = wish;
