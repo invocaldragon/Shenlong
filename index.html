@@ -437,6 +437,32 @@ canvas {
   border-color: gold;
 }
 
+  .dragon-ball-divider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .dragon-ball {
+    width: 40px;
+    margin: 0 2px;
+    animation: spin 20s linear infinite;
+    transform-origin: center center;
+  }
+
+  @keyframes spin {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  @media (max-width: 600px) {
+    .dragon-ball {
+      width: 30px;
+    }
+  }
+
+
         
 </style>
 </head>
@@ -498,15 +524,16 @@ canvas {
             <h3>Ese será un deseo muy fácil de realizar...</h3>
             <p id="fullPhraseText" class="shenlong-phrase"></p>
 
-            <div style="text-align: center; margin: 40px 0;">
-              <img src="esfera1.png" alt="Esfera 1" style="width: 40px; margin: 0 2px;">
-              <img src="esfera2.png" alt="Esfera 2" style="width: 40px; margin: 0 2px;">
-              <img src="esfera3.png" alt="Esfera 3" style="width: 40px; margin: 0 2px;">
-              <img src="esfera4.png" alt="Esfera 4" style="width: 40px; margin: 0 2px;">
-              <img src="esfera5.png" alt="Esfera 5" style="width: 40px; margin: 0 2px;">
-              <img src="esfera6.png" alt="Esfera 6" style="width: 40px; margin: 0 2px;">
-              <img src="esfera7.png" alt="Esfera 7" style="width: 40px; margin: 0 2px;">
+            <div class="dragon-ball-divider">
+              <img src="esfera1.png" class="dragon-ball" alt="Esfera 1">
+              <img src="esfera2.png" class="dragon-ball" alt="Esfera 2">
+              <img src="esfera3.png" class="dragon-ball" alt="Esfera 3">
+              <img src="esfera4.png" class="dragon-ball" alt="Esfera 4">
+              <img src="esfera5.png" class="dragon-ball" alt="Esfera 5">
+              <img src="esfera6.png" class="dragon-ball" alt="Esfera 6">
+              <img src="esfera7.png" class="dragon-ball" alt="Esfera 7">
             </div>
+
             
             <p style="font-size: 14px; margin-top: -5px;">¿Listo para que tu deseo se revele y encienda algo más grande?</p>
             
