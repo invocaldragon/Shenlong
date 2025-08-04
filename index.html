@@ -449,8 +449,8 @@ canvas {
     <div id="popup-wish" class="popup-overlay">
         <div class="popup-container">
             <img src="Invocacion2.gif" alt="Invocación Shenlong" class="shenlong-gif">
-            <div id="countdown">25</div>
-            <h4>Mortal, pídeme tu deseo<br>Tengo prisa...</h4>
+            <div id="countdown">60</div>
+            <h4>Mortal, pídeme tu deseo<br>Tengo prisa...</h4><div id="countdown">60</div>
 
             <input type="text" id="userAliasInput" placeholder="Tu alias místico..." aria-label="Escribe tu alias místico">
             
@@ -741,7 +741,7 @@ gameCanvas.addEventListener("click", e => {
                 sphere7Audio.play().catch(err => console.error("Error playing audio:", err));
                 openPopup(popupWish);
 
-                let countdownValue = 25;
+                let countdownValue = 60;
                 countdownElement.innerText = countdownValue;
                 countdownInterval = setInterval(() => {
                     countdownValue--;
